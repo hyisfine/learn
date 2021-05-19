@@ -17,19 +17,43 @@ ___
 
 1. vite 以 monorepo 方式管理所有项目，所用package.json字段，workspaces
 
+2. [npm：file](https://docs.npmjs.com/cli/v7/configuring-npm/package-json#dependencies)，[yarn：link](https://github.com/npm/npm/pull/15900) 方式安装本地包
+
+    
+
 #### 涉及 npm 包
 
-1. source-map-support 
-2. inspector 
-3. cac
-4. dotenv
-5. run-p 
-6. rimraf
-7. run-s
-8. rollup
-9. api-extractor
-10. conventional-changelog
-11. tsc 
+1. source-map-support  产生源码map，
+
+2. inspector [代码调试](https://www.jianshu.com/p/16fb914086f9)
+
+3. cac 构建cli选项处理的库
+
+4. dotenv 处理.env文件并写入process.env
+
+5. run-p  并行处理npm script 命令
+
+6. rimraf 移除文件
+
+7. run-s 顺序处理npm script 命令
+
+8. rollup 打包工具
+
+9. api-extractor ts分析工具
+
+10. conventional-changelog commit日志处理
+
+11. tsc ts编译工具
+
+12. connect 中间件服务
+
+13. cors 中间件cors
+
+14. chokidar 文件监听
+
+    
+
+15. 
 
 #### 编译结果 js
 1. void 0
@@ -83,3 +107,17 @@ a(() => import('./dy.1d0aef29.js'), [
 ]),
 
 ```
+
+
+
+#### vite流程
+
+###### dev使用tsc转义ts，build使用rollup打包
+
+###### cli.ts, cac处理参数
+
+######  dev模式
+
+`createServer`入口函数,`middlewareMode`vite中间件模式，`resolveHttpServer`创建http，`createWebSocketServer`创建ws服务，用于hmr,`chokidar`文件监听，创建watcher，`createPluginContainer`创建集装箱，即插件
+
+​																	
