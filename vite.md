@@ -5,18 +5,34 @@
 ### 官网笔记
 
 1. Vite 通过在一开始将应用中的模块区分为 依赖 和 源码 两类。
+
 2. Vite 将会使用 `esbuild` 预构建依赖。Esbuild 使用 Go 编写，并且比以 JavaScript 编写的打包器预构建依赖快 10-100 倍。文件系统缓存&浏览器缓存
+
 3. Vite 只需要在浏览器请求源码时进行转换并按需提供源码。根据情景动态导入的代码，即只在当前屏幕上实际使用时才会被处理。
+
 4. 源码模块的请求会根据 304 Not Modified 进行协商缓存，而依赖模块请求则会通过 Cache-Control: max-age=31536000,immutable 进行强缓存.
+
 5. 预构建-检测裸模块导入-CommonJS / UMD 转换为 ESM 格式-重写 url
+
 6. 所有框架语法开箱即用，css 类框架需下载各自解析器
+
 7. Vite 支持使用特殊的 import.meta.glob 函数从文件系统导入多个模块
+
 8. 异步 chunk 会保证只在 CSS 加载完毕后再执行，避免发生 FOUC 。
+
 9. 预加载modulereload
+
 10. 异步 Chunk 加载优化，加载chunk同时加载chunk依赖
+
 11. 使用.env文件存放环境变量
+
 12. falsy 值 (虚值) 
+
 13. 区分环境-模式 ，借助.env添加环境变量。（server-production总算可以实现了）
+
+14. 文件修改重新编译
+
+    
 
 ### 源码笔记
 
@@ -78,9 +94,11 @@
 
 1. ServerOptions.middlewareMode 将vite服务作为中间件
 
-2. 
+2. 命令行设置--envFile false 取消.env文件载入
 
-    
+3. optimizeDeps.esbuildOptions
+
+     
 
 #### 编译结果 js
 
@@ -145,7 +163,7 @@ a(() => import('./dy.1d0aef29.js'), [
 
 
 
-###### 	server流程  
+###### 	server流程
 
  `createServer`入口函数,`middlewareMode`vite 中间件模式，`resolveHttpServer`创建 http，`createWebSocketServer`创建 ws 服务，用于 hmr,`chokidar`文件监听，创建 watcher，`createPluginContainer`创建集装箱，即插件
 
@@ -173,7 +191,7 @@ if (configFile !== false) {
   }	
 ```
 
-**解析plugins**
+**处理user plugins，执行config钩子**
 
 ```javascript
   const rawUserPlugins = (config.plugins || []).flat().filter((p) => {
@@ -200,6 +218,7 @@ if (configFile !== false) {
 
 ```javascript
   const userEnv = inlineConfig.envFile !== false && loadEnv(mode, resolvedRoot)
+  // 再次修改process.env.NODE_ENV，但此时mode不变
   const isProduction = (process.env.VITE_USER_NODE_ENV || mode) === 'production'
   if (isProduction) {
     process.env.NODE_ENV = 'production'
@@ -207,4 +226,91 @@ if (configFile !== false) {
 ```
 
 
+
+**集合所有plugins**
+
+```javascript
+//	resolvePlugins 加入其余内置插件，并重新排序 
+//	https://cn.vitejs.dev/guide/api-plugin.html#plugin-ordering
+;(resolved.plugins as Plugin[]) = await resolvePlugins(
+    resolved,
+    prePlugins,
+    normalPlugins,
+    postPlugins
+  )
+
+  // call configResolved hooks
+  await Promise.all(userPlugins.map((p) => p.configResolved?.(resolved)))
+
+//	插件顺序
+isBuild ? null : preAliasPlugin;//	依赖预构建，文件缓存+转es module
+aliasPlugin;// 解析路径别名
+...prePlugins;// 用户enfore=pre的插件
+resolvePlugin;// 
+htmlInlineScriptProxyPlugin;
+cssPlugin(config);// 处理css
+config.esbuild !== false ? esbuildPlugin(config.esbuild) : null;
+jsonPlugin;
+wasmPlugin(config);
+webWorkerPlugin(config);
+assetPlugin(config);
+...normalPlugins;
+definePlugin(config);
+cssPostPlugin(config);
+...buildPlugins.pre;
+...postPlugins;
+...buildPlugins.post;
+...(isBuild
+    ? []
+    : [clientInjectionsPlugin(config), importAnalysisPlugin(config)])
+
+
+
+```
+
+###### resolveHttpServer
+
+  ```javascript
+  if (!https) {
+      return require('http').createServer(app)
+    }
+  
+    const httpsOptions = await resolveHttpsConfig(
+      typeof https === 'boolean' ? {} : https
+    )
+    if (proxy) {
+      // #484 fallback to http1 when proxy is needed.
+      return require('https').createServer(httpsOptions, app)
+    } else {
+      return require('http2').createSecureServer(
+        {
+          ...httpsOptions,
+          allowHTTP1: true
+        },
+        app
+      )
+    }
+  ```
+
+###### createWebSocketServer
+
+```javascript
+ if (wsServer) {
+    wss = new WebSocket.Server({ noServer: true })
+    wsServer.on('upgrade', (req, socket, head) => {
+      if (req.headers['sec-websocket-protocol'] === HMR_HEADER) {
+        wss.handleUpgrade(req, socket, head, (ws) => {
+          wss.emit('connection', ws, req)
+        })
+      }
+    })
+  } else {
+    // vite dev server in middleware mode
+    wss = new WebSocket.Server({
+      port: (hmr && hmr.port) || 24678
+    })
+  }
+```
+
+###### chokidar监听文件
 
