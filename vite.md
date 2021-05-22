@@ -39,10 +39,29 @@
 #### 知识点
 
 1. vite 以 monorepo 方式管理所有项目，所用 package.json 字段，workspaces
-
 2. [npm：file](https://docs.npmjs.com/cli/v7/configuring-npm/package-json#dependencies)，[yarn：link](https://github.com/npm/npm/pull/15900) 方式安装本地包
 
+
+
+#### 疑惑
+
+1. hmr实现
+
+2. 预处理，预构建
+
+3. server环境使用的middleware模式原理
+
+4. Sec-Fetch-*系参数
+
+5. server环境直接将未转化文件发至浏览器，如何解析
+
+6. 如何做到开箱即用
+
     
+
+    
+
+7. Sec-Fetch
 
 #### 涉及 npm 包
 
@@ -68,11 +87,11 @@
 
 11. tsc ts 编译工具
 
-12. connect 中间件服务
+12. connect 中间件服务（主要的）
 
 13. cors 中间件 cors
 
-14. chokidar 文件监听
+14. chokidar 文件监听（主要的）
 
 
 
@@ -167,7 +186,7 @@ a(() => import('./dy.1d0aef29.js'), [
 
  `createServer`入口函数,`middlewareMode`vite 中间件模式，`resolveHttpServer`创建 http，`createWebSocketServer`创建 ws 服务，用于 hmr,`chokidar`文件监听，创建 watcher，`createPluginContainer`创建集装箱，即插件
 
-
+使用middleware分层处理各种资源
 
 ###### resolveConfig
 
@@ -300,7 +319,7 @@ cssPostPlugin(config);
     wsServer.on('upgrade', (req, socket, head) => {
       if (req.headers['sec-websocket-protocol'] === HMR_HEADER) {
         wss.handleUpgrade(req, socket, head, (ws) => {
-          wss.emit('connection', ws, req)
+          wss.e·mit('connection', ws, req)
         })
       }
     })
@@ -313,4 +332,64 @@ cssPostPlugin(config);
 ```
 
 ###### chokidar监听文件
+
+```javascript
+  const watcher = chokidar.watch(path.resolve(root), {
+    ignored: ['**/node_modules/**', '**/.git/**', ...ignored],
+    ignoreInitial: true,
+    ignorePermissionErrors: true,
+    disableGlobbing: true,
+    ...watchOptions
+  }) 
+  
+  //	触发hmr 
+    watcher.on('change', async (file) => {
+    file = normalizePath(file)
+    // invalidate module graph cache on file change
+    moduleGraph.onFileChange(file)
+    if (serverConfig.hmr !== false) {
+      try {
+        await handleHMRUpdate(file, server)
+      } catch (err) {
+        ws.send({
+          type: 'error',
+          err: prepareError(err)
+        })
+      }
+    }
+  })
+
+  watcher.on('add', (file) => {
+    handleFileAddUnlink(normalizePath(file), server)
+  })
+
+  watcher.on('unlink', (file) => {
+    handleFileAddUnlink(normalizePath(file), server, true)
+  })
+```
+
+###### middleware
+
+```javascript
+  //decode request url
+  middlewares.use(decodeURIMiddleware())
+
+  // serve static files under /public
+  // this applies before the transform middleware so that these files are served
+  // as-is without transforms.
+  if (config.publicDir) {
+    middlewares.use(servePublicMiddleware(config.publicDir))
+  }
+
+  // main transform middleware
+  middlewares.use(transformMiddleware(server))
+
+  // serve static files
+  middlewares.use(serveRawFsMiddleware())
+  middlewares.use(serveStaticMiddleware(root, config))
+```
+
+
+
+
 
