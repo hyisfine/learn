@@ -16,7 +16,7 @@
 
 6. 所有框架语法开箱即用，css 类框架需下载各自解析器
 
-7. Vite 支持使用特殊的 import.meta.glob 函数从文件系统导入多个模块
+7. Vite 支持使用特殊的函数从文件系统导入多个模块
 
 8. 异步 chunk 会保证只在 CSS 加载完毕后再执行，避免发生 FOUC 。
 
@@ -46,52 +46,36 @@
 #### 疑惑
 
 1. hmr实现
+2. 加载html
+3. 预处理，预构建
+4. server环境使用的middleware模式原理
+5. Sec-Fetch-*系参数
+6. server环境直接将未转化文件发至浏览器，如何解析
+7. 如何做到开箱即用 
 
-2. 预处理，预构建
-
-3. server环境使用的middleware模式原理
-
-4. Sec-Fetch-*系参数
-
-5. server环境直接将未转化文件发至浏览器，如何解析
-
-6. 如何做到开箱即用
-
-    
-
-    
-
-7. Sec-Fetch
+8. Sec-Fetch
+9. 
 
 #### 涉及 npm 包
 
 1. source-map-support 产生源码 map，
-
 2. inspector [代码调试](https://www.jianshu.com/p/16fb914086f9)
-
 3. cac 构建 cli 选项处理的库
-
 4. dotenv 处理.env 文件并写入 process.env
-
 5. run-p 并行处理 npm script 命令
-
 6. rimraf 移除文件
-
 7. run-s 顺序处理 npm script 命令
-
 8. rollup 打包工具
-
 9. api-extractor ts 分析工具
-
 10. conventional-changelog commit 日志处理
-
 11. tsc ts 编译工具
-
 12. connect 中间件服务（主要的）
-
 13. cors 中间件 cors
-
 14. chokidar 文件监听（主要的）
+15. ws web socket
+16. sirv  静态资源服务器
+17. connect-history-api-fallback 加载idnex.html
+18. fast-glob  匹配路径
 
 
 
@@ -387,6 +371,23 @@ cssPostPlugin(config);
   // serve static files
   middlewares.use(serveRawFsMiddleware())
   middlewares.use(serveStaticMiddleware(root, config))
+```
+
+###### Optimize
+
+```javascript
+//	通过esbuild预构建依赖：
+const runOptimize = async () => {
+    if (config.cacheDir) {
+      server._isRunningOptimizer = true
+      try {
+        server._optimizeDepsMetadata = await optimizeDeps(config)
+      } finally {
+        server._isRunningOptimizer = false
+      }
+      server._registerMissingImport = createMissingImporterRegisterFn(server)
+    }
+  }
 ```
 
 

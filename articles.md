@@ -1,6 +1,12 @@
 # 搜集的文章
 
-------
+### js
+
+1. [手写36个方法](https://mp.weixin.qq.com/s/7KwM6fNM5MICHiIwoRDm-w)
+
+    
+
+
 
 ### css3
 
@@ -9,6 +15,7 @@
 3. [content-visibility:一个可能让你的页面渲染速度提升数倍的CSS属性](https://mp.weixin.qq.com/s/DK4IfKPOhR6TXiHLWFyenA)
 4. [Flexbox布局中不为人知的细节](https://mp.weixin.qq.com/s/5wddQDj4M0fCDuUfQ14YBQ)
 5. [一文掌握z-index用法](https://mp.weixin.qq.com/s/dV2rnbpCjsHzhjhDW4vyGw)
+6. [提高css性能](https://mp.weixin.qq.com/s/TA81uBKWAKZEYG1sGGiBmQ)
 
 
 
@@ -41,4 +48,10 @@
 1. [让 Instagram.com 变得更快：Part 1](https://mp.weixin.qq.com/s/T6j3OnqKkG63VTH2ubj_Pw)
 
 2. [让 Instagram.com 变得更快：提前刷新和渐进式HTML](https://mp.weixin.qq.com/s/hV7af5un_VheZ0dyZvS74w)
+
+
+
+### 效果实现
+
+1. [几种前端水印实现方法](https://mp.weixin.qq.com/s/XZqfg_eACqthjIHT7-Zg8g)
 
