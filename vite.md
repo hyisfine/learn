@@ -43,18 +43,33 @@
 
 
 
+### 缺点
+
+1. ts无ts类型检测
+
+2. 定制特定文件的解析
+
+    
+
 #### 疑惑
 
 1. hmr实现
+
 2. 加载html
+
 3. 预处理，预构建
+
 4. server环境使用的middleware模式原理
+
 5. Sec-Fetch-*系参数
+
 6. server环境直接将未转化文件发至浏览器，如何解析
+
 7. 如何做到开箱即用 
 
 8. Sec-Fetch
-9. 
+
+    
 
 #### 涉及 npm 包
 
@@ -76,6 +91,7 @@
 16. sirv  静态资源服务器
 17. connect-history-api-fallback 加载idnex.html
 18. fast-glob  匹配路径
+19. es-module-lexer 解析源码中的es-module应用
 
 
 
