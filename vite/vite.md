@@ -43,11 +43,41 @@
 
 
 
+### 优点
+
+1. 不同于传统打包方式，vite直接请求源码，返回过程中解析转化源码，而模块划分工作由浏览器提供。
+
+2. 依赖预构建，将AMD，commonjs等转成es module形式，对依赖进行强缓存，并缓存在node_module/.vite下，加快服务构建。
+
+    ![基于打包器的开发服务器](https://cn.vitejs.dev/assets/bundler.37740380.png)
+
+    ![基于 ESM 的开发服务器](https://cn.vitejs.dev/assets/esm.3070012d.png)
+
+3. 提供基于es module的hmr api，比传统的hmr过程更简单，反映更迅速
+
+4. 使用esbuild转译ts，约是 `tsc` 速度的 20~30 倍。
+
+5. 内部构建了css 预处理器，tsx，jsx，postCss的支持，不用用户配置，开箱即用。
+
+6. 构建优化，CSS 代码分割，预加载指令生成，异步 Chunk 加载优化
+
+7. 采用rollup插件的使用格式，对理解插件，建立一个插件更简单。
+
+8. 使用.env文件添加环境变量，区分环境和模式，server!== development!
+
+9. 配置简单易上手，没有过多心智负担。
+
+    
+
 ### 缺点
 
-1. ts无ts类型检测
+1. ts无类型检测，需额外开启tsc检测服务。
 
-2. 定制特定文件的解析
+2. 无法定制特定文件的解析loader，有局限性。
+
+3. 无法集成lint插件。
+
+4. 服务现代浏览器，对低版本浏览器无效，最低支持 `es2015`。
 
     
 
@@ -66,8 +96,6 @@
 6. server环境直接将未转化文件发至浏览器，如何解析
 
 7. 如何做到开箱即用 
-
-8. Sec-Fetch
 
     
 
@@ -124,6 +152,7 @@
 1. void 0
 2. HTMLLinkElement
 3. modulepreload
+4. a标签 hrf
 
 编译结果：
 
