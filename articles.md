@@ -45,15 +45,19 @@
 
 1. [大前端领域 Middleware 的几种实现方式](https://mp.weixin.qq.com/s/xLVljR_7nejWltC1LXGX4A)
 
+2. [前端工程师的一大神器——puppeteer](https://mp.weixin.qq.com/s/eWtxJFDNONq3hRo-tDBCZA)
+
     
 
 ### npm
 
 1. [开发中遇到过的 NPM 疑惑解答](https://mp.weixin.qq.com/s/H-qBQ32YiPBL3IPNgwVuRA)
+2. [为什么现在我更推荐 pnpm 而不是 npm/yarn?](https://mp.weixin.qq.com/s/2LJmkcNfH9MHp597xjdIyQ)
+3. [除了 npm link 之外，如何更方便地调试项目？](https://mp.weixin.qq.com/s/KlcH9B4TiLQjVv77gYxNsQ)
 
 
 
-### webpack
+### webpack‹
 
 1. [关于source map你想知道的一切](https://mp.weixin.qq.com/s/DUhGTRKovLwsikVrYr-Dpg)
 
