@@ -3,8 +3,8 @@ package main
 import (
 	"html/template"
 	"io/ioutil"
-	"log"
 	"net/http"
+	"regexp"
 )
 
 type Page struct {
@@ -12,43 +12,47 @@ type Page struct {
 	Body  []byte
 }
 
-func (p *Page) getName() string {
-	return p.Title + ".txt"
-}
+var partten = regexp.MustCompile("^/(edit|save|view)/([a-zA-Z0-9]+)$")
 
 func (p *Page) save() error {
-	return ioutil.WriteFile(p.getName(), p.Body, 0600)
+	return ioutil.WriteFile(getName(p.Title), p.Body, 0600)
 }
 
-func loadingPage(title string) (*Page, error) {
-	b, err := ioutil.ReadFile(title + ".txt")
+func getName(title string) string {
+	return title + ".txt"
+}
+
+func loadPage(title string) (*Page, error) {
+	b, err := ioutil.ReadFile(getName(title))
 	if err != nil {
 		return nil, err
 	}
 	return &Page{title, b}, nil
 }
 
-func viewHandler(w http.ResponseWriter, r *http.Request) {
-	p, _ := loadingPage(r.URL.Path[len("/view/"):])
-	renderTemplate(w, "v", p)
-}
-
-func saveHandler(w http.ResponseWriter, r *http.Request) {
-	p, _ := loadingPage(r.URL.Path[len("/save/"):])
-	renderTemplate(w, "s", p)
-}
-
-func renderTemplate(w http.ResponseWriter, path string, p interface{}) error {
-	t, err := template.ParseFiles(path + ".html")
-	if err != nil {
-		return err
+func makeHandler(fn func(http.ResponseWriter, *http.Request, string)) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		m := partten.FindStringSubmatch(r.URL.Path)
+		if m == nil {
+			http.NotFound(w, r)
+			return
+		}
+		fn(w, r, m[2])
 	}
-	return t.Execute(w, p)
+}
+
+func viewHandler(w http.ResponseWriter, r *http.Request, path string) {
+	p, err := loadPage(path)
+	if err != nil {
+		http.Redirect(w, r, "/edit/"+path, http.StatusFound)
+		return
+	}
+
+	t, _ := template.ParseFiles("v.html")
+	t.Execute(w, p)
 }
 
 func main() {
-	http.HandleFunc("/view/", viewHandler)
-	http.HandleFunc("/save/", saveHandler)
+	http.HandleFunc("/view/", makeHandler(viewHandler))
 	http.ListenAndServe(":8080", nil)
-	log.Println("listen")
 }
