@@ -2,6 +2,9 @@ package main
 
 import (
 	"fmt"
+	"strconv"
+	"strings"
+	"time"
 )
 
 type V struct {
@@ -11,34 +14,39 @@ type V struct {
 type Vertex struct {
 	X int
 	Y int
-	f func()
+}
+
+type Scale interface {
+	scale(int)
 }
 
 func main() {
-	v := &Vertex{}
-	fmt.Printf("%+v\n", v)
 
-	i := [3]int{1, 2, 3}
+	vv := &Vertex{1, 2}
+	var vs interface{} = vv
+	fmt.Println(vs)
 
-	i1 := i
-	fmt.Println(&i == &i1)
-
-	println(make([]int, 1, 1))
-
-}
-func printSlice(s string, x []int) {
-	fmt.Printf("%s len=%d cap=%d %v\n",
-		s, len(x), cap(x), x)
-}
-func AppendByte(slice []byte, data ...byte) []byte {
-	m := len(slice)
-	n := m + len(data)
-	if n > cap(slice) {
-		newSlice := make([]byte, (n+1)*2)
-		copy(newSlice, slice)
-		slice = newSlice
+	hosts := map[string]IPAddr{
+		"loopback":  {127, 0, 0, 1},
+		"googleDNS": {8, 8, 8, 8},
 	}
-	slice = slice[0:n]
-	copy(slice[m:n], data)
-	return slice
+	for name, ip := range hosts {
+		fmt.Printf("%v: %v\n", name, ip)
+	}
+}
+
+func (v *Vertex) scale(n int) {
+	v.X = v.X * n
+	v.Y = v.Y * n
+}
+
+type IPAddr [4]byte
+
+func (ia IPAddr) String() string {
+	ss := make([]string, len(ia))
+	for i, v := range ia {
+		ss[i] = strconv.Itoa(int(v))
+	}
+	time.Sleep(time.Millisecond * 2)
+	return strings.Join(ss, ",")
 }
