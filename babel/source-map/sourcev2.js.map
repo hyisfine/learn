@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "sources": [
+        "source.js"
+    ],
+    "names": [],
+    "mappings": ";;AAAA,IAAM,OAAO,GAAG,SAAV,OAAU,GAAM;AACrB,EAAA,OAAO,CAAC,GAAR,CAAY,UAAZ;AACA,CAFD",
+    "file": "sourcev2.js",
+    "sourcesContent": [
+        "const example = () => {\r\n\tconsole.log('examples');\r\n};\r\n"
+    ]
+}
