@@ -1,0 +1,58 @@
+Hello World !
+I am good at myfileScript
+I am good at shell.mdScript
+I am good at testScript
+I am good at usersScript
+1234hyis
+12345${muUrl}
+12345 12345678
+value0 value1 value2 value3
+value0 value1 value2 value3
+value0
+Shell 传递参数实例！
+执行的文件名：./test
+第一个参数为：
+第二个参数为：
+参数个数：0
+所有参数：
+所有参数：hB
+a + b : 30
+a - b : -10
+a * b : 200
+b / a : 2
+b % a : 0
+a 不等于 b
+单双引号混入
+Hello World !
+-e OK! 
+ Fine
+姓名     性别   体重kg
+郭靖     男      66.12
+杨过     男      48.65
+郭芙     女      47.99
+result 为： 11
+myfile
+shell.md
+test
+users
+myfile
+shell.md
+test
+users
+myfile
+shell.md
+test
+users
+myfile
+shell.md
+test
+users
+第一个参数为 1 !
+第二个参数为 2 !
+第十个参数为 10 !
+第十个参数为 34 !
+第十一个参数为 73 !
+参数总数有 11 个!
+作为一个字符串输出所有参数 1 2 3 4 5 6 7 8 9 34 73 !
+./test: line 111: Hello: command not found
+na
