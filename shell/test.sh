@@ -1,3 +1,4 @@
+#!/usr/bin/bash
 echo "Hello World !"
 
 for skill in $(ls); do
@@ -78,7 +79,8 @@ echo 单双引号"混"'入'
 read name <myfile
 echo $name
 
-echo -e "OK! \n Fine" # -e 开启转义
+echo -e "OK! \n Fine"
+# -e 开启转义
 
 echo "It is a test" >>myfile
 
@@ -90,7 +92,8 @@ printf "%-10s %-8s %-4.2f\n" 郭芙 女 47.9876
 a=5
 b=6
 
-result=$((a + b)) # 注意等号两边不能有空格
+result=$((a + b))
+# 注意等号两边不能有空格
 echo "result 为： $result"
 
 for f in 1 2 3 4; do
@@ -108,5 +111,23 @@ funWithParam() {
 }
 funWithParam 1 2 3 4 5 6 7 8 9 34 73
 
-$name
-echo na
+for str in $(<users); do
+    $str
+done
+
+. ./test2.sh
+
+echo 123 | read name
+echo name
+
+echo "12\n121"
+
+echo ?.txt
+
+repeat() {
+    for i in $(seq $1); do
+        echo $2
+    done
+}
+
+repeat 4 商凡爱我
