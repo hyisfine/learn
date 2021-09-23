@@ -46,35 +46,43 @@ base64 编码，也就是指用 [0-9a-zA-Z+/] 这 64 个字符以及作为补位
 
 `atob()` 函数能够解码通过 base-64 编码的字符串数据。相反地，`btoa()` 函数能够从二进制数据“字符串”创建一个 base-64 编码的 ASCII 字符串。稍后的例子可以通过这两个方法进行验证。
 
-### 转换方式
+### 编码原理
 
 我以 "ABC" 这个字符串为例子。
 
-转换过程主要分 4 个步骤：
+转换过程主要分 3个步骤：
 
 1. 将 3 个原字符转成 8 位二进制的表示方式，得到 24 位二进制。
 2. 将 24 位二进制按 6 位二进制划分成 4 份。
 3. 将每份 6 位二进制转成数字后，根据 base64 字符集，得到每份表示的 base64 字符。
 
-![image-20210923181519295](/Users/admin/Library/Application Support/typora-user-images/image-20210923181519295.png)
+![image-20210923181519295](./image-20210923181519295.png)
 
 **这里有些文章会说把 6 位二进制前面加 00 扩展成一个字节 8 位二进制，其实在 js 中加不加都可以正常取得正确的值。所以我这里没有加。**
 
-### 如果字符串长度小于 3
+#### 如果字符串长度小于 3
 
 **情况 1：长度为 1，以"A"为例子**
 
 将一个原字符转成两组 6 位二进制，**最后一组后面加 4 个 0。**这样得到**两位的 Base64 编码**，**再在末尾补上两个补位符号"="。**
 
-![image-20210923182600702](/Users/admin/Library/Application Support/typora-user-images/image-20210923182600702.png)
+![image-20210923182600702](./image-20210923182600702.png)
 
 **情况 2：长度为 2，以"AB"为例子**
 
 将两个原字符转成三组 6 位二进制，**最后一组后面加两个 0。**这样得到**三位的 Base64 编码**，**再在末尾补上一个补位符号"="。**
 
-![image-20210923182119827](/Users/admin/Library/Application Support/typora-user-images/image-20210923182119827.png)
+![image-20210923182119827](./image-20210923182119827.png)
 
-### 手动实现 base64 转换功能
+#### 
+
+### 转换流程
+
+![ascii2base64](./ascii2base64.png)
+
+
+
+### 代码实现
 
 ```javascript
 const base64Chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
@@ -140,3 +148,128 @@ console.log(ascii2base64('ABC'))
 console.log(ascii2base64('AB'))
 console.log(ascii2base64('AC'))
 ```
+
+### base64转ascii码
+
+方法就是把上边的流程反转过来，这里就不多展示了，有兴趣的可以自己实现一下。
+
+
+
+## VLQ编码
+
+### 概念
+
+> VLQ 是 Variable-length quantity （可变长度数量）的缩写，是通过用任意位二进制精简地表示很大的数值的一种编码方式。
+
+
+
+### 编码原理
+
+转换主要有5个步骤：
+
+1. 将数字转为n位二进制。
+2. 判断n是否为7的倍数-1，如果不是则前置补0直到为7的倍数-1位。
+3. 将扩展后的二进制划分单元，第一个单元按6位二进制划分，其余按7位二进制划分。
+4. 对每个单元前置扩展一位，这一位表示代表的数是否结束，1表示没有完，0表示到头了。
+5. 对第一个单元后置再扩展一位，这一位表示数值正负，1为负0为正。
+
+![vlq](./vlq.png)
+
+
+
+
+
+### 代码实现
+
+```javascript
+const num2vlq = (num) => {
+	let binary = num.toString(2); //  转二进制
+	while (binary.length % 7 < 6) {
+		binary = `0${binary}`; //  前置补0
+	}
+
+	let binaryArr = [];
+	binaryArr[0] = binary.substring(0, 6); //  划分第一个单元
+	const othersBinary = binary.substring(6).match(/[01]{7}/g) || []; //  划分其他单元
+	binaryArr.push(...othersBinary);
+
+	//  所以单位前置结束位
+	binaryArr = binaryArr.map((item, i, arr) => `${arr.length - 1 === i ? 0 : 1}${item}`);
+	//  第一个单位后置正负位
+	binaryArr[0] = `${binaryArr[0]}${num >= 0 ? 0 : 1}`;
+
+	return binaryArr;
+};
+
+console.log(num2vlq(255));
+```
+
+
+
+## base64 VLQ 编码
+
+### 概念
+
+将数值转为VLQ编码后，再经过base64转码，实现由base64表示数值的能力。
+
+
+
+### 编码原理
+
+**注意 ⚠️：base64是由6位二进制表示的字符集，所以为了少一步转换，将VLQ由8位二进制表示转为6位二进制，即VLQ扩展时，扩展为5的倍数-1，分单元时，第一个单元为4位，其余为5位。**
+
+
+
+转换主要有2个步骤：
+
+1. 将数值转为6位二进制表示的VLQ编码。
+
+2. 将6位二进制VLQ编码转为base64编码。
+
+   
+
+### 完整转换流程
+
+![basevlq](D:\coding\hyis\learn\babel\basevlq.png)
+
+
+
+### 代码实现
+
+```javascript
+const base64Chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+
+const base64VLQ = (num) => {
+	let binary = num.toString(2); //  转二进制
+	while (binary.length % 5 < 4) {
+		binary = `0${binary}`; //  前置补0
+	}
+
+	let binaryArr: string[] = [];
+	binaryArr[0] = binary.substring(0, 4); //  划分第一个单元
+	const othersBinary = binary.substring(4).match(/[01]{5}/g) || []; //  划分其他单元
+	binaryArr.push(...othersBinary);
+
+	//  所以单位前置结束位
+	binaryArr = binaryArr.map((item, i, arr) => `${arr.length - 1 === i ? 0 : 1}${item}`);
+	//  第一个单位后置正负位
+	binaryArr[0] = `${binaryArr[0]}${num >= 0 ? 0 : 1}`;
+
+	// 转到base64编码
+	let baseStr = '';
+	binaryArr.map((code) => (baseStr += base64Chars[parseInt(code, 2)]));
+	return baseStr;
+};
+console.log(base64VLQ(255));
+```
+
+
+
+## 参考
+
+- [万字长文：关于 sourcemap，这篇文章就够了](https://juejin.cn/post/6969748500938489892#heading-18)
+- [绝了，没想到一个 source map 居然涉及到那么多知识盲区](https://juejin.cn/post/6963076475020902436)
+- [为什么要使用base64编码，有哪些情景需求？](https://www.zhihu.com/question/36306744/answer/931187310)
+- [base64 MDN](https://developer.mozilla.org/zh-CN/docs/Glossary/Base64)
+- [base64 笔记](https://www.ruanyifeng.com/blog/2008/06/base64.html)
+
