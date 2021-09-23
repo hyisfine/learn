@@ -9,8 +9,8 @@
 ### js
 
 1. [手写36个方法](https://mp.weixin.qq.com/s/7KwM6fNM5MICHiIwoRDm-w)
-
-    
+2. [JavaScript ASI 机制详解](https://segmentfault.com/a/1190000004548664)
+3.  
 
 ### css3
 
