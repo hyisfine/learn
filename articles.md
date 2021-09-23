@@ -65,9 +65,15 @@
 
 ### webpack‹
 
-1. [关于source map你想知道的一切](https://mp.weixin.qq.com/s/DUhGTRKovLwsikVrYr-Dpg)
+1. [关于source map 这篇文章就够了](https://juejin.cn/post/6969748500938489892)
 
-     
+    - [base64阮一峰](https://www.ruanyifeng.com/blog/2008/06/base64.html)
+
+    - [VLQ编码](https://zhuanlan.zhihu.com/p/104519418)
+
+        
+
+      
 
 ### cli工具
 
@@ -111,4 +117,18 @@
 ### 效果实现
 
 1. [几种前端水印实现方法](https://mp.weixin.qq.com/s/XZqfg_eACqthjIHT7-Zg8g)
+
+
+
+### shell
+
+1. [nodejs 写 bash 脚本终极方案！](https://mp.weixin.qq.com/s/4ndy4xf4cXh6AGixnLRy6w)
+2. [阮一峰bash教程](https://wangdoc.com/bash/intro.html)
+3. [The Linux Command Line](http://billie66.github.io/TLCL/index.html) 
+
+
+
+### util
+
+1. [Base64阮一峰](https://www.ruanyifeng.com/blog/2008/06/base64.html)
 
