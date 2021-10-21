@@ -1,5 +1,7 @@
 # 搜集的文章
 
+## 前端
+
 ### 周刊
 
 1. [react status 中文周刊](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzIzOTkwMjM0OQ==&action=getalbum&album_id=1477042053917245448&scene=173&from_msgid=2247488993&from_itemidx=1&count=3&nolastread=1#wechat_redirect)
@@ -60,6 +62,7 @@
 1. [开发中遇到过的 NPM 疑惑解答](https://mp.weixin.qq.com/s/H-qBQ32YiPBL3IPNgwVuRA)
 2. [为什么现在我更推荐 pnpm 而不是 npm/yarn?](https://mp.weixin.qq.com/s/2LJmkcNfH9MHp597xjdIyQ)
 3. [除了 npm link 之外，如何更方便地调试项目？](https://mp.weixin.qq.com/s/KlcH9B4TiLQjVv77gYxNsQ)
+4. [全方位解读package.json](https://mp.weixin.qq.com/s/dUXdwaH55hIl0C0pTIsUiw)
 
 
 
@@ -132,3 +135,11 @@
 
 1. [Base64阮一峰](https://www.ruanyifeng.com/blog/2008/06/base64.html)
 
+
+
+## 后端
+
+### 部署
+
+1. [前后端分离全栈项目的开发与部署流程](https://juejin.cn/post/6844904078481309704)
+2. 
