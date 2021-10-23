@@ -72,9 +72,7 @@
 
     - [base64阮一峰](https://www.ruanyifeng.com/blog/2008/06/base64.html)
 
-    - [VLQ编码](https://zhuanlan.zhihu.com/p/104519418)
-
-        
+    - [VLQ编码](https://zhuanlan.zhihu.com/p/104519418)  
 
       
 
@@ -89,7 +87,11 @@
 
 1. [手写一个基于 Proxy 的缓存库](https://mp.weixin.qq.com/s/M_scFqxadOX_f5G_7IvSGQ)
 
-    
+2. [如何取消http请求](https://www.jianshu.com/p/0c23ead8bacd)
+
+3. [可取消的异步 HTTP 请求模块](https://juejin.cn/post/6935238528510984205)
+
+     
 
 ### 性能优化
 
