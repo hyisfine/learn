@@ -63,6 +63,7 @@
 2. [为什么现在我更推荐 pnpm 而不是 npm/yarn?](https://mp.weixin.qq.com/s/2LJmkcNfH9MHp597xjdIyQ)
 3. [除了 npm link 之外，如何更方便地调试项目？](https://mp.weixin.qq.com/s/KlcH9B4TiLQjVv77gYxNsQ)
 4. [全方位解读package.json](https://mp.weixin.qq.com/s/dUXdwaH55hIl0C0pTIsUiw)
+5. [Monorepo 的这些坑，我们帮你踩过了！](https://jishuin.proginn.com/p/763bfbd5cc0b)
 
 
 
@@ -90,6 +91,14 @@
 2. [如何取消http请求](https://www.jianshu.com/p/0c23ead8bacd)
 
 3. [可取消的异步 HTTP 请求模块](https://juejin.cn/post/6935238528510984205)
+
+4. [跨域资源共享CORS详解](https://www.ruanyifeng.com/blog/2016/04/cors.html)
+
+5. [跨域资源共享MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS)
+
+6. [HTTP面试](https://zhuanlan.zhihu.com/p/83624993)
+
+7. [get post 区别](https://segmentfault.com/a/1190000021692911)
 
      
 
@@ -144,4 +153,11 @@
 ### 部署
 
 1. [前后端分离全栈项目的开发与部署流程](https://juejin.cn/post/6844904078481309704)
+
+
+
+### HTTP
+
+1. [HTTP/2简介](https://developers.google.com/web/fundamentals/performance/http2/?hl=zh-cn)
 2. 
+
