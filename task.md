@@ -13,3 +13,9 @@
 - [x] fill-available, max-content, min-content, it-content css
 - [ ] 选择器 css
 
+#### 21-11-.2
+
+- [x] js doc
+- [x] ts 函数泛型
+- [x] ts 高阶函数泛型
+
