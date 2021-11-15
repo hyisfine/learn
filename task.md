@@ -1,10 +1,13 @@
+
+
+
+
 #### 21-10-31
 
 - [x] flex 深入
 - [x] react hook
 - [x] taro hook
 - [x] 小程序 taro 生命周期对应
-- [ ] taro 原理
 - [ ] taro ui
 - [x] BEM、OOCSS、SMACSS
 - [x] display css
@@ -23,6 +26,10 @@
 - [x] ts 函数泛型
 - [x] ts 高阶函数泛型
 
+#### 21-11-14
+
+- [x] 下拉刷新组件
+
 #### 21-11-15
 
 - [x] 重读typescript
@@ -32,6 +39,6 @@
 - [x] baseline css 2
 - [x] line-height css
 - [x] 小程序原理
-
+- [ ] taro 原理
 
 
