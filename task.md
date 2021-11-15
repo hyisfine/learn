@@ -4,7 +4,6 @@
 - [x] react hook
 - [x] taro hook
 - [x] 小程序 taro 生命周期对应
-- [ ] 小程序原理
 - [ ] taro 原理
 - [ ] taro ui
 - [x] BEM、OOCSS、SMACSS
@@ -15,11 +14,24 @@
 
 #### 21-11-01
 
-- [ ] svelte  了解
-- [ ] react-query
+- [x] svelte  了解
+- [x] react-query
 
-#### 21-11-.2
+#### 21-11-02
 
 - [x] js doc
 - [x] ts 函数泛型
 - [x] ts 高阶函数泛型
+
+#### 21-11-15
+
+- [x] 重读typescript
+- [ ] **grid  css**
+- [x] js 尾递归 
+- [x] display css  2
+- [x] baseline css 2
+- [x] line-height css
+- [x] 小程序原理
+
+
+

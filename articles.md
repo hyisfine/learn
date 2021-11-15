@@ -129,6 +129,11 @@
 
 - [x] [Base64 阮一峰](https://www.ruanyifeng.com/blog/2008/06/base64.html)
 
+### 微信小程序
+
+- [ ] [Taro3跨端跨框架原理初探](https://juejin.cn/post/6989968343163731981#heading-15)
+- [ ] [《小程序跨框架开发的探索与实践》演讲全文](https://mp.weixin.qq.com/s?__biz=MzU3NDkzMTI3MA==&mid=2247483770&idx=1&sn=ba2cdea5256e1c4e7bb513aa4c837834)
+
 ## 后端
 
 ### 部署
