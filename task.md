@@ -1,7 +1,3 @@
-
-
-
-
 #### 21-10-31
 
 - [x] flex 深入
@@ -17,7 +13,7 @@
 
 #### 21-11-01
 
-- [x] svelte  了解
+- [x] svelte 了解
 - [x] react-query
 
 #### 21-11-02
@@ -32,13 +28,19 @@
 
 #### 21-11-15
 
-- [x] 重读typescript
-- [ ] **grid  css**
-- [x] js 尾递归 
-- [x] display css  2
+- [x] 重读 typescript
+- [ ] **grid css**
+- [x] js 尾递归
+- [x] display css 2
 - [x] baseline css 2
 - [x] line-height css
 - [x] 小程序原理
 - [ ] taro 原理
+- [ ] babel 原理
+- [ ] babel 插件
 
+#### 21-11-16
 
+- [ ] background  css
+- [ ] border-radius css
+- [ ] linear-gradient css
