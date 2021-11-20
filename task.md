@@ -29,7 +29,7 @@
 #### 21-11-15
 
 - [x] 重读 typescript
-- [ ] **grid css**
+- [x] **grid css**
 - [x] js 尾递归
 - [x] display css 2
 - [x] baseline css 2
@@ -44,3 +44,8 @@
 - [ ] background  css
 - [ ] border-radius css
 - [ ] linear-gradient css
+
+#### 21-11-18
+
+- [ ] cors
+- [ ]  word-break css
