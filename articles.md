@@ -17,22 +17,15 @@
 ### css3
 
 - [ ] [css 新特性 contain ，减少回流重绘](https://mp.weixin.qq.com/s/W9kYPRjM92YEvmL0OutO6A)
-
 - [ ] [CSS 实现多行文本“展开收起”](https://mp.weixin.qq.com/s/wDQeq0Tr4rKEInCKJncOhA)
-
 - [ ] [content-visibility:一个可能让你的页面渲染速度提升数倍的 CSS 属性](https://mp.weixin.qq.com/s/DK4IfKPOhR6TXiHLWFyenA)
-
 - [ ] [Flexbox 布局中不为人知的细节](https://mp.weixin.qq.com/s/5wddQDj4M0fCDuUfQ14YBQ)
-
 - [ ] [一文掌握 z-index 用法](https://mp.weixin.qq.com/s/dV2rnbpCjsHzhjhDW4vyGw)
-
 - [ ] [提高 css 性能](https://mp.weixin.qq.com/s/TA81uBKWAKZEYG1sGGiBmQ)
-
 - [ ] [一个可能让你的页面渲染速度提升数倍的 CSS 属性](https://mp.weixin.qq.com/s/DK4IfKPOhR6TXiHLWFyenA)
-
 - [ ] [文字装饰](https://mp.weixin.qq.com/s/m3I85k03XV_V5WK6Qkt8yg)
-
 - [ ] [css shape 属性 定义几何形状](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Shapes)
+- [x] [深入了解CSS字体度量，行高和vertical-align:](https://www.w3cplus.com/css/css-font-metrics-line-height-and-vertical-align.html)
 
 ### 架构
 
