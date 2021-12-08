@@ -1,0 +1,168 @@
+class TreeNode {
+	constructor(data, left, right) {
+		this.data = data
+		this.left = left
+		this.right = right
+	}
+
+	addLeftNode(left) {
+		this.left = left
+	}
+
+	addRightNode(right) {
+		this.right = right
+	}
+}
+
+class Tree {
+	constructor(data, left, right) {
+		this.tree = new TreeNode(data, left, right)
+	}
+
+	traverse() {}
+}
+
+class ArrTree {
+	constructor() {
+		this.arr = []
+	}
+
+	getRoot() {
+		const flagArr = Array(this.arr.length).fill(0)
+		this.arr.forEach((item) => {
+			if (item.left !== -1) flagArr[item.left] = 1
+			if (item.right !== -1) flagArr[item.right] = 1
+		})
+
+		const index = flagArr.findIndex((item) => item === 0)
+		return index
+	}
+
+	traverse(type = 0) {
+		const rootIndex = this.getRoot()
+
+		const loop = (node) => {
+			if (!node) return
+			type === 0 && console.log(node.data)
+			loop(this.arr[node.left])
+			type === 1 && console.log(node.data)
+			loop(this.arr[node.right])
+			type === 2 && console.log(node.data)
+		}
+
+		loop(this.arr[rootIndex])
+	}
+}
+
+const at = new ArrTree()
+at.arr[0] = new TreeNode('C', -1, -1)
+at.arr[1] = new TreeNode('B', 0, 2)
+at.arr[2] = new TreeNode('D', -1, -1)
+at.arr[3] = new TreeNode('A', 1, 5)
+at.arr[4] = new TreeNode('F', -1, -1)
+at.arr[5] = new TreeNode('E', 4, 6)
+at.arr[6] = new TreeNode('G', -1, -1)
+
+class SearchTree {
+	constructor() {
+		this.tree = null
+	}
+
+	find(data) {
+		let node = this.tree
+		while (true) {
+			if (data > node.data) {
+				node = node.right
+			} else if (data < node.data) {
+				node = node.left
+			} else return node
+
+			if (!node) return console.log('未找到')
+		}
+	}
+
+	insert(data) {
+		if (!this.tree) {
+			this.tree = new TreeNode(data, null, null)
+			return
+		}
+
+		let node = this.tree
+		while (true) {
+			if (data >= node.data) {
+				if (!node.right) {
+					node.right = new TreeNode(data, null, null)
+					break
+				} else node = node.right
+			} else {
+				if (!node.left) {
+					node.left = new TreeNode(data, null, null)
+					break
+				} else node = node.left
+			}
+		}
+	}
+
+	delete(data) {
+		let node = this.tree
+
+		const loop = (data, node) => {
+			switch (true) {
+				case !node:
+					return console.log('删除元素未找到')
+				case data < node.data:
+					node.left = loop(data, node.left)
+					break
+				case data > node.data:
+					node.right = loop(data, node.right)
+					break
+				default:
+					switch (true) {
+						case node.right && node.left:
+							const min = findMin(node.right)
+							node.data = min.data
+							node.right = loop(node.data, node.right)
+							break
+						case !node.right:
+							node = node.left
+							break
+						case !node.left:
+							node = node.right
+							break
+					}
+					break
+			}
+
+			return node
+		}
+
+		loop(data, node)
+	}
+}
+
+const findMin = (tree) => {
+	let node = tree
+	while (true) {
+		if (!node.left) return node
+		node = node.left
+	}
+}
+
+const st = new SearchTree()
+
+st.insert(5)
+st.insert(0)
+st.insert(1)
+st.insert(7)
+st.insert(8)
+st.insert(3)
+st.insert(2)
+st.insert(4)
+st.insert(9)
+st.insert(6)
+
+// console.log(st.tree)
+// console.log(st.find(11))
+
+st.delete(7)
+console.log(st.tree)

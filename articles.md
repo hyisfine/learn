@@ -26,6 +26,8 @@
 - [ ] [文字装饰](https://mp.weixin.qq.com/s/m3I85k03XV_V5WK6Qkt8yg)
 - [ ] [css shape 属性 定义几何形状](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Shapes)
 - [x] [深入了解CSS字体度量，行高和vertical-align:](https://www.w3cplus.com/css/css-font-metrics-line-height-and-vertical-align.html)
+- [x] [字体构造与文字垂直居中方案探索](https://zhuanlan.zhihu.com/p/227770612)
+- [x] [真的理解font-size和line-height了吗？](https://juejin.cn/post/6971673576017494053)
 
 ### 架构
 
@@ -103,10 +105,10 @@
 ### 浏览器
 
 - [x] [Chrome 89 更新事件触发顺序，导致 99%的文章都错了（包括 MDN）](https://mp.weixin.qq.com/s/42SVnCtOciuZXsx_Hvph8g)
-
 - [x] [从浏览器地址栏输入 URL 到显示的过程是怎么实现的？](https://mp.weixin.qq.com/s/a2I1XXSJBPNoXLnheu8_oA)
-
 - [ ] [深入理解 CORS：发展史、工作原理和最佳实践](https://mp.weixin.qq.com/s/JRanXA3_lIm7HUG8E_coUA)
+- [ ] [ 浏览器工作原理](https://juejin.cn/post/6847902222349500430)
+- [x] [你不知道的 Chrome 调试技巧](https://juejin.cn/book/6844733783166418958)
 
 ### 效果实现
 
