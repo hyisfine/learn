@@ -8,7 +8,7 @@ var relativeSortArray = function (arr1, arr2) {
 		map[item] = index - arr2.length
 	})
 
-	const getValue = (num) => {
+	const getValue = num => {
 		if (map[num] < 0) return map[num]
 		return num
 	}
@@ -39,7 +39,7 @@ var relativeSortArray = function (arr1, arr2) {
 
 	quick(arr1, 0, arr1.length - 1)
 
-	arr1.forEach((item) => {
+	arr1.forEach(item => {
 		if (getValue(item) < 0) a1.push(item)
 		else a2.push(item)
 	})
@@ -63,3 +63,29 @@ var minSteps = function (n) {
 
 	return count
 }
+
+/** @see https://leetcode-cn.com/problems/w3tCBm/ */
+var countBits = function (n) {
+	const arr = Array(n + 1).fill(0)
+
+	let high = 0
+	for (let index = 1; index <= n; index++) {
+		if ((index & (index - 1)) === 0) {
+			high = index
+		}
+		arr[index] = arr[index - high] + 1
+	}
+	return arr
+
+	const bits = new Array(n + 1).fill(0)
+	let highBit = 0
+	for (let i = 1; i <= n; i++) {
+		if ((i & (i - 1)) == 0) {
+			highBit = i
+		}
+		bits[i] = bits[i - highBit] + 1
+	}
+	return bits
+}
+
+console.log(countBits(5))
