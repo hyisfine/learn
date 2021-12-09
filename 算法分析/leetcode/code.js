@@ -49,3 +49,17 @@ var relativeSortArray = function (arr1, arr2) {
 }
 
 console.log(relativeSortArray([2, 3, 1, 3, 2, 4, 6, 7, 9, 2, 19], [2, 1, 4, 3, 9, 6]))
+
+var minSteps = function (n) {
+	let count = 0
+	for (let index = 2; index <= n; index++) {
+		let ans = 0
+		while (index % n === 0) {
+			ans += index
+			n /= index
+		}
+		count += ans
+	}
+
+	return count
+}
