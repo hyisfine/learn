@@ -214,6 +214,36 @@ class Heap {
 			break
 		}
 	}
+
+	clear() {
+		const lastP = Math.floor(this.size / 2)
+
+		const __ = data => typeof data === 'undefined'
+
+		for (let i = lastP; i >= 1; i--) {
+			let _i = i
+			const p = this.arr[i]
+			while (true) {
+				const left = this.arr[_i * 2]
+				const right = this.arr[_i * 2 + 1]
+				if ((__(right) || left > right) && left >= p) {
+					this.arr[_i] = left
+					this.arr[_i * 2] = p
+					_i = _i * 2
+					continue
+				}
+
+				if (right >= left && right >= p) {
+					this.arr[_i] = right
+					this.arr[_i * 2 + 1] = p
+					_i = _i * 2 + 1
+					continue
+				}
+
+				break
+			}
+		}
+	}
 }
 
 const heap = new Heap()
@@ -229,6 +259,8 @@ heap.insert(4)
 heap.insert(0)
 heap.insert(5)
 heap.insert(7)
-
-heap.delete()
-console.log(heap.arr, heap.size)
+console.log(heap.arr)
+heap.arr = [0, 0, 1, 2, 2, 2, 3, 3, 4, 4, 0, 5, 7]
+console.log(heap.arr)
+heap.clear()
+console.log(heap.arr)
