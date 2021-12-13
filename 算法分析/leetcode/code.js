@@ -267,3 +267,348 @@ var getIntersectionNode = function (headA, headB) {
 	}
 	return null
 }
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/PzWKhm/
+ */
+var rob = function (nums) {
+	// 动态规划
+	const len = nums.length
+	if (len === 1) return nums[0]
+
+	const dp = Array(len).fill(0)
+
+	dp[0] = nums[0]
+	dp[1] = Math.max(nums[0], nums[1])
+	for (let i = 2; i < len - 1; i++) {
+		dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i])
+	}
+
+	const result1 = dp[len - 2]
+	dp[1] = nums[1]
+	dp[2] = Math.max(nums[1], nums[2])
+	for (let i = 3; i < len; i++) {
+		dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i])
+	}
+	const result2 = dp[len - 1]
+	return Math.max(result1, result2)
+}
+// console.log(rob([6, 8, 1, 6, 5]))
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ * @see https://leetcode-cn.com/problems/lMSNwu/
+ */
+var addTwoNumbers = function (l1, l2) {
+	let queue1 = []
+	let queue2 = []
+	while (l1) {
+		queue1.unshift(l1.val)
+		l1 = l1.next
+	}
+	while (l2) {
+		queue2.unshift(l2.val)
+		l2 = l2.next
+	}
+
+	;[queue1, queue2] = queue1.length > queue2.length ? [queue1, queue2] : [queue2, queue1]
+
+	console.log(queue1, queue2)
+	let queue3 = []
+	for (let i = 0; i < queue2.length; i++) {
+		const result = queue1[i] + queue2[i] + (queue3[i] || 0)
+		console.log(queue3, result)
+		if (result >= 10) {
+			queue3[i] = result - 10
+			queue3[i + 1] = 1
+		} else queue3[i] = result
+	}
+
+	for (let i = queue2.length; i < queue1.length; i++) {
+		const result = queue1[i] + (queue3[i] || 0)
+		if (result >= 10) {
+			queue3[i] = result - 10
+			queue3[i + 1] = 1
+		} else queue3[i] = result
+	}
+
+	let l3 = new ListNode()
+	let _l3 = l3
+	while (queue3.length) {
+		const node = queue3.pop()
+		_l3.val = node
+		_l3.next = new ListNode()
+		_l3 = _l3.next
+	}
+	return l3
+}
+
+/**
+ * @param {string} a
+ * @param {string} b
+ * @return {string}
+ * @see https://leetcode-cn.com/problems/JFETK5/submissions/
+ */
+var addBinary = function (a, b) {
+	;[a, b] = a.length > b.length ? [a, b] : [b, a]
+	let n = a.length
+	let m = b.length
+
+	let top = 0
+	let result = ''
+	for (let i = 0; i < m; i++) {
+		let sum = ~~a[n - 1 - i] + ~~b[m - 1 - i] + top
+		if (sum >= 2) {
+			top = 1
+			sum -= 2
+		} else {
+			top = 0
+		}
+		result = sum + result
+	}
+	for (let i = 0; i < n - m; i++) {
+		let sum = ~~a[n - 1 - i - m] + top
+		if (sum >= 2) {
+			top = 1
+			sum -= 2
+		} else {
+			top = 0
+		}
+		result = sum + result
+	}
+
+	if (top) {
+		result = 1 + result
+	}
+
+	return result
+}
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/ZVAVXX/submissions/
+ */
+var numSubarrayProductLessThanK = function (nums, k) {
+	const len = nums.length
+	let count = 0
+
+	for (let i = 0; i < len; i++) {
+		let mut = 1
+		for (let j = i; j < len; j++) {
+			mut *= nums[j]
+			if (mut < k) count++
+			else break
+		}
+	}
+
+	return count
+}
+// console.log(numSubarrayProductLessThanK([10, 5, 2, 6, 7], 100))
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ * @see https://leetcode-cn.com/problems/7WHec2/
+ */
+var sortList = function (head) {
+	if (!head) return head
+	let map1 = {}
+	let map2 = {}
+	while (head) {
+		const key = head.val
+		console.log(key)
+		if (key >= 0) {
+			if (key in map1) map1[key]++
+			else map1[key] = 1
+		}
+		if (key < 0) {
+			if (key in map2) map2[-key]++
+			else map2[-key] = 1
+		}
+
+		head = head.next
+	}
+	const result = []
+	for (const key in map1) {
+		result.push(...Array(map1[key]).fill(+key))
+	}
+	console.log({ map2 })
+	for (const key in map2) {
+		result.unshift(...Array(map2[key]).fill(-key))
+	}
+
+	let l = new ListNode(result[0])
+	let i = 1
+	let _l = l
+	while (i < result.length) {
+		_l.next = new ListNode(result[i])
+		_l = _l.next
+		i++
+	}
+
+	console.log(result)
+
+	return l
+}
+
+let l = new ListNode(4)
+l.next = new ListNode(2)
+l.next.next = new ListNode(1)
+l.next.next.next = new ListNode(3)
+l.next.next.next.next = new ListNode(-3)
+l.next.next.next.next.next = new ListNode(-3)
+
+// sortList(l)
+const count = arr => {
+	console.time('count')
+	let map1 = {}
+	let i = 0
+	while (i < arr.length) {
+		const key = arr[i]
+		if (key in map1) map1[key]++
+		else map1[key] = 1
+
+		i++
+	}
+	const result = []
+	for (const key in map1) {
+		console.log(key)
+		result.push(...Array(map1[key]).fill(+key))
+	}
+	console.timeEnd('count')
+}
+
+const quai = arr => {
+	console.time('quai')
+	const doo = (low, high) => {
+		let i = low
+		let j = high
+		let x = arr[low]
+		if (i > j) return
+		while (i < j) {
+			while (i < j && arr[j] > x) j--
+			while (i < j && arr[i] <= x) i++
+
+			if (i < j) {
+				const temp = arr[i]
+				arr[i] = arr[j]
+				arr[j] = temp
+			}
+		}
+
+		arr[low] = arr[i]
+		arr[i] = x
+		doo(low, i - 1)
+		doo(i + 1, high)
+	}
+	doo(0, arr.length - 1)
+	console.timeEnd(`quai`)
+}
+let arr = Array(100000)
+	.fill(0)
+	.map(() => Math.floor(Math.random() * 1000))
+count(arr)
+arr = Array(100000)
+	.fill(0)
+	.map(() => Math.floor(Math.random() * 1000))
+quai(arr)
+
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var canPartition = function (nums) {
+	let count = 0
+	let i = 0
+	while (i < nums.length) count += arr[i++]
+
+	if (count % 2 !== 0) return false
+	const target = count / 2
+	const result = Array(target + 1).fill(false)
+	result[0] = true
+	for (let i = 0; i < nums.length; i++) {
+		for (let j = nums[i]; j <= target; j++) {
+			result[j] = result[j] || result[j - nums[i]]
+		}
+	}
+
+	return result.pop()
+}
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ * @see https://leetcode-cn.com/problems/NUPfPr/
+ */
+var detectCycle = function (head) {
+	if (!head) return null
+	const map = new Map()
+	let h = head
+	while (h) {
+		if (map.has(h)) return map.get(h)
+		map.set(h, h)
+		h = h.next
+	}
+	return null
+}
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ * @see https://leetcode-cn.com/problems/c32eOV/
+ */
+var detectCycle = function (head) {
+	if (!head) return null
+	const map = new Map()
+	let h = head
+	while (h) {
+		if (map.has(h)) return map.get(h)
+		map.set(h, h)
+		h = h.next
+	}
+	return null
+}
+
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/0i0mDW/
+ */
+var minPathSum = function (grid) {}
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/A1NYOS/submissions/
+ */
+var findMaxLength = function (nums) {
+	const map = new Map()
+	map.set(0, -1)
+
+	let count = 0
+	let max = 0
+	for (let i = 0; i < nums.length; i++) {
+		if (nums[i]) count++
+		else count--
+
+		if (map.has(count)) {
+			const prev = map.get(count)
+			max = Math.max(max, i - prev)
+		} else map.set(count, i)
+	}
+
+	return max
+}
