@@ -49,12 +49,16 @@ var relativeSortArray = function (arr1, arr2) {
 }
 
 // console.log(relativeSortArray([2, 3, 1, 3, 2, 4, 6, 7, 9, 2, 19], [2, 1, 4, 3, 9, 6]))
-
+/**
+ * @param {number} n
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/2-keys-keyboard/
+ */
 var minSteps = function (n) {
 	let count = 0
 	for (let index = 2; index <= n; index++) {
 		let ans = 0
-		while (index % n === 0) {
+		while (n % index === 0) {
 			ans += index
 			n /= index
 		}
@@ -70,22 +74,98 @@ var countBits = function (n) {
 
 	let high = 0
 	for (let index = 1; index <= n; index++) {
-		if ((index & (index - 1)) === 0) {
+		if ((index & 1) === 0) {
 			high = index
 		}
 		arr[index] = arr[index - high] + 1
 	}
 	return arr
+}
 
-	const bits = new Array(n + 1).fill(0)
-	let highBit = 0
-	for (let i = 1; i <= n; i++) {
-		if ((i & (i - 1)) == 0) {
-			highBit = i
-		}
-		bits[i] = bits[i - highBit] + 1
+// console.log(countBits(5))
+
+function ListNode(val, next) {
+	this.val = val === undefined ? 0 : val
+	this.next = next === undefined ? null : next
+}
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ * @see https://leetcode-cn.com/problems/UHnkqh/submissions/
+ */
+var reverseList = function (head) {
+	let prev = head
+	let current = head && head.next
+	let next = current && current.next
+	while (current) {
+		current.next = prev
+		prev = current
+		current = next
+		next = next && next.next
 	}
-	return bits
+
+	head.next = null
+	return prev
+}
+
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ * @see https://leetcode-cn.com/problems/NUPfPr/submissions/
+ */
+var canPartition = function (nums) {
+	let count = 0
+	let i = 0
+	while (i < nums.length) {
+		count += nums[i]
+		i++
+	}
+
+	if ((count & 1) !== 0) return false
+
+	const target = count / 2
+	const result = Array(target + 1).fill(false)
+	result[0] = true
+	for (let i = 0; i < nums.length; i++) {
+		for (let j = target; j >= nums[i]; j--) {
+			result[j] = result[j] || result[j - nums[i]]
+		}
+	}
+	return result.pop()
+}
+
+// console.log(canPartition([1, 2, 5]))
+
+/**
+ * @param {number[][]} edges
+ * @return {number[]}
+ * @see https://leetcode-cn.com/problems/7LpjUW/
+ */
+var findRedundantConnection = function (edges) {
+	// 假设每个人都是root
+	const p = Array(edges.length).fill(-1)
+
+	const find = index => {
+		while (true) {
+			if (p[index] > 0) index = p[index]
+			else return index
+		}
+	}
+
+	const union = (root1, root2) => {
+		p[root2] = root1
+	}
+
+	for (let i = 0; i < edges.length; i++) {
+		const root1 = find(edges[i][0])
+		const root2 = find(edges[i][1])
+
+		if (root1 !== root2) union(root1, root2)
+		else return edges[i]
+	}
+
+	return [0]
 }
 
 /** @see https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/ */
@@ -445,7 +525,7 @@ var sortList = function (head) {
 	for (const key in map1) {
 		result.push(...Array(map1[key]).fill(+key))
 	}
-	console.log({ map2 })
+	console.log({map2})
 	for (const key in map2) {
 		result.unshift(...Array(map2[key]).fill(-key))
 	}
@@ -517,14 +597,14 @@ const quai = arr => {
 	doo(0, arr.length - 1)
 	console.timeEnd(`quai`)
 }
-let arr = Array(100000)
-	.fill(0)
-	.map(() => Math.floor(Math.random() * 1000))
-count(arr)
-arr = Array(100000)
-	.fill(0)
-	.map(() => Math.floor(Math.random() * 1000))
-quai(arr)
+// let arr = Array(100000)
+// 	.fill(0)
+// 	.map(() => Math.floor(Math.random() * 1000))
+// count(arr)
+// arr = Array(100000)
+// 	.fill(0)
+// 	.map(() => Math.floor(Math.random() * 1000))
+// quai(arr)
 
 /**
  * @param {number[]} nums
@@ -587,7 +667,32 @@ var detectCycle = function (head) {
  * @return {number}
  * @see https://leetcode-cn.com/problems/0i0mDW/
  */
-var minPathSum = function (grid) {}
+var minPathSum = function (grid) {
+	let n = grid.length
+	let m = grid[0].length
+	const result = Array(n)
+		.fill(0)
+		.map(() => Array(m).fill(0))
+
+	result[0][0] = grid[0][0]
+	let i = 1
+	while (i < n) result[i][0] = result[i - 1][0] + grid[i++][0]
+	i = 1
+	while (i < m) result[0][i] = result[0][i - 1] + grid[0][i++]
+
+	for (let i = 1; i < n; i++) {
+		for (let j = 1; j < m; j++) {
+			result[i][j] = Math.min(result[i - 1][j], result[i][j - 1]) + grid[i][j]
+		}
+	}
+	return result[n - 1][m - 1]
+}
+
+// minPathSum([
+// 	[1, 3, 1],
+// 	[1, 5, 1],
+// 	[4, 2, 1]
+// ])
 
 /**
  * @param {number[]} nums
@@ -611,4 +716,274 @@ var findMaxLength = function (nums) {
 	}
 
 	return max
+}
+
+function TreeNode(val, left, right) {
+	this.val = val === undefined ? 0 : val
+	this.left = left === undefined ? null : left
+	this.right = right === undefined ? null : right
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/3Etpl5/
+ */
+var sumNumbers = function (root) {
+	const arr = []
+
+	let result = 0
+	const dfs = node => {
+		if (!node) return
+		arr.push(node.val)
+		if (!node.left && !node.right) {
+			result += arr.reduce((sum, v, i) => sum + v * 10 ** i, 0)
+			arr.pop()
+			return
+		}
+
+		dfs(node.left)
+		dfs(node.right)
+		arr.pop()
+	}
+
+	dfs(root)
+
+	return result
+}
+
+const root = new TreeNode(4)
+root.left = new TreeNode(9)
+root.right = new TreeNode(0)
+root.left.left = new TreeNode(5)
+root.left.right = new TreeNode(1)
+// sumNumbers(root)
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ * @see https://leetcode-cn.com/problems/g5c51o/
+ */
+var topKFrequent = function (nums, k) {
+	let map = new Map()
+
+	let i = 0
+	while (i < nums.length) {
+		map.set(nums[i], map.get(nums[i++]) + 1 || 1)
+	}
+
+	class Heap {
+		constructor() {
+			this.arr = []
+		}
+
+		change(i, j) {
+			const temp = this.arr[i]
+			this.arr[i] = this.arr[j]
+			this.arr[j] = temp
+		}
+
+		insert([key, count]) {
+			this.arr.push([key, count])
+			let i = this.arr.length - 1
+			while (i >= 0) {
+				const pi = i % 2 === 0 ? (i - 2) / 2 : (i - 1) / 2
+				if (pi < 0) break
+				if (this.arr[pi][1] < count) {
+					this.change(pi, i)
+					i = pi
+				} else break
+			}
+		}
+
+		delete() {
+			if (!this.arr.length) return
+			const top = this.arr[0]
+			const bottom = this.arr.pop()
+			if (!this.arr.length) return top
+			this.arr[0] = bottom
+
+			let i = 0
+			while (i < this.arr.length) {
+				const p = this.arr[i]
+				const l = this.arr[i * 2 + 1]
+				const r = this.arr[i * 2 + 2]
+
+				if (l && (r === undefined || l[1] >= r[1]) && l[1] > p[1]) {
+					this.change(i, i * 2 + 1)
+					i = i * 2 + 1
+					continue
+				}
+
+				if (r && r[1] > l[1] && r[1] > p[1]) {
+					this.change(i, i * 2 + 2)
+					i = i * 2 + 2
+					continue
+				}
+
+				break
+			}
+
+			return top
+		}
+	}
+
+	const h = new Heap()
+	console.log(map)
+
+	map.forEach((v, k) => h.insert([k, v]))
+	console.log(h.arr)
+
+	const result = []
+
+	while (result.length < k) {
+		const v = h.delete()
+		if (!v) return result
+		result.push(v[0])
+	}
+	return result
+}
+
+// console.log(topKFrequent([1, 1, 2, 2, 3, 2, 3, 3], 2))
+
+/**
+ * @param {string} str
+ * @param {number} i
+ * @return {string[]}
+ */
+const getNextStr = (str, i) => {
+	const c = str[i]
+	let c1 = ~~c + 1
+	let c2 = ~~c - 1
+	if (c === '0') {
+		c1 = 1
+		c2 = 9
+	}
+	if (c === '9') {
+		c1 = 8
+		c2 = 0
+	}
+	const str1 = str.substr(0, i) + c1 + str.substr(i + 1)
+	const str2 = str.substr(0, i) + c2 + str.substr(i + 1)
+	console.log(str1, str2)
+
+	return [str1, str2]
+}
+/**
+ * @param {string[]} deadends
+ * @param {string} target
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/zlDJc7/
+ */
+var openLock = function (deadends, target) {
+	if (target === '0000') return 0
+	const dead = new Set(deadends)
+	if (dead.has('0000')) return -1
+	const queue = []
+	const created = new Set()
+	queue.push('0000')
+	created.add('0000')
+	let step = 0
+	while (queue.length) {
+		const currentLen = queue.length
+		let i = 0
+		step++
+		while (i < currentLen) {
+			const str = queue.shift()
+			let j = 0
+			while (j < 4) {
+				const [str1, str2] = getNextStr(str, j)
+				if (str1 === target || str2 === target) return step
+				if (!dead.has(str1) && !created.has(str1)) {
+					queue.push(str1)
+					created.add(str1)
+				}
+				if (!dead.has(str2) && !created.has(str2)) {
+					queue.push(str2)
+					created.add(str2)
+				}
+				j++
+			}
+			i++
+		}
+	}
+
+	return -1
+}
+// console.log(openLock(['7777'], '1009'))
+
+/**
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
+ */
+var merge = function (nums1, m, nums2, n) {
+	let i = m - 1
+	let j = n - 1
+	let k = m + n - 1
+
+	while (i >= 0 || j >= 0) {
+		if (i < 0) nums1[k--] = nums2[i--]
+		else if (j < 0) nums1[k--] = nums2[j--]
+		else if (nums1[i] > nums2[j]) nums1[k--] = nums1[i--]
+		else nums1[k--] = nums1[j--]
+	}
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ * @see https://leetcode-cn.com/problems/invert-binary-tree/
+ */
+var invertTree = function (root) {
+	if (!root) return
+	const left = invertTree(root.left)
+	const right = invertTree(root.right)
+	root.left = right
+	root.right = left
+	return root
+}
+
+/**
+ * @param {number[][]} matrix
+ * @see https://leetcode-cn.com/problems/O4NDxx/submissions/
+ */
+var NumMatrix = function (matrix) {
+	let m = matrix.length
+	let n = matrix[0].length
+	this.arr = Array(m)
+		.fill(0)
+		.map(() => Array(n).fill(0))
+
+	this.arr[0][0] = matrix[0][0]
+	for (let i = 1; i < m; i++) this.arr[i][0] = this.arr[i - 1][0] + matrix[i][0]
+	for (let i = 1; i < n; i++) this.arr[0][i] = this.arr[0][i - 1] + matrix[0][i]
+
+	for (let i = 1; i < m; i++) {
+		for (let j = 1; j < n; j++) {
+			this.arr[i][j] = this.arr[i - 1][j] + this.arr[i][j - 1] - this.arr[i - 1][j - 1] + matrix[i][j]
+		}
+	}
+
+	console.log(this.arr)
+
+	this.matrix = matrix
+}
+
+/**
+ * @param {number} row1
+ * @param {number} col1
+ * @param {number} row2
+ * @param {number} col2
+ * @return {number}
+ */
+NumMatrix.prototype.sumRegion = function (row1, col1, row2, col2) {
+	const arr = this.arr
+	if (row1 === 0 && col1 === 0) return arr[row2][col2]
+	if (row1 === 0) return arr[row2][col2] - arr[row2][col1 - 1]
+	if (col1 === 0) return arr[row2][col2] - arr[row1 - 1][col2]
+	return arr[row2][col2] + arr[row1 - 1][col1 - 1] - arr[row1 - 1][col2] - arr[row2][col1 - 1]
 }

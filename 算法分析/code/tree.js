@@ -167,51 +167,181 @@
 // st.delete(7)
 // console.log(st.tree)
 
-class Heap {
-	constructor() {
-		this.arr = [0]
-		this.size = 0
+// class Heap {
+// 	constructor() {
+// 		this.arr = [0]
+// 		this.size = 0
+// 	}
+
+// 	insert(data) {
+// 		let i = ++this.size
+// 		while (true) {
+// 			const _i = Math.floor(i / 2)
+// 			const p = this.arr[_i]
+// 			if (p < data) {
+// 				this.arr[i] = p
+// 				i = _i
+// 				if (i === 1) break
+// 			} else break
+// 		}
+
+// 		this.arr[i] = data
+// 	}
+
+// 	delete() {
+// 		const temp = this.arr.pop()
+// 		let i = 1
+// 		this.arr[1] = temp
+
+// 		while (true) {
+// 			const left = this.arr[i * 2]
+// 			const right = this.arr[i * 2 + 1]
+
+// 			if (left >= right && left > temp) {
+// 				this.arr[i] = this.arr[i * 2]
+// 				this.arr[i * 2] = temp
+// 				i = i * 2
+// 				continue
+// 			}
+
+// 			if (left < right && right > temp) {
+// 				this.arr[i] = this.arr[i * 2 + 1]
+// 				this.arr[i * 2 + 1] = temp
+// 				i = i * 2 + 1
+// 				continue
+// 			}
+
+// 			break
+// 		}
+// 	}
+// }
+
+// const heap = new Heap()
+// heap.insert(0)
+// heap.insert(1)
+// heap.insert(2)
+// heap.insert(2)
+// heap.insert(2)
+// heap.insert(3)
+// heap.insert(3)
+// heap.insert(4)
+// heap.insert(4)
+// heap.insert(0)
+// heap.insert(5)
+// heap.insert(7)
+
+// heap.delete()
+// heap.delete()
+// heap.delete()
+// heap.delete()
+// console.log(heap.arr, heap.size)
+
+const isEmpty = node => typeof node === 'undefined'
+
+const changeTemp = (arr, i, j) => {
+	const temp = arr[i]
+	arr[i] = arr[j]
+	arr[j] = temp
+}
+
+class HuffManTree {
+	constructor(arr) {
+		this.arr = arr
+		this.maxArr = []
+		// this.buildMaxTree()
+		this.buildMinTree()
+		this.balance()
 	}
 
-	insert(data) {
-		let i = ++this.size
+	buildMinTree() {
+		const lastPNode = this.getLastPNode(this.arr.length)
+
+		for (let i = lastPNode; i >= 0; i--) {
+			let j = i
+			while (true) {
+				const p = this.arr[j]
+				const l = this.arr[j * 2 + 1]
+				const r = this.arr[j * 2 + 2]
+
+				if ((isEmpty(r) || l <= r) && l < p) {
+					changeTemp(this.arr, j, j * 2 + 1)
+					j = j * 2 + 1
+					continue
+				}
+				if (r < l && r < p) {
+					changeTemp(this.arr, j, j * 2 + 2)
+					j = j * 2 + 2
+					continue
+				}
+				break
+			}
+		}
+	}
+
+	getLastPNode(len) {
+		const lastPNode = len % 2 === 0 ? (len - 2) / 2 : (len - 3) / 2
+		return lastPNode
+	}
+
+	insertMin(data) {
+		this.arr.push(data)
+		let i = this.arr.length - 1
+
 		while (true) {
-			const _i = Math.floor(i / 2)
-			const p = this.arr[_i]
-			if (p < data) {
-				this.arr[i] = p
-				i = _i
-				if (i === 1) break
+			const p = this.arr[this.getLastPNode(i)]
+			if (p > data) {
+				changeTemp(this.arr, i, this.getLastPNode(i))
+				i = this.getLastPNode(i)
 			} else break
 		}
+	}
 
-		this.arr[i] = data
+	insertMax(data) {
+		this.maxArr.push(data)
+		let i = this.maxArr.length - 1
+
+		while (true) {
+			const p = this.maxArr[this.getLastPNode(i)]
+			if (p < data) {
+				changeTemp(this.maxArr, i, this.getLastPNode(i))
+				i = this.getLastPNode(i)
+			} else break
+		}
 	}
 
 	delete() {
-		const temp = this.arr.pop()
-		let i = 1
-		this.arr[1] = temp
+		const max = this.arr.pop()
+		if (this.arr.length === 0) return max
+		this.arr[0] = max
 
+		let i = 0
 		while (true) {
-			const left = this.arr[i * 2]
-			const right = this.arr[i * 2 + 1]
+			const p = this.arr[i]
+			const l = this.arr[i * 2 + 1]
+			const r = this.arr[i * 2 + 2]
 
-			if (left >= right && left >= temp) {
-				this.arr[i] = this.arr[i * 2]
-				this.arr[i * 2] = temp
-				i = i * 2
-				continue
-			}
-
-			if (left <= right && right >= temp) {
-				this.arr[i] = this.arr[i * 2 + 1]
-				this.arr[i * 2 + 1] = temp
+			if ((isEmpty(r) || l <= r) && l < p) {
+				changeTemp(this.arr, i, i * 2 + 1)
 				i = i * 2 + 1
 				continue
 			}
-
+			if (r < l && r < p) {
+				changeTemp(this.arr, i, i * 2 + 2)
+				i = i * 2 + 2
+				continue
+			}
 			break
+		}
+		return max
+	}
+
+	balance() {
+		while (this.arr.length) {
+			const l = this.delete()
+			const r = this.delete()
+			this.insertMax(r)
+			this.insertMax(l)
+			if (!isEmpty(r)) this.insertMin(r + l)
 		}
 	}
 
