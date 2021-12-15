@@ -987,3 +987,199 @@ NumMatrix.prototype.sumRegion = function (row1, col1, row2, col2) {
 	if (col1 === 0) return arr[row2][col2] - arr[row1 - 1][col2]
 	return arr[row2][col2] + arr[row1 - 1][col1 - 1] - arr[row1 - 1][col2] - arr[row2][col1 - 1]
 }
+
+/**
+ * @param {number} n
+ * @param {number} k
+ * @return {number[][]}
+ * @see https://leetcode-cn.com/problems/uUsW3B/
+ */
+var combine = function (n, k) {
+	const result = []
+	const fn = nums => {
+		for (let i = nums[nums.length - 1] || 1; i <= n; i++) {
+			if (nums.find(item => item === i)) continue
+			nums.push(i)
+			if (nums.length === k) {
+				result.push([...nums])
+				nums.pop()
+				continue
+			}
+			fn([...nums])
+			nums.pop()
+		}
+	}
+
+	fn([])
+	return result
+}
+
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ * @see https://leetcode-cn.com/problems/SLwz0R/
+ */
+var removeNthFromEnd = function (head, n) {
+	if (!head) return head
+	let next = head
+	let last = head
+
+	let i = n
+	while (i--) next = next.next
+
+	while (next) {
+		next = next.next
+		last = last.next
+	}
+	last.next = last.next.next
+	return head
+}
+
+/**
+ * @param {string} s
+ * @param {string} p
+ * @return {number[]}
+ * @see https://leetcode-cn.com/problems/VabMRr/
+ */
+var findAnagrams = function (s, p) {
+	const map = {}
+	let i = 0
+	while (i < p.length) map[p[i]] = map[p[i++]] + 1 || 1
+
+	let prev = 0
+	const result = []
+	const win = {}
+	let valid = 0
+	for (let i = 0; i < s.length; i++) {
+		const c = s[i]
+		if (map[c]) {
+			win[c] = win[c] + 1 || 1
+			if (win[c] === map[c]) valid++
+		}
+
+		if (i - prev !== p.length - 1) continue
+		if (valid === Object.keys(map).length) {
+			result.push(prev)
+		}
+		prev++
+		const last = s[prev - 1]
+		if (last in map) {
+			if (map[last] === win[last]) valid--
+		}
+		win[last]--
+	}
+
+	return result
+}
+
+/**
+ * @param {string} s
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/cyJERH/
+ */
+var minFlipsMonoIncr = function (s) {
+	var len = s.length
+	var head = s.indexOf('1')
+	var one = 0
+	var zero = 0
+	for (var i = head; i < len; i++) {
+		if (s[i] === '0') {
+			zero++
+			if (one < zero) zero = one
+		} else one++
+	}
+	return Math.min(zero, one)
+}
+
+/**
+ * @param {number} x
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/jJ0w9p/
+ */
+var mySqrt = function (x) {
+	const find = (low, high) => {
+		if (high === low) return high
+		if (high === low + 1) {
+			if (high ** 2 > x && low ** 2 < x) return low
+			return high
+		}
+
+		const middle = low + Math.floor((high - low) / 2)
+		const _x = middle ** 2
+		if (_x === x) return middle
+		if (_x > x) return find(low, middle)
+		return find(middle, high)
+	}
+
+	return find(1, x)
+}
+
+/**
+ * @param {string[]} matrix
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/PLYXKQ/
+ */
+var maximalRectangle = function (matrix) {
+	let len1 = matrix.length
+	if (!len1) return 0
+	let len2 = matrix[0].length
+
+	let arr = Array(len1)
+		.fill(0)
+		.map(() =>
+			Array(len2)
+				.fill(0)
+				.map(() => [0, 0])
+		)
+	arr[0][0] = [~~matrix[0][0], ~~matrix[0][0]]
+
+	for (let i = 1; i < len1; i++) {
+		const c = matrix[i][0]
+		if (c === '0') arr[i][0] = [0, 0]
+		else {
+			const prev = arr[i - 1][0]
+			arr[i][0] = [prev[0] + 1, 1]
+		}
+	}
+
+	for (let i = 1; i < len2; i++) {
+		const c = matrix[0][i]
+		if (c === '0') arr[0][i] = [0, 0]
+		else {
+			const prev = arr[0][i - 1]
+			arr[0][i] = [1, prev[1] + 1]
+		}
+	}
+
+	for (let i = 1; i < len1; i++) {
+		for (let j = 1; j < len2; j++) {
+			const c = matrix[i][j]
+			if (c === '0') arr[i][j] = [0, 0]
+			else {
+				const prev1 = arr[i - 1][j]
+				const prev2 = arr[i][j - 1]
+				arr[i][j] = [prev1[0] + 1, prev2[1] + 1]
+			}
+		}
+	}
+
+	let max = ~~matrix[0][0]
+	for (let i = 0; i < len1; i++) {
+		for (let j = 0; j < len2; j++) {
+			let [maxI, maxJ] = arr[i][j]
+			if (!maxI) continue
+
+			let minj = maxJ
+			for (let k = 0; k < maxI; k++) {
+				const last = arr[i - k][j]
+				minj = Math.min(minj, last[1])
+				max = Math.max(max, (k + 1) * minj)
+			}
+		}
+	}
+
+	return max
+}
+
+console.log(maximalRectangle(['1101', '1101', '1111']))
