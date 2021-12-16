@@ -1181,5 +1181,140 @@ var maximalRectangle = function (matrix) {
 
 	return max
 }
+// console.log(maximalRectangle(['1101', '1101', '1111']))
 
-console.log(maximalRectangle(['1101', '1101', '1111']))
+/**
+ * @param {number[]} asteroids
+ * @return {number[]}
+ * @see https://leetcode-cn.com/problems/XagZNi/
+ */
+var asteroidCollision = function (asteroids) {
+	const stack = []
+	const result = []
+	let index = asteroids.findIndex(item => item > 0)
+	if (~index) result.push(...asteroids.slice(0, index))
+	else return asteroids
+
+	while (index < asteroids.length) {
+		const e = asteroids[index]
+		if (e >= 0) stack.push(e)
+		else {
+			while (true) {
+				if (!stack.length) {
+					result.push(e)
+					break
+				}
+				const last = stack[stack.length - 1]
+				if (last > -e) break
+				if (last === -e) {
+					stack.pop()
+					break
+				}
+				if (last < -e) stack.pop()
+			}
+		}
+		index++
+	}
+
+	result.push(...stack)
+	return result
+}
+// console.log(asteroidCollision([-2, -2, 1, -2]))
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ * @see https://leetcode-cn.com/problems/XltzEq/
+ */
+var isPalindrome = function (s) {
+	const res = []
+	let i = 0
+	while (i < s.length) {
+		if (/[a-zA-Z]/.test(s[i])) res.push(s[i].toLowerCase())
+		i++
+	}
+
+	i = 0
+	let bool = true
+	while (true) {
+		let next = res.length - 1 - i
+		if (next < i) break
+		if (res[i] !== res[next]) {
+			bool = false
+			break
+		}
+		i++
+	}
+
+	return bool
+}
+// console.log(isPalindrome('aaaaa'));
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @param {number} t
+ * @return {boolean}
+ * @see https://leetcode-cn.com/problems/7WqeDu/
+ */
+var containsNearbyAlmostDuplicate = function (nums, k, t) {
+	for (let i = 0; i < nums.length - 1; i++) {
+		for (let j = i + 1; j < nums.length; j++) {
+			if (Math.abs(nums[i] - nums[j]) <= t && Math.abs(i - j) <= k) return true
+		}
+	}
+
+	return false
+}
+// console.log(containsNearbyAlmostDuplicate([1, 5, 9, 1, 5, 9], 2, 3))
+
+/**
+ * @param {ListNode[]} lists
+ * @return {ListNode}
+ * @see https://leetcode-cn.com/problems/vvXgSW/
+ */
+var mergeKLists = function (lists) {
+	let len = lists.length
+	if (!len) return null
+	if (len === 1) return lists[0]
+
+	let m1 = {}
+	let m2 = {}
+
+	for (let i = 0; i < len; i++) {
+		let l = lists[i]
+		while (l) {
+			if (l.val >= 0) {
+				if (l.val in m1) m1[l.val].push(l)
+				else m1[l.val] = [l]
+			} else {
+				if (-l.val in m2) m2[-l.val].push(l)
+				else m2[-l.val] = [l]
+			}
+			l = l.next
+		}
+	}
+	let head = new ListNode(Infinity)
+	let li = head
+	for (const key in m1) {
+		for (let i = 0; i < m1[key].length; i++) {
+			head.next = m1[key][i]
+			head = head.next
+		}
+	}
+
+	let head2 = new ListNode(Infinity)
+	let prev = head2
+	let li2 = head2
+	for (const key in m2) {
+		for (let i = 0; i < m2[key].length; i++) {
+			li2 = m2[key][i]
+			if (prev.val === Infinity) prev = li2
+			li2.next = head2
+			head2 = li2
+		}
+	}
+
+	prev.next = li.next
+	return li2
+}
