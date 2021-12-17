@@ -258,13 +258,24 @@ function ListNode(val, next) {
 
 /** @see https://leetcode-cn.com/problems/kLl5u1/ */
 var twoSum = function (numbers, target) {
+	// let i = 0
+	// let j = numbers.length - 1
+	// while (i < j) {
+	// 	const _target = numbers[i] + numbers[j]
+	// 	if (_target === target) return [i, j]
+	// 	if (_target > target) j--
+	// 	else i++
+	// }
+	let map = {}
 	let i = 0
-	let j = numbers.length - 1
-	while (i < j) {
-		const _target = numbers[i] + numbers[j]
-		if (_target === target) return [i, j]
-		if (_target > target) j--
-		else i++
+	while (i < numbers.length) {
+		let c = numbers[i]
+		let v = target - c
+		if (v in map) return [map[v], i]
+		else {
+			if (!(c in map)) map[c] = i
+		}
+		i++
 	}
 }
 
@@ -1317,4 +1328,179 @@ var mergeKLists = function (lists) {
 
 	prev.next = li.next
 	return li2
+}
+
+/**
+ * @param {number} n
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof/submissions/
+ */
+var findNthDigit = function (n) {
+	if (n < 10) return n
+	for (let i = 0; i < 32; i++) {
+		let now = (i + 1) * 9 * 10 ** i
+		if (now < n) {
+			n -= now
+			continue
+		}
+		const wei = 10 ** i + Math.ceil(n / (i + 1)) - 1
+		return ~~wei.toString(10)[(n - 1) % (i + 1)]
+	}
+}
+// console.log(findNthDigit(13))
+/**
+ * @param {number[][]} matrix
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/fpTFWP/
+ */
+var longestIncreasingPath = function (matrix) {
+	const m = matrix.length
+	const n = matrix[0].length
+	// 0 max 1 min
+	const arr = Array(m)
+		.fill(0)
+		.map(() => Array(n).fill(0))
+
+	const ops = [
+		[1, 0],
+		[-1, 0],
+		[0, 1],
+		[0, -1]
+	]
+	const dfs = (i, j) => {
+		if (arr[i][j]) return arr[i][j]
+		arr[i][j]++
+		for (let k = 0; k < ops.length; k++) {
+			const newi = i + ops[k][0]
+			const newj = j + ops[k][1]
+			if (newi >= 0 && newj >= 0 && newi < m && newj < n && matrix[newi][newj] > matrix[i][j]) {
+				arr[i][j] = Math.max(arr[i][j], dfs(newi, newj) + 1)
+			}
+		}
+
+		return arr[i][j]
+	}
+
+	let max = 0
+	for (let i = 0; i < m; i++) {
+		for (let j = 0; j < n; j++) {
+			max = Math.max(max, dfs(i, j))
+		}
+	}
+
+	return max
+}
+
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ * @see https://leetcode-cn.com/problems/dKk3P7/
+ */
+var isAnagram = function (s, t) {
+	if (s === t) return false
+	if (s.length !== t.length) return false
+
+	let m1 = {}
+	let m2 = {}
+
+	for (const k of s) {
+		if (k in m1) m1[k]++
+		else m1[k] = 1
+	}
+	for (const k of t) {
+		if (k in m2) m2[k]++
+		else m2[k] = 1
+	}
+
+	if (Object.keys(m1).length !== Object.keys(m2).length) return false
+
+	for (const k in m1) {
+		if (m1[k] !== m2[k]) return false
+	}
+
+	return true
+}
+
+/**
+ * @param {string} s1
+ * @param {string} s2
+ * @param {string} s3
+ * @return {boolean}
+ * @see https://leetcode-cn.com/problems/IY6buf/
+ */
+var isInterleave = function (s1, s2, s3) {
+	const n = s1.length
+	const m = s2.length
+	if (n + m != s3.length) return false
+	// dp 路径
+	let dp = new Array(n + 1).fill(0).map(() => new Array(m + 1).fill(false))
+	// dp[i][j] : 长度为[i+j]的s3前缀 能否由 长度为i的s1前缀 与 长度为j的s2前缀 交织组成
+	// 先处理一下 i/j 取0 的情况
+	dp[0][0] = true
+	for (let i = 1; i < n + 1; i++) {
+		if (s1[i - 1] == s3[i - 1]) dp[i][0] = true
+		else break
+	}
+	for (let j = 1; j < m + 1; j++) {
+		if (s2[j - 1] == s3[j - 1]) dp[0][j] = true
+		else break
+	}
+	for (let i = 1; i < n + 1; i++) {
+		for (let j = 1; j < m + 1; j++) {
+			dp[i][j] = (s1[i - 1] == s3[i + j - 1] && dp[i - 1][j]) || (s2[j - 1] == s3[i + j - 1] && dp[i][j - 1])
+		}
+	}
+	return dp[n][m]
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/skFtm2/
+ */
+var singleNonDuplicate = function (nums) {
+	if ((nums.length & 1) === 0) return -1
+	const binary = (low, high) => {
+		const m = low + Math.floor((high - low) / 2)
+		if (m === 0 || m === nums.length - 1) return m
+		if (nums[m] !== nums[m + 1] && nums[m] !== nums[m - 1]) return m
+		if (low + 1 === high) {
+			if (nums[low] === nums[low - 1]) return high
+			return low
+		}
+		if ((m & 1) === 0 && nums[m] === nums[m - 1]) return binary(low, m)
+		if ((m & 1) !== 0 && nums[m] !== nums[m - 1]) return binary(low, m)
+		if ((m & 1) === 0 && nums[m] === nums[m + 1]) return binary(m, high)
+		if ((m & 1) !== 0 && nums[m] !== nums[m + 1]) return binary(m, high)
+	}
+	return binary(0, nums.length - 1)
+}
+
+/** @see https://leetcode-cn.com/problems/cuyjEf/ */
+var Solution = function (w) {
+	this.pre = new Array(w.length).fill(0)
+	this.pre[0] = w[0]
+	for (let i = 1; i < w.length; ++i) {
+		this.pre[i] = this.pre[i - 1] + w[i]
+	}
+	this.total = _.sum(w)
+}
+
+Solution.prototype.pickIndex = function () {
+	const x = Math.floor(Math.random() * this.total) + 1
+	const binarySearch = x => {
+		let low = 0,
+			high = this.pre.length - 1
+		while (low < high) {
+			const mid = Math.floor((high - low) / 2) + low
+			if (this.pre[mid] < x) {
+				low = mid + 1
+			} else {
+				high = mid
+			}
+		}
+		return low
+	}
+	return binarySearch(x)
 }
