@@ -536,7 +536,7 @@ var sortList = function (head) {
 	for (const key in map1) {
 		result.push(...Array(map1[key]).fill(+key))
 	}
-	console.log({map2})
+	console.log({ map2 })
 	for (const key in map2) {
 		result.unshift(...Array(map2[key]).fill(-key))
 	}
@@ -1141,7 +1141,7 @@ var maximalRectangle = function (matrix) {
 		.map(() =>
 			Array(len2)
 				.fill(0)
-				.map(() => [0, 0])
+				.map(() => [0, 0]),
 		)
 	arr[0][0] = [~~matrix[0][0], ~~matrix[0][0]]
 
@@ -1365,7 +1365,7 @@ var longestIncreasingPath = function (matrix) {
 		[1, 0],
 		[-1, 0],
 		[0, 1],
-		[0, -1]
+		[0, -1],
 	]
 	const dfs = (i, j) => {
 		if (arr[i][j]) return arr[i][j]
@@ -1477,30 +1477,183 @@ var singleNonDuplicate = function (nums) {
 	return binary(0, nums.length - 1)
 }
 
-/** @see https://leetcode-cn.com/problems/cuyjEf/ */
+/**
+ * @param {number[]} w
+ * @see https://leetcode-cn.com/problems/cuyjEf/
+ */
 var Solution = function (w) {
-	this.pre = new Array(w.length).fill(0)
-	this.pre[0] = w[0]
-	for (let i = 1; i < w.length; ++i) {
-		this.pre[i] = this.pre[i - 1] + w[i]
-	}
-	this.total = _.sum(w)
+	this.arr = Array(w.length).fill(0)
+	this.arr[0] = w[0]
+	let i = 1
+	while (i < w.length) this.arr[i] = this.arr[i - 1] + w[i++]
+	this.w = w
 }
 
+/**
+ * @return {number}
+ */
 Solution.prototype.pickIndex = function () {
-	const x = Math.floor(Math.random() * this.total) + 1
-	const binarySearch = x => {
-		let low = 0,
-			high = this.pre.length - 1
-		while (low < high) {
-			const mid = Math.floor((high - low) / 2) + low
-			if (this.pre[mid] < x) {
-				low = mid + 1
+	if (this.arr.length === 1) return 0
+	const num = Math.floor(Math.random() * this.arr[this.arr.length - 1]) + 1
+
+	let left = 0
+	let right = this.arr.length - 1
+	while (left < right) {
+		let m = left + Math.floor((right - left) / 2)
+		if (this.arr[m] < num) left = m + 1
+		else right = m
+	}
+	return left
+}
+
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {number}
+ */
+var numDistinct = function (s, t) {
+	const m = s.length,
+		n = t.length
+	const dp = new Array(m + 1).fill(0).map(() => new Array(n + 1).fill(0))
+	dp[0][0] = 1
+	for (let i = 0; i < m; i++) {
+		dp[i + 1][0] = 1
+		for (let j = 0; j <= i && j < n; j++) {
+			if (s[i] === t[j]) {
+				dp[i + 1][j + 1] = dp[i][j] + dp[i][j + 1]
 			} else {
-				high = mid
+				dp[i + 1][j + 1] = dp[i][j + 1]
 			}
 		}
-		return low
 	}
-	return binarySearch(x)
+	return dp[m][n]
+}
+
+/**
+ * @param {ListNode} head
+ * @return {void} Do not return anything, modify head in-place instead.
+ * @see https://leetcode-cn.com/problems/LGjMqU/
+ */
+var reorderList = function (head) {
+	if (!head || !head.next || !head.next.next) return
+
+	let li = head
+	let arr = []
+	while (li) {
+		arr.push(li)
+		li = li.next
+	}
+
+	let i = 0
+	let j = arr.length - 1
+	while (i <= j) {
+		if (i === j) {
+			arr[i].next = null
+			return
+		}
+
+		arr[i].next = arr[j]
+		if (i + 1 !== j) arr[j].next = arr[i + 1]
+		else {
+			arr[j].next = null
+			return
+		}
+		i++
+		j--
+	}
+}
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/xx4gT2/
+ */
+var findKthLargest = function (nums, k) {
+	const change = (i, j) => {
+		const temp = nums[i]
+		nums[i] = nums[j]
+		nums[j] = temp
+	}
+
+	let max
+	const sort = (low, high) => {
+		let i = low
+		let j = high
+		let x = nums[low]
+		if (low > high) {
+			return
+		}
+
+		while (i < j) {
+			while (i < j && nums[j] < x) j--
+			while (i < j && nums[i] >= x) i++
+			if (i < j) change(i, j)
+		}
+		nums[low] = nums[i]
+		nums[i] = x
+		if (k - 1 === i) {
+			max = nums[i]
+			return
+		}
+		if (k - 1 < i) sort(low, i - 1)
+		else sort(i + 1, high)
+	}
+	sort(0, nums.length - 1)
+	return max
+}
+
+/**
+ * @param {string} s
+ * @return {string[]}
+ * @see https://leetcode-cn.com/problems/0on3uN/
+ */
+var restoreIpAddresses = function (s) {
+	let str
+	let arr = []
+	const dfs = (k, prev) => {
+		let i = k + 1
+		let str = s.substr(k)
+		if (prev.length === 3) {
+			if (str.length === 1 || (str.length > 1 && str[0] !== '0' && +str < 256)) arr.push([...prev, str].join('.'))
+			return
+		}
+
+		while (true) {
+			let str = s.substring(k, i)
+			if (+str >= 256 || (str.length > 1 && str[0] === '0') || i >= s.length) break
+			else dfs(i++, [...prev, str])
+		}
+	}
+	dfs(0, [])
+	return arr
+}
+// restoreIpAddresses('0000')
+
+/**
+ * @param {number[]} heights
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/0ynMMM/
+ */
+var largestRectangleArea = function (heights) {
+	let stack = [-1]
+	let maxArea = 0
+	for (let i = 0; i < heights.length; i++) {
+		// 当前柱子的高度小于位于栈顶的柱子的高度
+		while (stack[stack.length - 1] != -1 && heights[stack[stack.length - 1]] >= heights[i]) {
+			// 以栈顶的柱子为高度计算面积
+			let height = heights[stack.pop()]
+			let width = i - stack[stack.length - 1] - 1
+			maxArea = Math.max(maxArea, height * width)
+		}
+		// 当前柱子的高度大于位于栈顶的柱子的高度  入栈
+		stack.push(i)
+	}
+	// 计算末尾
+	while (stack[stack.length - 1] != -1) {
+		let height = heights[stack.pop()]
+		let width = heights.length - stack[stack.length - 1] - 1
+		maxArea = Math.max(maxArea, height * width)
+	}
+	return maxArea
 }
