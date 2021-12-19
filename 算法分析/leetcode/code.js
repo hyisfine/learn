@@ -1657,3 +1657,216 @@ var largestRectangleArea = function (heights) {
 	}
 	return maxArea
 }
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/tvdfij/
+ */
+var pivotIndex = function (nums) {
+	const total = nums.reduce((a, v) => a + v, 0)
+	let sum = 0
+	for (let i = 0; i < nums.length; i++) {
+		if (2 * sum + nums[i] === total) return i
+		sum += nums[i]
+	}
+	return -1
+}
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/YaVDxD/
+ */
+var findTargetSumWays = function (nums, target) {
+	let count = 0
+
+	let dfs = (i, v) => {
+		if (i < nums.length - 1) {
+			dfs(i + 1, v + nums[i])
+			dfs(i + 1, v - nums[i])
+		}
+		if (i === nums.length - 1 && v + nums[i] === target) count++
+		if (i === nums.length - 1 && v - nums[i] === target) count++
+	}
+
+	dfs(0, 0)
+
+	return count
+}
+
+/**
+ * @param {string} text1
+ * @param {string} text2
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/qJnOS7/
+ */
+var longestCommonSubsequence = function (text1, text2) {}
+
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ * @see https://leetcode-cn.com/problems/TVdhkn/
+ */
+var subsets = function (nums) {
+	const result = []
+
+	const dfs = (k, arr) => {
+		result.push(arr)
+		for (let i = k + 1; i < nums.length; i++) {
+			dfs(i, [...arr, nums[i]])
+		}
+	}
+	dfs(-1, [])
+	console.log(result)
+	return result
+}
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/D0F0SV/
+ */
+var combinationSum4 = function (nums, target) {
+	const dp = new Array(target + 1).fill(0)
+	dp[0] = 1
+	for (let i = 1; i <= target; i++) {
+		for (const num of nums) {
+			if (num <= i) {
+				dp[i] += dp[i - num]
+			}
+		}
+	}
+	return dp[target]
+}
+// console.log(combinationSum4([2, 1, 3], 35))
+
+/**
+ * @param {number[][]} mat
+ * @return {number[][]}
+ * @see https://leetcode-cn.com/problems/2bCMpM/
+ */
+var updateMatrix = function (mat) {
+	let m = mat.length
+	let n = mat[0].length
+
+	let result = Array(m)
+		.fill(0)
+		.map(() => Array(n).fill(Infinity))
+
+	for (let i = 0; i < m; i++) {
+		for (let j = 0; j < n; j++) {
+			if (mat[i][j] === 0) result[i][j] = 0
+			else {
+				let r = j - 1 < 0 ? Infinity : result[i][j - 1]
+				let l = i - 1 < 0 ? Infinity : result[i - 1][j]
+				result[i][j] = Math.min(r, j) + 1
+			}
+		}
+	}
+	console.log(result)
+	for (let i = m - 1; i >= 0; i--) {
+		for (let j = n - 1; j >= 0; j--) {
+			if (mat[i][j] === 0) result[i][j] = 0
+			else {
+				let r = j + 1 >= m ? Infinity : result[i][j + 1]
+				let l = i + 1 >= n ? Infinity : result[i + 1][j]
+				result[i][j] = Math.min(result[i][j], r + 1, j + 1)
+			}
+		}
+	}
+
+	return result
+}
+
+// Definition for a Node.
+// @ts-ignore
+function Node(val, prev, next, child) {
+	this.val = val
+	this.prev = prev
+	this.next = next
+	this.child = child
+}
+/**
+ * @param {Node} head
+ * @return {Node}
+ * @see https://leetcode-cn.com/problems/Qv1Da2/
+ */
+var flatten = function (head) {
+	if (!head) return head
+	let arr = []
+	let dfs = node => {
+		arr.push(node)
+		while (node) {
+			if (node.child) {
+				dfs(node.child)
+			}
+			node = node.next
+		}
+	}
+	dfs(head)
+
+	for (let i = 1; i < arr.length; i++) {
+		arr[i - 1].next = arr[i]
+		arr[i].prev = arr[i - 1]
+		arr[i].child = null
+	}
+
+	arr[0].child = null
+
+	return arr[0]
+}
+
+/**
+ * @param {number} target
+ * @param {number[]} nums
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/2VG8Kg/
+ */
+var minSubArrayLen = function (target, nums) {
+	const len = nums.length
+	if (len === 0) {
+		return len
+	}
+	let start = 0,
+		end = 0,
+		sum = 0,
+		res = Infinity
+	while (end < len) {
+		sum += nums[end]
+		while (sum >= target) {
+			res = Math.min(end - start + 1, res)
+			sum -= nums[start]
+			start++
+		}
+		end++
+	}
+	return res === Infinity ? 0 : res
+}
+
+/**
+ * @param {number[][]} triangle
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/IlPe0q/
+ */
+var minimumTotal = function (triangle) {
+	let len = triangle.length
+	if (len === 1) return triangle[0][0]
+	let arr = []
+	arr[0] = triangle[0][0]
+	let i = 1
+	while (i < len) {
+		let j = triangle[i].length - 1
+		while (j >= 0) {
+			arr[j] =
+				Math.min(arr[j] === undefined ? Infinity : arr[j], arr[j - 1] === undefined ? Infinity : arr[j - 1]) +
+				triangle[i][j]
+			j--
+		}
+		i++
+	}
+
+	return Math.min(...arr)
+}
