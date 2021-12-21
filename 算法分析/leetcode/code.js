@@ -1870,3 +1870,158 @@ var minimumTotal = function (triangle) {
 
 	return Math.min(...arr)
 }
+
+/**
+ * @param {string} s
+ * @return {string[][]}
+ * @see https://leetcode-cn.com/problems/M99OJA/
+ */
+var partition = function (s) {
+	let len = s.length
+	if (len <= 1) return [[s]]
+	const result = []
+
+	const test = s => {
+		let i = 0
+		let j = s.length - 1
+		while (i < j) {
+			if (s[i++] !== s[j--]) return false
+		}
+		return true
+	}
+
+	const dfs = (i, arr) => {
+		let str = ''
+		for (; i < len; i++) {
+			str += s[i]
+			if (test(str)) {
+				arr.push(str)
+				if (i === len - 1) {
+					result.push([...arr])
+				} else {
+					dfs(i + 1, arr)
+				}
+				arr.pop(str)
+			}
+		}
+	}
+
+	dfs(0, [])
+	console.log(result)
+	return result
+}
+// partition('google')
+
+/**
+ * @param {TreeNode} root
+ * @param {number} targetSum
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/6eUYwP/
+ */
+var pathSum = function (root, targetSum) {
+	const map = new Map()
+	map.set(0, 1)
+	let sum = 0
+	let count = 0
+	const dfs = node => {
+		if (!node) return
+		sum += node.val
+		count += map.get(sum - targetSum) || 0
+		map.set(sum, map.get(sum) + 1 || 1)
+		dfs(node.left)
+		dfs(node.right)
+		map.set(sum, map.get(sum) - 1)
+		sum -= node.val
+	}
+
+	dfs(root)
+	return count
+}
+
+/**
+ * @param {number} k
+ * @param {number[]} nums
+ * @see https://leetcode-cn.com/problems/jBjn9C/
+ */
+var KthLargest = function (k, nums) {
+	const change = (arr, i, j) => {
+		const temp = arr[i]
+		arr[i] = arr[j]
+		arr[j] = temp
+	}
+
+	class Head {
+		constructor(arr, k) {
+			this.arr = arr
+			this.minArr = []
+			this.k = k
+			this.build()
+		}
+
+		build() {
+			for (let val of this.arr) {
+				this.insert(val)
+			}
+		}
+
+		insert(data) {
+			this.minArr.push(data)
+			let len = this.minArr.length - 1
+			while (len > 0) {
+				let pi = len % 2 == 0 ? (len - 2) / 2 : (len - 1) / 2
+				if (this.minArr[pi] > data) {
+					change(this.minArr, pi, len)
+					len = pi
+					continue
+				}
+				break
+			}
+
+			if (this.minArr.length > k) {
+				this.delete()
+			}
+
+			return this.minArr[0]
+		}
+
+		delete() {
+			if (!this.minArr.length) return
+			let top = this.minArr[0]
+			let bottom = this.minArr.pop()
+			if (!this.minArr.length) return top
+
+			this.minArr[0] = bottom
+
+			let i = 0
+			while (i < this.minArr.length) {
+				let p = this.minArr[i]
+				let l = this.minArr[i * 2 + 1]
+				let r = this.minArr[i * 2 + 2]
+
+				if ((r === undefined || l <= r) && l < p) {
+					change(this.minArr, i, i * 2 + 1)
+					i = i * 2 + 1
+					continue
+				}
+				if (l > r && r < p) {
+					change(this.minArr, i, i * 2 + 2)
+					i = i * 2 + 2
+					continue
+				}
+				break
+			}
+
+			return top
+		}
+	}
+
+	this.head = new Head(nums, k)
+}
+
+/**
+ * @param {number} val
+ * @return {number}
+ */
+KthLargest.prototype.add = function (val) {
+	return this.head.insert(val)
+}
