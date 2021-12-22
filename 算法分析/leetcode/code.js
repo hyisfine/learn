@@ -2025,3 +2025,103 @@ var KthLargest = function (k, nums) {
 KthLargest.prototype.add = function (val) {
 	return this.head.insert(val)
 }
+
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ * @see https://leetcode-cn.com/problems/w6cpku/
+ */
+var convertBST = function (root) {
+	let sum = 0
+	const dfs = node => {
+		if (!node) return 0
+		dfs(node.right)
+		sum += node.val
+		node.val = sum
+		dfs(node.left)
+	}
+
+	dfs(root)
+	return root
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/LwUNpT/
+ */
+var findBottomLeftValue = function (root) {
+	let k = 0
+	let minK = 0
+	let val
+	const dfs = node => {
+		if (!node) return
+		k++
+		dfs(node.left)
+		if (k > minK) {
+			minK = k
+			val = node.val
+		}
+		dfs(node.right)
+		k--
+	}
+
+	dfs(root)
+	return val
+}
+
+/**
+ * @param {number[]} temperatures
+ * @return {number[]}
+ * @see https://leetcode-cn.com/problems/iIQa4I/
+ */
+var dailyTemperatures = function (temperatures) {
+	let len = temperatures.length
+	if (len === 1) return [0]
+	const result = Array(len).fill(0)
+	let stack = [0]
+	let i = 1
+	while (i < len) {
+		let n = temperatures[i]
+		while (stack.length >= 0) {
+			let k = stack[stack.length - 1]
+			let m = temperatures[k]
+			if (m < n) {
+				result[k] = i - k
+				stack.pop()
+				continue
+			}
+			stack.push(i)
+			break
+		}
+		i++
+	}
+	return result
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ * @see https://leetcode-cn.com/problems/hPov7L/
+ */
+var largestValues = function (root) {
+	if (!root) return []
+	let arr = []
+	let queue = [root]
+
+	while (queue.length) {
+		let len = queue.length
+		let max = -Infinity
+		let i = 0
+		while (i < len) {
+			let node = queue.shift()
+			max = Math.max(max, node.val)
+			if (node.left) queue.push(node.left)
+			if (node.right) queue.push(node.right)
+			i++
+		}
+		arr.push(max)
+	}
+
+	return arr
+}
