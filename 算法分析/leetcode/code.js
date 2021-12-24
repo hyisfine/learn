@@ -48,7 +48,6 @@ var relativeSortArray = function (arr1, arr2) {
 	return a1
 }
 
-// console.log(relativeSortArray([2, 3, 1, 3, 2, 4, 6, 7, 9, 2, 19], [2, 1, 4, 3, 9, 6]))
 /**
  * @param {number} n
  * @return {number}
@@ -486,27 +485,27 @@ var addBinary = function (a, b) {
 	return result
 }
 
-/**
- * @param {number[]} nums
- * @param {number} k
- * @return {number}
- * @see https://leetcode-cn.com/problems/ZVAVXX/submissions/
- */
-var numSubarrayProductLessThanK = function (nums, k) {
-	const len = nums.length
-	let count = 0
+// /**
+//  * @param {number[]} nums
+//  * @param {number} k
+//  * @return {number}
+//  * @see https://leetcode-cn.com/problems/ZVAVXX/submissions/
+//  */
+// var numSubarrayProductLessThanK = function (nums, k) {
+// 	const len = nums.length
+// 	let count = 0
 
-	for (let i = 0; i < len; i++) {
-		let mut = 1
-		for (let j = i; j < len; j++) {
-			mut *= nums[j]
-			if (mut < k) count++
-			else break
-		}
-	}
+// 	for (let i = 0; i < len; i++) {
+// 		let mut = 1
+// 		for (let j = i; j < len; j++) {
+// 			mut *= nums[j]
+// 			if (mut < k) count++
+// 			else break
+// 		}
+// 	}
 
-	return count
-}
+// 	return count
+// }
 // console.log(numSubarrayProductLessThanK([10, 5, 2, 6, 7], 100))
 
 /**
@@ -617,27 +616,27 @@ const quai = arr => {
 // 	.map(() => Math.floor(Math.random() * 1000))
 // quai(arr)
 
-/**
- * @param {number[]} nums
- * @return {boolean}
- */
-var canPartition = function (nums) {
-	let count = 0
-	let i = 0
-	while (i < nums.length) count += arr[i++]
+// /**
+//  * @param {number[]} nums
+//  * @return {boolean}
+//  */
+// var canPartition = function (nums) {
+// 	let count = 0
+// 	let i = 0
+// 	while (i < nums.length) count += arr[i++]
 
-	if (count % 2 !== 0) return false
-	const target = count / 2
-	const result = Array(target + 1).fill(false)
-	result[0] = true
-	for (let i = 0; i < nums.length; i++) {
-		for (let j = nums[i]; j <= target; j++) {
-			result[j] = result[j] || result[j - nums[i]]
-		}
-	}
+// 	if (count % 2 !== 0) return false
+// 	const target = count / 2
+// 	const result = Array(target + 1).fill(false)
+// 	result[0] = true
+// 	for (let i = 0; i < nums.length; i++) {
+// 		for (let j = nums[i]; j <= target; j++) {
+// 			result[j] = result[j] || result[j - nums[i]]
+// 		}
+// 	}
 
-	return result.pop()
-}
+// 	return result.pop()
+// }
 
 /**
  * @param {ListNode} head
@@ -2121,6 +2120,336 @@ var largestValues = function (root) {
 			i++
 		}
 		arr.push(max)
+	}
+
+	return arr
+}
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/ZVAVXX/
+ */
+var numSubarrayProductLessThanK = function (nums, k) {
+	let len = nums.length
+	let count = 0
+	let start = 0
+	let end = 0
+	let mut = 1
+
+	while (end <= start && start < len) {
+		mut *= nums[start]
+		if (mut < k) count += start - end + 1
+		else {
+			while (end <= start) {
+				mut /= nums[end++]
+				if (mut < k) {
+					count += start - end + 1
+					break
+				}
+			}
+		}
+		start++
+	}
+
+	return count
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/Gu0c2T/
+ */
+var rob = function (nums) {
+	let len = nums.length
+	if (!len) return 0
+	const dp = Array(len + 1).fill(0)
+
+	let prev = 0
+	let current = 0
+
+	let i = 1
+	while (i <= len) {
+		dp[i] = Math.max(current, prev + nums[i - 1])
+		prev = current
+		current = dp[i]
+	}
+
+	return current
+}
+
+/**
+ * @param {string} s
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/wtcaE1/
+ */
+var lengthOfLongestSubstring = function (s) {
+	let n = s.length
+	let max = 0
+	let count = 0
+	let map = {}
+	let last = -1
+
+	for (let i = 0; i < n; i++) {
+		let c = s[i]
+		if (map[c] !== undefined && map[c] > last) {
+			max = Math.max(max, count)
+			count = i - map[c]
+			last = map[c]
+		} else count++
+		map[c] = i
+	}
+	max = Math.max(max, count)
+	return max
+}
+
+/**
+ * @param {string} beginWord
+ * @param {string} endWord
+ * @param {string[]} wordList
+ * @return {number}
+ */
+var ladderLength = function (beginWord, endWord, wordList) {
+	let queue = new Set()
+	let m = wordList.length
+	let n = beginWord.length
+	let map = new Map()
+
+	if (!wordList.includes(endWord)) return 0
+	for (let i = 0; i < m; i++) {
+		for (let j = 0; j < n; j++) {
+			let word = wordList[i]
+			let key = word.substring(0, j) + '*' + word.substring(j + 1)
+			if (map.has(key)) map.get(key).push(i)
+			else map.set(key, [i])
+		}
+	}
+
+	for (let j = 0; j < n; j++) {
+		let key = beginWord.substring(0, j) + '*' + beginWord.substring(j + 1)
+		if (map.has(key)) {
+			for (let v of map.get(key)) queue.add(v)
+		}
+	}
+
+	console.log({ map }, JSON.stringify(queue))
+
+	const bfs = count => {
+		let size = queue.size
+		if (size === 0) return 0
+		let i = 1
+		console.log({ count, queue })
+		for (let v of queue.values()) {
+			let str = wordList[v]
+			if (str === endWord) return count
+			for (let j = 0; j < n; j++) {
+				// @ts-ignore
+				let key = str.substring(0, j) + '*' + str.substring(j + 1)
+				if (map.has(key)) {
+					for (let v of map.get(key)) {
+						queue.add(v)
+					}
+				}
+			}
+			queue.delete(v)
+			if (i === size) break
+			i++
+		}
+		return bfs(count + 1)
+	}
+
+	return bfs(1)
+
+	// queue.push(beginWord)
+	// while (queue.length) {
+	// 	let len=queue.length
+	// 	for(let )
+
+	// }
+}
+// console.log(ladderLength('a', 'b', ['a', 'b', 'c']))
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/WhsWhI/
+ */
+var longestConsecutive = function (nums) {
+	if (nums.length <= 1) return nums.length
+	let map = {}
+	let map1 = {}
+	let min = Infinity
+
+	for (let v of nums) {
+		if (v < 0) {
+			map1[-v] = v
+		} else map[v] = v
+		min = Math.min(min, v)
+	}
+
+	let keys = Object.keys(map1)
+	let len = keys.length
+	let i = len - 1
+	let count = len === 0 ? 0 : 1
+	let max = 0
+
+	while (i > 0) {
+		// @ts-ignore
+		if (~~keys[i] - 1 === ~~keys[i - 1]) {
+			count++
+		} else {
+			max = Math.max(max, count)
+			count = 1
+		}
+		i--
+	}
+
+	if (!(1 in map1) || !(0 in map)) {
+		max = Math.max(max, count)
+		count = 1
+	}
+
+	console.log(map, map1, count, max)
+
+	keys = Object.keys(map)
+
+	len = keys.length
+	i = 0
+	while (i < keys.length - 1) {
+		if (~~keys[i] + 1 === ~~keys[i + 1]) {
+			count++
+		} else {
+			max = Math.max(max, count + 1)
+			count = 0
+		}
+		i++
+	}
+	max = Math.max(max, count)
+
+	return max
+}
+
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {string}
+ * @see https://leetcode-cn.com/problems/M1oyTv/
+ */
+var minWindow = function (s, t) {
+	let need = {}
+	let window = {}
+	for (let a of t) {
+		need[a] = (need[a] || 0) + 1
+	}
+	let left = 0,
+		right = 0
+	let valid = 0
+	let start = 0,
+		len = Number.MAX_VALUE
+	while (right < s.length) {
+		let c = s[right]
+		right++
+		if (need[c]) {
+			window[c] = (window[c] || 0) + 1
+			if (window[c] == need[c]) {
+				valid++
+			}
+		}
+		while (valid == Object.keys(need).length) {
+			if (right - left < len) {
+				start = left
+				len = right - left
+			}
+			let d = s[left]
+			left++
+			if (need[d]) {
+				if (window[d] == need[d]) {
+					valid--
+				}
+				window[d]--
+			}
+		}
+	}
+	return len == Number.MAX_VALUE ? '' : s.substr(start, len)
+}
+
+/**
+ * @return {number[][]}
+ * @see https://leetcode-cn.com/problems/VvJkup/
+ */
+var permute = function (nums) {
+	const len = nums.length
+	if (len === 1) return [nums]
+
+	const result = []
+
+	const dfs = arr => {
+		if (arr.length === len) {
+			result.push(arr)
+			return
+		}
+		for (let num of nums) {
+			if (arr.indexOf(num) !== -1) continue
+			dfs([...arr, num])
+		}
+	}
+
+	dfs([])
+
+	return result
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ * @see https://leetcode-cn.com/problems/1fGaJU/
+ */
+var threeSum = function (nums) {
+	if (nums.length < 3) return []
+	let arr = []
+
+	const binary = (low, high) => {
+		let i = low
+		let j = high
+		let x = nums[low]
+		if (i > j) return
+		while (i < j) {
+			while (i < j && nums[j] > x) j--
+			while (i < j && nums[i] <= x) i++
+			if (i < j) {
+				let temp = nums[i]
+				nums[i] = nums[j]
+				nums[j] = temp
+			}
+		}
+		nums[low] = nums[i]
+		nums[i] = x
+		binary(low, i - 1)
+		binary(i + 1, high)
+	}
+	binary(0, nums.length - 1)
+	console.log(nums)
+	if (nums[0] > 0) return []
+
+	for (let i = 0; i < nums.length - 2; i++) {
+		if (nums[i] > 0) break
+		if (i > 0 && nums[i] === nums[i - 1]) {
+			continue
+		}
+		let num = nums[i]
+		let start = i + 1
+		let end = nums.length - 1
+
+		while (start < end) {
+			let v = num + nums[start] + nums[end]
+			if (v === 0) {
+				arr.push([num, nums[start], nums[end]])
+				start++
+			}
+			if (v > 0) end--
+			if (v < 0) start++
+		}
 	}
 
 	return arr
