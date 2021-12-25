@@ -1696,14 +1696,6 @@ var findTargetSumWays = function (nums, target) {
 }
 
 /**
- * @param {string} text1
- * @param {string} text2
- * @return {number}
- * @see https://leetcode-cn.com/problems/qJnOS7/
- */
-var longestCommonSubsequence = function (text1, text2) {}
-
-/**
  * @param {number[]} nums
  * @return {number[][]}
  * @see https://leetcode-cn.com/problems/TVdhkn/
@@ -2453,4 +2445,128 @@ var threeSum = function (nums) {
 	}
 
 	return arr
+}
+
+/**
+ * @param {TreeNode} root
+ * @param {number} k
+ * @return {boolean}
+ * @see https://leetcode-cn.com/problems/opLdQZ/
+ */
+var findTarget = function (root, k) {
+	let map = {}
+	let flag = false
+	const dfs = node => {
+		if (!node) return
+		if (map[k - node.val]) return (flag = true)
+		dfs(node.left)
+		dfs(node.right)
+	}
+	dfs(root)
+	return flag
+}
+
+/**
+ * @param {string} text1
+ * @param {string} text2
+ * @return {number}
+ */
+var longestCommonSubsequence = function (text1, text2) {
+	let m = text1.length
+	let n = text2.length
+
+	let arr = Array(m + 1)
+		.fill(0)
+		.map(() => Array(n + 1).fill(0))
+
+	for (let i = 1; i < m + 1; i++) {
+		let str = text1[i - 1]
+		for (let j = 1; j < n + 1; j++) {
+			let str2 = text2[j - 1]
+			if (str === str2) {
+				arr[i][j] = arr[i - 1][j - 1] + 1
+			} else {
+				arr[i][j] = Math.max(arr[i][j - 1], arr[i - 1][j])
+			}
+		}
+	}
+	return arr[m][n]
+}
+
+/**
+ * @param {number[]} arr
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/B1IidL/
+ */
+var peakIndexInMountainArray = function (arr) {
+	const binary = (low, high) => {
+		if (low + 1 === high) return high
+		let middle = low + Math.floor((high - low) / 2)
+		let m = arr[middle]
+		let n = arr[middle + 1]
+		if (m < n) return binary(middle, high)
+		if (m > n) return binary(low, middle)
+	}
+	return binary(0, arr.length - 1)
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ * @see https://leetcode-cn.com/problems/pOCWxh/
+ */
+var pruneTree = function (root) {
+	if (!root) return root
+	const dfs = node => {
+		if (!node) return 0
+		if (!dfs(node.left)) node.left = null
+		if (!dfs(node.right)) node.right = null
+		return node.val || node.left || node.right
+	}
+	dfs(root)
+	if (!root.left && !root.right && !root.val) return null
+	return root
+}
+
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ * @see https://leetcode-cn.com/problems/bu-ke-pai-zhong-de-shun-zi-lcof/
+ */
+var isStraight = function (nums) {
+	let map = {}
+	let min = 0
+	let max = 0
+	let zeroCount = 0
+
+	for (let num of nums) {
+		if (num === 0) {
+			zeroCount++
+			return
+		}
+		map[num] = 1
+		min = Math.min(min, num)
+		max = Math.max(max, num)
+	}
+	console.log({ map, max, min })
+	if (Object.keys(map).length < 5) return false
+	if (max - min > 4) return false
+	return true
+}
+
+/**
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ * @see https://leetcode-cn.com/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof/
+ */
+var getIntersectionNode = function (headA, headB) {
+	let map = new Map()
+
+	while (headA || headB) {
+		if (map.has(headA)) return headA
+		if (map.has(headB)) return headB
+		headA = headA.next
+		headB = headB.next
+	}
 }
