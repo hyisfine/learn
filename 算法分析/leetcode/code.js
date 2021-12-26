@@ -2570,3 +2570,189 @@ var getIntersectionNode = function (headA, headB) {
 		headB = headB.next
 	}
 }
+/**
+ * @param {TreeNode} root
+ * @param {number} target
+ * @return {number[][]}
+ * @see https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/
+ */
+var pathSum2 = function (root, target) {
+	let sum = 0
+	let arr = []
+
+	const dfs = (node, paths) => {
+		if (!node) return
+		sum += node.val
+		paths.push(node.val)
+		if (!node.left && !node.right && sum === target) {
+			arr.push([...paths])
+		} else {
+			dfs(node.left, paths)
+			dfs(node.right, paths)
+		}
+		sum -= node.val
+		paths.pop()
+	}
+
+	dfs(root, [])
+
+	return arr
+}
+
+/**
+ * @param {number[][]} matrix
+ * @return {number[]}
+ * @see https://leetcode-cn.com/problems/shun-shi-zhen-da-yin-ju-zhen-lcof/
+ */
+var spiralOrder = function (matrix) {
+	let m = matrix.length
+	if (m === 0) return []
+	let n = matrix[0].length
+	let arr = []
+	let i = 0
+	let j = 0
+	let quan = 0
+	let count = 0
+	while (count < m * n) {
+		arr.push(matrix[i][j])
+		count++
+		if (i === quan && j < n - 1 - quan) j++
+		else if (i < m - 1 - quan && j === n - 1 - quan) i++
+		else if (i === m - 1 - quan && j > quan) j--
+		else if (j === quan && i > quan) {
+			i--
+			if (i === quan + 1 && j === quan) quan++
+		}
+	}
+
+	return arr
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/
+ */
+var majorityElement = function (nums) {
+	let x
+	let count = 0
+
+	for (let num of nums) {
+		if (count === 0) x = num
+		if (num === x) count++
+		else count--
+	}
+
+	return x
+}
+
+/**
+ * @param {TreeNode} root
+ * @param {number} k
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/
+ */
+var kthLargest = function (root, k) {
+	const dfs = node => {
+		if (!node) return 0
+		const l = dfs(node.right)
+		if (--k === 0) return node.val
+		const r = dfs(node.left)
+		return l + r
+	}
+
+	return dfs(root)
+}
+
+/**
+ * @param {string} s
+ * @return {character}
+ * @see https://leetcode-cn.com/problems/di-yi-ge-zhi-chu-xian-yi-ci-de-zi-fu-lcof/
+ */
+var firstUniqChar = function (s) {
+	let map = {}
+
+	for (let c of s) {
+		map[c] = (map[c] || 0) + 1
+	}
+
+	for (let k in map) {
+		if (map[k] === 1) return k
+	}
+	return ' '
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof/
+ */
+var maxDepth = function (root) {
+	let max = -Infinity
+	let k = 0
+	const dfs = node => {
+		if (!node) return
+		k++
+		max = Math.max(max, k)
+		dfs(node.left)
+		dfs(node.right)
+		k--
+	}
+	dfs(root)
+	return max
+}
+
+/**
+ * @param {string} s
+ * @return {string[]}
+ * @see https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/
+ */
+var permutation = function (s) {
+	let set = new Set()
+
+	const dfs = (str1, str2) => {
+		if (str2.length === 1) {
+			set.add(str1 + str2)
+			return
+		}
+		for (let i = 0; i < str2.lenth; i++) {
+			str1 + str2[i]
+			dfs(str1 + str2[i], str2.substring(0, i) + str2.substring(i + 1))
+		}
+	}
+
+	dfs('', s)
+	return Array.from(set)
+}
+
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ * @see https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof/
+ */
+var lowestCommonAncestor = function (root, p, q) {
+	if (root.val > p.val && root.val > q.val) return lowestCommonAncestor(root.left, p, q)
+	if (root.val < p.val && root.val < q.val) return lowestCommonAncestor(root.right, p, q)
+	return root
+}
+
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ * @see https://leetcode-cn.com/problems/he-bing-liang-ge-pai-xu-de-lian-biao-lcof/
+ */
+var mergeTwoLists = function (l1, l2) {
+	if (!l1) return l2
+	if (!l2) return l1
+
+	if (l1.val <= l2) {
+		l1.next = mergeTwoLists(l1.next, l2)
+		return l1
+	}
+
+	l2.next = mergeTwoLists(l1, l2.next)
+	return l2
+}
