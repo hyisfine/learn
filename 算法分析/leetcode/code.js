@@ -535,7 +535,7 @@ var sortList = function (head) {
 	for (const key in map1) {
 		result.push(...Array(map1[key]).fill(+key))
 	}
-	console.log({ map2 })
+	console.log({map2})
 	for (const key in map2) {
 		result.unshift(...Array(map2[key]).fill(-key))
 	}
@@ -1140,7 +1140,7 @@ var maximalRectangle = function (matrix) {
 		.map(() =>
 			Array(len2)
 				.fill(0)
-				.map(() => [0, 0]),
+				.map(() => [0, 0])
 		)
 	arr[0][0] = [~~matrix[0][0], ~~matrix[0][0]]
 
@@ -1364,7 +1364,7 @@ var longestIncreasingPath = function (matrix) {
 		[1, 0],
 		[-1, 0],
 		[0, 1],
-		[0, -1],
+		[0, -1]
 	]
 	const dfs = (i, j) => {
 		if (arr[i][j]) return arr[i][j]
@@ -2225,13 +2225,13 @@ var ladderLength = function (beginWord, endWord, wordList) {
 		}
 	}
 
-	console.log({ map }, JSON.stringify(queue))
+	console.log({map}, JSON.stringify(queue))
 
 	const bfs = count => {
 		let size = queue.size
 		if (size === 0) return 0
 		let i = 1
-		console.log({ count, queue })
+		console.log({count, queue})
 		for (let v of queue.values()) {
 			let str = wordList[v]
 			if (str === endWord) return count
@@ -2548,7 +2548,7 @@ var isStraight = function (nums) {
 		min = Math.min(min, num)
 		max = Math.max(max, num)
 	}
-	console.log({ map, max, min })
+	console.log({map, max, min})
 	if (Object.keys(map).length < 5) return false
 	if (max - min > 4) return false
 	return true
@@ -2755,4 +2755,106 @@ var mergeTwoLists = function (l1, l2) {
 
 	l2.next = mergeTwoLists(l1, l2.next)
 	return l2
+}
+
+/**
+ * @param {ListNode} head
+ * @param {number} val
+ * @return {ListNode}
+ * @see https://leetcode-cn.com/problems/shan-chu-lian-biao-de-jie-dian-lcof/
+ */
+var deleteNode = function (head, val) {
+	if (!head) return head
+	if (head.val === val) return head.next
+	let prev = head
+	let l = head
+	while (head) {
+		if (head.val === val) {
+			prev.next = head.next
+			return l
+		}
+		prev = head
+		head = head.next
+	}
+}
+
+/**
+ * @param {number} x
+ * @param {number} n
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/
+ */
+var myPow = function (x, n) {
+	if (n === 0) return 1
+	if (n === 1) return x
+	if (n === -1) return 1 / x
+	let result = myPow(x, n >> 1)
+	result *= result
+	if ((n & 1) == 1) result *= x
+	return result
+}
+
+/**
+ * @param {number} n
+ * @return {number[]}
+ * @see https://leetcode-cn.com/problems/nge-tou-zi-de-dian-shu-lcof/
+ */
+var dicesProbability = function (n) {
+	const res = [0, 1, 1, 1, 1, 1, 1]
+
+	for (let i = 1; i < n; i++) {
+		for (let j = 6 * n; j > 0; j--) {
+			res[j] = res.slice(Math.max(0, j - 6), j).reduce((a, b) => a + b, 0)
+		}
+	}
+	let x = 6 ** n
+	return res
+		.splice(1)
+		.map(item => item / x)
+		.filter(Boolean)
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ * @see https://leetcode-cn.com/problems/er-cha-shu-de-jing-xiang-lcof/
+ */
+var mirrorTree = function (root) {
+	if (!root) return root
+	let left = root.left
+	let right = root.right
+	root.right = left
+	root.left = right
+	mirrorTree(root.right)
+	mirrorTree(root.left)
+	return root
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ * @see https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/
+ */
+var levelOrder = function (root) {
+	if (!root) return []
+	let queue = []
+	let arr = []
+	queue[0] = root
+	let level = 0
+	while (queue.length) {
+		let len = queue.length
+		let __queue = queue
+		queue = []
+		level++
+		arr[level - 1] = []
+		for (let i = 0; i < len; i++) {
+			let node = __queue.shift()
+			if ((level & 1) === 1) arr[level - 1].push(node.val)
+			else arr[level - 1].unshift(node.val)
+			if (node.left) queue.push(node.left)
+			if (node.right) queue.push(node.right)
+		}
+	}
+
+	return arr
 }
