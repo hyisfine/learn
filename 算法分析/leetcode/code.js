@@ -2858,3 +2858,93 @@ var levelOrder = function (root) {
 
 	return arr
 }
+
+/**
+ * @param {TreeNode} A
+ * @param {TreeNode} B
+ * @return {boolean}
+ */
+var isSubStructure = function (A, B) {
+	if (!B && A) return false
+	let arr = []
+	const find = A => {
+		if (!A) return
+		if (A.val === B.val) arr.push(A)
+		find(A.left)
+		find(A.right)
+	}
+	find(A)
+	if (!arr.length) return false
+
+	const compare = (A, B) => {
+		if (!B && !A) return true
+		if (B && !A) return false
+		if (!B && A) return true
+		if (B.val !== A.val) return false
+		return compare(A.left, B.left) && compare(A.right, B.right)
+	}
+	console.log(arr)
+
+	for (let a of arr) {
+		if (compare(a, B)) return true
+	}
+	return false
+}
+
+/**
+ * @param {TreeNode} A
+ * @param {TreeNode} B
+ * @return {boolean}
+ * @see https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/
+ */
+var isSubStructure = function (A, B) {
+	if (!B && A) return false
+	let flag = false
+	let B2 = B
+
+	const compare = (nodeA, nodeB) => {
+		if (!nodeA && !nodeB) return true
+		if (!nodeA && nodeB) return false
+		if (nodeA && !nodeB) return true
+
+		if (nodeA.val === nodeB.val) {
+			let _flag = compare(nodeA.left, nodeB.left) && compare(nodeA.right, nodeB.right)
+			if (!flag) flag = _flag
+			return _flag
+		} else {
+			return compare(nodeA.left, B2) || compare(nodeA.right, B2)
+		}
+	}
+	compare(A, B)
+	return flag
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ * @see https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/
+ */
+var singleNumbers = function (nums) {
+	let map = new Map()
+	for (let num of nums) {
+		if (num in map) map.delete(num)
+		else map.set(num, 1)
+	}
+
+	return Array.from(map.keys())
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof/
+ */
+var maxSubArray = function (nums) {
+	let max = nums[0]
+	let prev = nums[0]
+	for (let i = 1; i < nums.length; i++) {
+		prev = Math.max(prev + nums[i], nums[i])
+		max = Math.max(prev, max)
+	}
+	return max
+}
