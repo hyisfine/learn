@@ -2948,3 +2948,157 @@ var maxSubArray = function (nums) {
 	}
 	return max
 }
+
+/**
+ * @param {number[]} a
+ * @return {number[]}
+ * @see https://leetcode-cn.com/problems/gou-jian-cheng-ji-shu-zu-lcof/
+ */
+var constructArr = function (a) {
+	let len = a.length
+	if (len <= 1) return a
+	let arr1 = Array(len).fill(1)
+	let arr2 = Array(len).fill(1)
+	let arr = Array(len).fill(1)
+	arr1[0] = a[0]
+	arr2[len - 1] = a[len - 1]
+	for (let i = 1, j = len - 2; i < len; i++, j--) {
+		arr1[i] = arr1[i - 1] * a[i]
+		arr2[j] = arr2[j + 1] * a[j]
+	}
+
+	for (let i = 0; i < len; i++) {
+		arr[i] = (i === 0 ? 1 : arr1[i - 1]) * (i === len - 1 ? 1 : arr2[i + 1])
+	}
+
+	return arr
+}
+
+/**
+ * @param {number[]} numbers
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/
+ */
+var minArray = function (numbers) {
+	let low = 0
+	let high = numbers.length - 1
+	while (low < high) {
+		const middle = low + Math.floor((high - low) / 2)
+		if (numbers[middle] < numbers[high]) high = middle
+		else if (numbers[middle] > numbers[high]) low = middle + 1
+		else high -= 1
+	}
+	return numbers[low]
+}
+
+/**
+ * @param {string} s
+ * @param {number} k
+ * @return {string}
+ * @see https://leetcode-cn.com/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/
+ */
+var reverseLeftWords = function (s, k) {
+	const len = s.length
+	const n = k % len
+	const double = `${s}${s}`
+	return double.slice(n, n + len)
+}
+
+/**
+ * @param {string[][]} board
+ * @param {string} word
+ * @return {boolean}
+ * @see https://leetcode-cn.com/problems/ju-zhen-zhong-de-lu-jing-lcof/
+ */
+var exist = function (board, word) {
+	let m = board.length
+	let n = board[0].length
+	let l = word.length
+
+	const dfs = (i, j, k) => {
+		if (!board[i][j]) return false
+		if (board[i][j] !== word[k]) return false
+		if (k === l - 1) return true
+		board[i][j] = false
+
+		let res =
+			(i === 0 ? false : dfs(i - 1, j, k + 1)) ||
+			(i === m - 1 ? false : dfs(i + 1, j, k + 1)) ||
+			(j === 0 ? false : dfs(i, j - 1, k + 1)) ||
+			(j === n - 1 ? false : dfs(i, j + 1, k + 1))
+		board[i][j] = word[k]
+		return res
+	}
+
+	let flag = false
+	let beginC = word[0]
+	for (let i = 0; i < m; i++) {
+		for (let j = 0; j < n; j++) {
+			if (board[i][j] === beginC) flag = flag || dfs(i, j, 0)
+		}
+	}
+	return flag
+}
+
+/**
+ * @see https://leetcode-cn.com/problems/dui-lie-de-zui-da-zhi-lcof/
+ */
+var MaxQueue = function () {
+	this.queue = []
+	this.dequeue = []
+}
+
+/**
+ * @return {number}
+ */
+MaxQueue.prototype.max_value = function () {
+	if (!this.dequeue.length) return -1
+	return this.dequeue[0]
+}
+
+/**
+ * @param {number} value
+ * @return {void}
+ */
+MaxQueue.prototype.push_back = function (value) {
+	this.queue.push(value)
+	while (this.dequeue[this.dequeue.length - 1] < value) {
+		this.dequeue.pop()
+	}
+	this.dequeue.push(value)
+}
+
+/**
+ * @return {number}
+ */
+MaxQueue.prototype.pop_front = function () {
+	if (!this.dequeue.length) return -1
+	let v = this.queue.shift()
+	if (v === this.dequeue[0]) this.dequeue.shift()
+	return v
+}
+
+/**
+ * @param {number} n
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/chou-shu-lcof/
+ */
+var nthUglyNumber = function (n) {
+	let dp = [1]
+	let p2 = 0,
+		p3 = 0,
+		p5 = 0
+
+	for (let i = 1; i < n; i++) {
+		let n2 = dp[p2] * 2
+		let n3 = dp[p3] * 3
+		let n5 = dp[p5] * 5
+		dp[i] = Math.min(n2, n3, n5)
+		if (dp[i] === n2) p2++
+		if (dp[i] === n3) p3++
+		if (dp[i] === n5) p5++
+	}
+	return dp.pop()
+}
+
+console.log(nthUglyNumber(10))
