@@ -3101,4 +3101,178 @@ var nthUglyNumber = function (n) {
 	return dp.pop()
 }
 
-console.log(nthUglyNumber(10))
+/**
+ * @param {TreeNode} root
+ * @return {boolean | number}
+ * @see https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof/
+ */
+var isBalanced = function (root) {
+	if (!root) return 1
+	const l = isBalanced(root.left)
+	if (l === false) return false
+	const r = isBalanced(root.right)
+	if (r === false) return false
+	if (Math.abs(l - r) > 1) return false
+	return Math.max(l, r) + 1
+}
+
+/**
+ * @param {number[][]} matrix
+ * @param {number} target
+ * @return {boolean}
+ * @see https://leetcode-cn.com/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/
+ */
+var findNumberIn2DArray = function (matrix, target) {
+	let m = matrix.length
+	if (!m) return false
+	let n = matrix[0].length
+
+	let i = 0
+	let j = n - 1
+	while (i < m && j >= 0) {
+		if (matrix[i][j] === target) return true
+		if (matrix[i][j] < target) i++
+		else if (matrix[i][j] > target) j--
+	}
+	return false
+}
+
+/**
+ * @param {number} target
+ * @return {number[][]}
+ * @see https://leetcode-cn.com/problems/he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof/
+ */
+var findContinuousSequence = function (target) {
+	let i = 1
+	let sum = 0
+	let arr = []
+	let __arr = []
+	while (i <= Math.ceil(target / 2)) {
+		sum += i
+		__arr.push(i)
+		while (sum >= target) {
+			if (sum === target) arr.push([...__arr])
+			sum -= __arr.shift()
+		}
+		i++
+	}
+
+	return arr
+}
+
+/**
+ * @param {string} s
+ *@return {number}
+ */
+var lengthOfLongestSubstring = function (s) {
+	let win = {}
+	let max = 0
+	let count = 0
+	let last = -1
+
+	for (let i = 0; i < s.length; i++) {
+		let c = s[i]
+		if (c in win && win[c] > last) {
+			count = i - win[c]
+			last = win[c]
+			max = Math.max(max, count)
+		} else count++
+
+		win[c] = i
+	}
+	max = Math.max(max, count)
+	return max
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ * @see https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/
+ */
+var levelOrder = function (root) {
+	if (!root) return []
+	let queue = [root]
+	let arr = []
+
+	while (queue.length) {
+		let len = queue.length
+		let __arr = []
+		let i = 0
+		while (i < len) {
+			let node = queue.shift()
+			__arr.push(node.val)
+			if (node.left) queue.push(node.left)
+			if (node.right) queue.push(node.right)
+			i++
+		}
+		arr.push(__arr)
+	}
+
+	return arr
+}
+
+/**
+ * // Definition for a Node.
+ * function Node(val, next, random) {
+ *    this.val = val;
+ *    this.next = next;
+ *    this.random = random;
+ * };
+ */
+
+/**
+ * @param {Node} head
+ * @return {Node}
+ * @see https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/
+ */
+var copyRandomList = function (head) {
+	let map = new Map()
+	map.set(null, null)
+	let copy = new Node()
+	let _head = head
+	while (head) {
+		map.set(head, new Node(head.val))
+		head = head.next
+	}
+	while (_head) {
+		let node = map.get(_head)
+		node.random = map.get(_head.random)
+		copy.next = node
+		copy = node
+		_head = _head.next
+	}
+
+	return copy.next
+}
+
+/**
+ * @param {string} str
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/ba-zi-fu-chuan-zhuan-huan-cheng-zheng-shu-lcof/
+ */
+var strToInt = function (str) {
+	let ss = ''
+	let opt = 1
+	let hasD = false
+	let hasO = false
+	for (let s of str) {
+		if (/\s/.test(s) && !ss && !hasO) continue
+		if (!ss && !/[0-9+-]/.test(s)) return 0
+		if (!ss && !hasO && /[+-]/.test(s)) {
+			opt = s === '-' ? -1 : 1
+			hasO = true
+			continue
+		}
+		if (/[0-9]/.test(s)) {
+			ss += s
+			continue
+		}
+		if (!hasD && /\./.test(s)) {
+			ss += s
+			hasD = true
+			continue
+		}
+		break
+	}
+	return opt === 1 ? Math.min(Number(ss), Math.pow(2, 31) - 1) : Math.max(-Number(ss), -Math.pow(2, 31))
+}
