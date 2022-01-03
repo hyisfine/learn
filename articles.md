@@ -60,6 +60,9 @@
 - [ ] [除了 npm link 之外，如何更方便地调试项目？](https://mp.weixin.qq.com/s/KlcH9B4TiLQjVv77gYxNsQ)
 - [ ] [全方位解读 package.json](https://mp.weixin.qq.com/s/dUXdwaH55hIl0C0pTIsUiw)
 - [ ] [Monorepo 的这些坑，我们帮你踩过了！](https://jishuin.proginn.com/p/763bfbd5cc0b)
+- [ ] [node_modules困境](https://zhuanlan.zhihu.com/p/137535779)
+- [ ] [Changesets: 流行的 monorepo 场景发包工具](https://zhuanlan.zhihu.com/p/427588430)
+- [ ] [All in one：项目级 monorepo 策略最佳实践](https://segmentfault.com/a/1190000039157365)
 
 ### webpack‹
 

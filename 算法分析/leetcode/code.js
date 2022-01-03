@@ -535,7 +535,7 @@ var sortList = function (head) {
 	for (const key in map1) {
 		result.push(...Array(map1[key]).fill(+key))
 	}
-	console.log({map2})
+	console.log({ map2 })
 	for (const key in map2) {
 		result.unshift(...Array(map2[key]).fill(-key))
 	}
@@ -1140,7 +1140,7 @@ var maximalRectangle = function (matrix) {
 		.map(() =>
 			Array(len2)
 				.fill(0)
-				.map(() => [0, 0])
+				.map(() => [0, 0]),
 		)
 	arr[0][0] = [~~matrix[0][0], ~~matrix[0][0]]
 
@@ -1364,7 +1364,7 @@ var longestIncreasingPath = function (matrix) {
 		[1, 0],
 		[-1, 0],
 		[0, 1],
-		[0, -1]
+		[0, -1],
 	]
 	const dfs = (i, j) => {
 		if (arr[i][j]) return arr[i][j]
@@ -2225,13 +2225,13 @@ var ladderLength = function (beginWord, endWord, wordList) {
 		}
 	}
 
-	console.log({map}, JSON.stringify(queue))
+	console.log({ map }, JSON.stringify(queue))
 
 	const bfs = count => {
 		let size = queue.size
 		if (size === 0) return 0
 		let i = 1
-		console.log({count, queue})
+		console.log({ count, queue })
 		for (let v of queue.values()) {
 			let str = wordList[v]
 			if (str === endWord) return count
@@ -2548,7 +2548,7 @@ var isStraight = function (nums) {
 		min = Math.min(min, num)
 		max = Math.max(max, num)
 	}
-	console.log({map, max, min})
+	console.log({ map, max, min })
 	if (Object.keys(map).length < 5) return false
 	if (max - min > 4) return false
 	return true
@@ -3276,3 +3276,38 @@ var strToInt = function (str) {
 	}
 	return opt === 1 ? Math.min(Number(ss), Math.pow(2, 31) - 1) : Math.max(-Number(ss), -Math.pow(2, 31))
 }
+
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ * @see https://leetcode-cn.com/problems/dui-cheng-de-er-cha-shu-lcof/
+ */
+var isSymmetric = function (root) {
+	if (!root) return true
+	let queue = [root.left, root.right]
+
+	while (queue.length) {
+		let len = queue.length
+		let i = 0
+		while (i < len) {
+			i += 2
+			let left = queue.shift()
+			let right = queue.shift()
+			if (!left && !right) continue
+			if (!left || !right) return false
+			if (left.val !== right.val) return false
+			queue.push(left.left, right.right, left.right, right.left)
+		}
+	}
+
+	return true
+}
+
+/**
+ * @param {number} m
+ * @param {number} n
+ * @param {number} k
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof/
+ */
+var movingCount = function (m, n, k) {}

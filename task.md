@@ -50,4 +50,11 @@
 - [ ] cors
 - [ ]  word-break css
 - [ ]  BFC css 
-- [ ]  
+
+#### 21-12-30
+
+- [ ] pnpm
+- [ ] monorepo
+- [ ] changesets
+- [ ] babel
+

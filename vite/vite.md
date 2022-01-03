@@ -1,4 +1,4 @@
-# 	vite 源码学习笔记
+# vite 源码学习笔记
 
 ---
 
@@ -26,13 +26,11 @@
 
 11. 使用.env文件存放环境变量
 
-12. falsy 值 (虚值) 
+12. falsy 值 (虚值)
 
 13. 区分环境-模式 ，借助.env添加环境变量。（server-production总算可以实现了）
 
 14. 文件修改重新编译
-
-    
 
 ### 源码笔记
 
@@ -40,8 +38,6 @@
 
 1. vite 以 monorepo 方式管理所有项目，所用 package.json 字段，workspaces
 2. [npm：file](https://docs.npmjs.com/cli/v7/configuring-npm/package-json#dependencies)，[yarn：link](https://github.com/npm/npm/pull/15900) 方式安装本地包
-
-
 
 ### 优点
 
@@ -67,8 +63,6 @@
 
 9. 配置简单易上手，没有过多心智负担。
 
-    
-
 ### 缺点
 
 1. ts无类型检测，需额外开启tsc检测服务。
@@ -78,8 +72,6 @@
 3. 无法集成lint插件。
 
 4. 服务现代浏览器，对低版本浏览器无效，最低支持 `es2015`。
-
-    
 
 #### 疑惑
 
@@ -95,9 +87,7 @@
 
 6. server环境直接将未转化文件发至浏览器，如何解析
 
-7. 如何做到开箱即用 
-
-    
+7. 如何做到开箱即用
 
 #### 涉及 npm 包
 
@@ -121,21 +111,17 @@
 18. fast-glob  匹配路径
 19. es-module-lexer 解析源码中的es-module应用
 
-
-
 #### node相关
 
-1.  require('url').pathToFileURL
+1. require('url').pathToFileURL
 
 2. process.stdout
 
 3. process.stdin
 
-4. readline.cursorTo  readline.clearScreenDown 
+4. readline.cursorTo  readline.clearScreenDown
 
 5. process.stdout.isTTY process.env.CI
-
-     
 
 #### 未发布功能
 
@@ -144,8 +130,6 @@
 2. 命令行设置--envFile false 取消.env文件载入
 
 3. optimizeDeps.esbuildOptions
-
-     
 
 #### 编译结果 js
 
@@ -167,51 +151,47 @@
 
 
     const a = function (e, t) {
-		if (!t) return e();
-		if (void 0 === n) {
-			const e = document.createElement('link').relList;
-			n = e && e.supports && e.supports('modulepreload') ? 'modulepreload' : 'preload';
-		}
-		return Promise.all(
-			t.map((e) => {
-				if (e in l) return;
-				l[e] = !0;
-				const t = e.endsWith('.css'),
-					r = t ? '[rel="stylesheet"]' : '';
-				if (document.querySelector(`link[href="${e}"]${r}`)) return;
-				const a = document.createElement('link');
-				return (
-					(a.rel = t ? 'stylesheet' : n),
-					t || ((a.as = 'script'), (a.crossOrigin = '')),
-					(a.href = e),
-					document.head.appendChild(a),
-					t
-						? new Promise((e, t) => {
-								a.addEventListener('load', e), a.addEventListener('error', t);
-						  })
-						: void 0
-				);
-			}),
-		).then(() => e());
-	};
+  if (!t) return e();
+  if (void 0 === n) {
+   const e = document.createElement('link').relList;
+   n = e && e.supports && e.supports('modulepreload') ? 'modulepreload' : 'preload';
+  }
+  return Promise.all(
+   t.map((e) => {
+    if (e in l) return;
+    l[e] = !0;
+    const t = e.endsWith('.css'),
+     r = t ? '[rel="stylesheet"]' : '';
+    if (document.querySelector(`link[href="${e}"]${r}`)) return;
+    const a = document.createElement('link');
+    return (
+     (a.rel = t ? 'stylesheet' : n),
+     t || ((a.as = 'script'), (a.crossOrigin = '')),
+     (a.href = e),
+     document.head.appendChild(a),
+     t
+      ? new Promise((e, t) => {
+        a.addEventListener('load', e), a.addEventListener('error', t);
+        })
+      : void 0
+    );
+   }),
+  ).then(() => e());
+ };
 
 a(() => import('./dy.1d0aef29.js'), [
-	'/assets/dy.1d0aef29.js',
-	'/assets/dy.492d24df.js',
-	'/assets/dy.ed2055bd.css',
+ '/assets/dy.1d0aef29.js',
+ '/assets/dy.492d24df.js',
+ '/assets/dy.ed2055bd.css',
 ]),
 
 ```
 
 #### vite 流程
 
-
-
 ##### dev 使用 tsc 转义 ts，build 使用 rollup 打包
 
-
-
-###### 	server流程
+###### server流程
 
  `createServer`入口函数,`middlewareMode`vite 中间件模式，`resolveHttpServer`创建 http，`createWebSocketServer`创建 ws 服务，用于 hmr,`chokidar`文件监听，创建 watcher，`createPluginContainer`创建集装箱，即插件
 
@@ -236,7 +216,7 @@ if (configFile !== false) {
       configFile = loadResult.path
       configFileDependencies = loadResult.dependencies
     }
-  }	
+  } 
 ```
 
 **处理user plugins，执行config钩子**
@@ -246,7 +226,7 @@ if (configFile !== false) {
     // 解析apply参数，指定插件的作用模式
     return p && (!p.apply || p.apply === command)
   }) as Plugin[]
-		//	sortUserPlugins 函数解析参数enforce，重置插件作用顺序
+  // sortUserPlugins 函数解析参数enforce，重置插件作用顺序
   const [prePlugins, normalPlugins, postPlugins] = sortUserPlugins(
     rawUserPlugins
   )
@@ -273,13 +253,11 @@ if (configFile !== false) {
   }
 ```
 
-
-
 **集合所有plugins**
 
 ```javascript
-//	resolvePlugins 加入其余内置插件，并重新排序 
-//	https://cn.vitejs.dev/guide/api-plugin.html#plugin-ordering
+// resolvePlugins 加入其余内置插件，并重新排序 
+// https://cn.vitejs.dev/guide/api-plugin.html#plugin-ordering
 ;(resolved.plugins as Plugin[]) = await resolvePlugins(
     resolved,
     prePlugins,
@@ -290,8 +268,8 @@ if (configFile !== false) {
   // call configResolved hooks
   await Promise.all(userPlugins.map((p) => p.configResolved?.(resolved)))
 
-//	插件顺序
-isBuild ? null : preAliasPlugin;//	依赖预构建，文件缓存+转es module
+// 插件顺序
+isBuild ? null : preAliasPlugin;// 依赖预构建，文件缓存+转es module
 aliasPlugin;// 解析路径别名
 ...prePlugins;// 用户enfore=pre的插件
 resolvePlugin;// 
@@ -371,7 +349,7 @@ cssPostPlugin(config);
     ...watchOptions
   }) 
   
-  //	触发hmr 
+  // 触发hmr 
     watcher.on('change', async (file) => {
     file = normalizePath(file)
     // invalidate module graph cache on file change
@@ -421,7 +399,7 @@ cssPostPlugin(config);
 ###### Optimize
 
 ```javascript
-//	通过esbuild预构建依赖：
+// 通过esbuild预构建依赖：
 const runOptimize = async () => {
     if (config.cacheDir) {
       server._isRunningOptimizer = true
@@ -434,8 +412,3 @@ const runOptimize = async () => {
     }
   }
 ```
-
-
-
-
-
