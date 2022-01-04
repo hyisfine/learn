@@ -3310,4 +3310,67 @@ var isSymmetric = function (root) {
  * @return {number}
  * @see https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof/
  */
-var movingCount = function (m, n, k) {}
+var movingCount = function (m, n, k) {
+	const set = new Set()
+	const sum = num => {
+		let s = 0
+		while (num) {
+			s += num % 10
+			num = Math.floor(num / 10)
+		}
+		return s
+	}
+
+	const dfs = (i, j) => {
+		let s = sum(i) + sum(j)
+		if (s > k || i >= m || j >= n || set.has(`${i},${j}`)) return 0
+		set.add(`${i},${j}`)
+		return dfs(i + 1, j) + dfs(i, j + 1) + 1
+	}
+
+	return dfs(0, 0)
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ * @see https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/
+ */
+var exchange = function (nums) {
+	let len = nums.length
+	let j = len - 1
+	let i = 0
+	while (i < j) {
+		console.log(1)
+		while (nums[i] % 2 === 1 && i < j) {
+			i++
+			console.log(2)
+		}
+		while (nums[j] % 2 === 0 && i < j) j--
+		if (i < j) {
+			let temp = nums[i]
+			nums[i] = nums[j]
+			nums[j] = temp
+		}
+		i++
+		j--
+	}
+
+	return nums
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/que-shi-de-shu-zi-lcof/
+ */
+var missingNumber = function (nums) {
+	let i = 0
+	let j = nums.length - 1
+	while (i < j) {
+		let m = i + Math.floor((j - i) / 2)
+		if (nums[m] === m) i = m + 1
+		else j = m - 1
+	}
+	return nums[i] === i ? i + 1 : i
+}
