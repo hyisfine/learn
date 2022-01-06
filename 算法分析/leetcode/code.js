@@ -535,7 +535,7 @@ var sortList = function (head) {
 	for (const key in map1) {
 		result.push(...Array(map1[key]).fill(+key))
 	}
-	console.log({map2})
+	console.log({ map2 })
 	for (const key in map2) {
 		result.unshift(...Array(map2[key]).fill(-key))
 	}
@@ -1140,7 +1140,7 @@ var maximalRectangle = function (matrix) {
 		.map(() =>
 			Array(len2)
 				.fill(0)
-				.map(() => [0, 0])
+				.map(() => [0, 0]),
 		)
 	arr[0][0] = [~~matrix[0][0], ~~matrix[0][0]]
 
@@ -1364,7 +1364,7 @@ var longestIncreasingPath = function (matrix) {
 		[1, 0],
 		[-1, 0],
 		[0, 1],
-		[0, -1]
+		[0, -1],
 	]
 	const dfs = (i, j) => {
 		if (arr[i][j]) return arr[i][j]
@@ -2225,13 +2225,13 @@ var ladderLength = function (beginWord, endWord, wordList) {
 		}
 	}
 
-	console.log({map}, JSON.stringify(queue))
+	console.log({ map }, JSON.stringify(queue))
 
 	const bfs = count => {
 		let size = queue.size
 		if (size === 0) return 0
 		let i = 1
-		console.log({count, queue})
+		console.log({ count, queue })
 		for (let v of queue.values()) {
 			let str = wordList[v]
 			if (str === endWord) return count
@@ -2548,7 +2548,7 @@ var isStraight = function (nums) {
 		min = Math.min(min, num)
 		max = Math.max(max, num)
 	}
-	console.log({map, max, min})
+	console.log({ map, max, min })
 	if (Object.keys(map).length < 5) return false
 	if (max - min > 4) return false
 	return true
@@ -3441,4 +3441,155 @@ var reverseList = function (head) {
 	}
 
 	return prev
+}
+
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode}
+ * @see https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/
+ */
+var getKthFromEnd = function (head, k) {
+	let left = head
+	let right = head
+
+	while (right && k > 0) {
+		right = right.next
+		k--
+	}
+
+	while (right) {
+		;[left, right] = [left.next, right.next]
+	}
+
+	return left
+}
+
+/**
+ * @param {number} n
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/
+ */
+var fib = function (n) {
+	let i = 0
+	let j = 1
+
+	for (let k = 1; k <= n; k++) {
+		;[i, j] = [j, (i + j) % 1000000007]
+	}
+	return i
+}
+
+/**
+ * @param {number[]} pushed
+ * @param {number[]} popped
+ * @return {boolean}
+ */
+var validateStackSequences = function (pushed, popped) {
+	let stack = []
+
+	for (let num of pushed) {
+		stack.push(num)
+
+		while (stack.length && stack[stack.length - 1] === popped[0]) {
+			popped.shift()
+			stack.pop()
+		}
+	}
+	return !stack.length
+}
+
+/**
+ * @param {number[]} postorder
+ * @return {boolean}
+ * @see https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof/
+ */
+var verifyPostorder = function (postorder) {
+	if (postorder.length <= 2) return true
+	let left = []
+	let right = []
+	let root = postorder.pop()
+	let index = postorder.findIndex(item => item > root)
+	if (index > -1) {
+		left = postorder.slice(0, index)
+		right = postorder.slice(index)
+	} else {
+		left = postorder.slice(0)
+	}
+
+	if (right.some(item => item < root)) return false
+	return verifyPostorder(left) && verifyPostorder(right)
+}
+
+/**
+ * @param {number[]} prices
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/gu-piao-de-zui-da-li-run-lcof/
+ */
+var maxProfit = function (prices) {
+	let min = Infinity
+	let max = 0
+
+	for (let num of prices) {
+		max = Math.max(num - min, max)
+		min = Math.min(min, num)
+	}
+	return max
+}
+
+/**
+ * @param {Node} root
+ * @return {Node}
+ * @see https://leetcode-cn.com/problems/er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof/
+ */
+var treeToDoublyList = function (root) {
+	if (!root) return root
+	let pre
+	let tail
+	let head
+	const dfs = node => {
+		if (!node) return
+		let left = node.left
+		let right = node.right
+		dfs(left)
+		if (!head) {
+			head = node
+		} else {
+			pre.right = node
+			node.left = pre
+		}
+		pre = node
+		tail = node
+		dfs(right)
+	}
+	dfs(root)
+	head.left = tail
+	tail.right = head
+	return head
+}
+
+/** @see https://leetcode-cn.com/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/ */
+var CQueue = function () {
+	this.stackA = []
+	this.stackB = []
+}
+
+/**
+ * @param {number} value
+ * @return {void}
+ */
+CQueue.prototype.appendTail = function (value) {
+	this.stackA.push(value)
+}
+
+/**
+ * @return {number}
+ */
+CQueue.prototype.deleteHead = function () {
+	if (this.stackB.length) return this.stackB.pop()
+	if (!this.stackA.length) return -1
+	while (this.stackA.length) {
+		this.stackB.push(this.stackA.pop())
+	}
+	return this.stackB.pop()
 }
