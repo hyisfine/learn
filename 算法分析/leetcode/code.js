@@ -535,7 +535,7 @@ var sortList = function (head) {
 	for (const key in map1) {
 		result.push(...Array(map1[key]).fill(+key))
 	}
-	console.log({ map2 })
+	console.log({map2})
 	for (const key in map2) {
 		result.unshift(...Array(map2[key]).fill(-key))
 	}
@@ -1140,7 +1140,7 @@ var maximalRectangle = function (matrix) {
 		.map(() =>
 			Array(len2)
 				.fill(0)
-				.map(() => [0, 0]),
+				.map(() => [0, 0])
 		)
 	arr[0][0] = [~~matrix[0][0], ~~matrix[0][0]]
 
@@ -1364,7 +1364,7 @@ var longestIncreasingPath = function (matrix) {
 		[1, 0],
 		[-1, 0],
 		[0, 1],
-		[0, -1],
+		[0, -1]
 	]
 	const dfs = (i, j) => {
 		if (arr[i][j]) return arr[i][j]
@@ -2225,13 +2225,13 @@ var ladderLength = function (beginWord, endWord, wordList) {
 		}
 	}
 
-	console.log({ map }, JSON.stringify(queue))
+	console.log({map}, JSON.stringify(queue))
 
 	const bfs = count => {
 		let size = queue.size
 		if (size === 0) return 0
 		let i = 1
-		console.log({ count, queue })
+		console.log({count, queue})
 		for (let v of queue.values()) {
 			let str = wordList[v]
 			if (str === endWord) return count
@@ -2548,7 +2548,7 @@ var isStraight = function (nums) {
 		min = Math.min(min, num)
 		max = Math.max(max, num)
 	}
-	console.log({ map, max, min })
+	console.log({map, max, min})
 	if (Object.keys(map).length < 5) return false
 	if (max - min > 4) return false
 	return true
@@ -3373,4 +3373,72 @@ var missingNumber = function (nums) {
 		else j = m - 1
 	}
 	return nums[i] === i ? i + 1 : i
+}
+
+/**
+ * @param {number} n
+ * @param {number} m
+ * @return {number}
+ */
+var lastRemaining = function (n, m) {}
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findRepeatNumber = function (nums) {
+	let i = 0
+	while (i < nums.length) {
+		if (nums[i] === i) {
+			i++
+			continue
+		}
+		if (nums[nums[i]] === nums[i]) return nums[i]
+		let temp = nums[i]
+		nums[i] = nums[nums[i]]
+		nums[nums[i]] = temp
+	}
+	return -1
+}
+
+/**
+ * @param {number[]} pushed
+ * @param {number[]} popped
+ * @return {boolean}
+ * @see https://leetcode-cn.com/problems/zhan-de-ya-ru-dan-chu-xu-lie-lcof/
+ */
+var validateStackSequences = function (pushed, popped) {
+	let stack = [],
+		i = 0
+
+	for (let num of pushed) {
+		stack.push(num)
+		while (stack.length && stack[stack.length - 1] === popped[i]) {
+			stack.pop()
+			i++
+		}
+	}
+
+	return !stack.length
+}
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ * @see https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/
+ */
+var reverseList = function (head) {
+	if (!head || !head.next) return head
+	let prev = null
+	let cur = head
+	let next = head.next
+
+	while (cur) {
+		cur.next = prev
+		prev = cur
+		cur = next
+		next = next && next.next
+	}
+
+	return prev
 }
