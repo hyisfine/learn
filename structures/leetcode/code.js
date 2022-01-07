@@ -3593,3 +3593,80 @@ CQueue.prototype.deleteHead = function () {
 	}
 	return this.stackB.pop()
 }
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/zai-pai-xu-shu-zu-zhong-cha-zhao-shu-zi-lcof/
+ */
+var search = function (nums, target) {
+	const find = target => {
+		let low = 0
+		let high = nums.length - 1
+		while (low <= high) {
+			let m = low + Math.floor((high - low) / 2)
+			if (nums[m] > target) high = m - 1
+			else low = m + 1
+		}
+		return low
+	}
+	return find(target) - find(target - 1)
+}
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var numWays = function (n) {
+	let i = 1
+	let j = 1
+
+	for (let k = 1; k <= n; k++) {
+		;[i, j] = [j, (i + j) % 1000000007]
+	}
+	return i
+}
+
+/**
+ * @param {number} n
+ * @return {number[]}
+ */
+var printNumbers = function (n) {
+	const dfs = (arr, num) => {
+		num++
+		if (num.toString().length > n) return arr
+		arr.push(num)
+		return dfs(arr, num)
+	}
+	return dfs([], 1)
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/
+ */
+var reversePairs = function (nums) {
+	const binary = (low, high) => {
+		if (low >= high) return 0
+		let m = low + Math.floor((high - low) / 2)
+		let res = binary(low, m) + binary(m + 1, high)
+		let i = low
+		let j = m + 1
+		let temp = []
+		while (i <= m || j <= high) {
+			if (i === m + 1) {
+				temp.push(nums[j++])
+			} else if (j === high + 1 || nums[i] <= nums[j]) temp.push(nums[i++])
+			else {
+				temp.push(nums[j++])
+				res += m - i + 1
+			}
+		}
+		nums.splice(low, high - low + 1, ...temp)
+		return res
+	}
+
+	return binary(0, nums.length - 1)
+}

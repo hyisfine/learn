@@ -63,6 +63,7 @@
 - [ ] [node_modules困境](https://zhuanlan.zhihu.com/p/137535779)
 - [ ] [Changesets: 流行的 monorepo 场景发包工具](https://zhuanlan.zhihu.com/p/427588430)
 - [ ] [All in one：项目级 monorepo 策略最佳实践](https://segmentfault.com/a/1190000039157365)
+- [ ] [软链接&硬链接在前端中的应用](https://mp.weixin.qq.com/s/o0eN8gBSqVMHykFXrTnikg)
 
 ### webpack‹
 
