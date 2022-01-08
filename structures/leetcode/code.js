@@ -3670,3 +3670,137 @@ var reversePairs = function (nums) {
 
 	return binary(0, nums.length - 1)
 }
+
+/**
+ * @param {number[]} nums
+ * @return {string}
+ * @see https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/
+ */
+var minNumber = function (nums) {
+	return nums.sort((a, b) => ~~`${a}${b}` - ~~`${b}${a}`).join('')
+}
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var cuttingRope = function (n) {
+	if (n <= 3) return n - 1
+	let a = Math.floor(n / 3) - 1
+	let b = n % 3
+	let x = 3n
+	let p = 1000000007n
+	let ans = 1n
+	while (a > 0) {
+		if (a % 2) ans = ans * x
+		x = x * x
+		a = a >> 1
+	}
+
+	if (b === 0) return (ans * 3n) % p
+	if (b === 1) return (ans * 4n) % p
+	return (ans * 6n) % p
+}
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var maxSlidingWindow = function (nums, k) {
+	if (!nums.length) return []
+	let ids = []
+	let arr = []
+
+	for (let i = 0; i < k; i++) {
+		while (ids.length && nums[ids[ids.length - 1]] < nums[i]) ids.pop()
+		ids.push(i)
+	}
+	arr.push(nums[ids[0]])
+	for (let i = k; i < nums.length; i++) {
+		while (ids.length && nums[ids[ids.length - 1]] < nums[i]) ids.pop()
+		while (ids.length && ids[0] <= i - k) ids.shift()
+		ids.push(i)
+		arr.push(nums[ids[0]])
+	}
+
+	return arr
+}
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ * @see https://leetcode-cn.com/problems/hua-dong-chuang-kou-de-zui-da-zhi-lcof/
+ */
+var maxSlidingWindow = function (nums, k) {
+	class MaxHeap {
+		constructor() {
+			this.arr = []
+		}
+		add(val, i) {
+			this.arr.push({ val, i })
+			let len = this.arr.length - 1
+			while (len > 0) {
+				let p = len % 2 ? (len - 1) / 2 : (len - 2) / 2
+				if (val > this.arr[p].val) {
+					this.arr[len] = this.arr[p]
+					this.arr[p] = { val, i }
+					len = p
+					continue
+				}
+				break
+			}
+		}
+		del() {
+			if (!this.arr.length) return
+			let top = this.arr[0]
+			let bottom = this.arr.pop()
+			if (!this.arr.length) return top
+
+			this.arr[0] = bottom
+			console.log(1, this.arr)
+			let i = 0
+			while (i < this.arr.length) {
+				let l = i * 2 + 1
+				let r = i * 2 + 2
+				console.log({ l, r, i }, this.arr[l], this.arr[r], this.arr[l]?.val >= this.arr[r]?.val)
+				if (
+					this.arr[l] &&
+					(!this.arr[r] || this.arr[l].val >= this.arr[r].val) &&
+					this.arr[l].val > this.arr[i].val
+				) {
+					let temp = this.arr[i]
+					this.arr[i] = this.arr[l]
+					this.arr[l] = temp
+					i = l
+					continue
+				}
+				if (this.arr[r] && this.arr[r].val > this.arr[l].val && this.arr[r].val > this.arr[i].val) {
+					let temp = this.arr[i]
+					this.arr[i] = this.arr[l]
+					this.arr[l] = temp
+					i = r
+					continue
+				}
+				break
+			}
+		}
+	}
+
+	let h = new MaxHeap()
+	let arr = []
+	for (let i = 0; i < k && i < nums.length; i++) {
+		h.add(nums[i], i)
+	}
+	arr.push(h.arr[0].val)
+	for (let i = k; i < nums.length; i++) {
+		h.add(nums[i], i)
+		while (h.arr[0].i <= i - k) {
+			h.del()
+		}
+		arr.push(h.arr[0].val)
+	}
+
+	return arr
+}
