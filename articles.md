@@ -65,7 +65,7 @@
 - [ ] [All in one：项目级 monorepo 策略最佳实践](https://segmentfault.com/a/1190000039157365)
 - [ ] [软链接&硬链接在前端中的应用](https://mp.weixin.qq.com/s/o0eN8gBSqVMHykFXrTnikg)
 
-### webpack‹
+### webpack
 
 - [ ] [关于 source map 这篇文章就够了](https://juejin.cn/post/6969748500938489892)
 
@@ -127,6 +127,7 @@
 ### util
 
 - [x] [Base64 阮一峰](https://www.ruanyifeng.com/blog/2008/06/base64.html)
+- [ ] [「前端该如何优雅地Mock数据🏃」每个前端都应该学会的技巧](https://juejin.cn/post/7048916480032768013)
 
 ### 微信小程序
 
