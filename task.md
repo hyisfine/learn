@@ -58,3 +58,18 @@
 - [ ] changesets
 - [ ] babel
 
+#### 22-1-9
+
+- [ ] 多列布局（Multi-Column） css
+- [ ] aspect-ratio css 
+- [ ] content-visibility css
+- [ ] Container Queries css
+- [ ] CSS 图形 (Shape)
+- [ ] object-fit css
+- [ ] 混合模式 (Blend Modes)
+- [ ] CSS 滚动捕捉
+- [ ] font-variant
+- [ ] 特征查询(Feature Support Queries)
+- [ ] will-change
+- [ ] 现代选择器
+
