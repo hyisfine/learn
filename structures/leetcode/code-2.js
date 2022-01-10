@@ -105,3 +105,146 @@ var merge = function (A, m, B, n) {
 		A[k--] = cur
 	}
 }
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findMagicIndex = function (nums) {
+	for (let i = 0; i < nums.length; i++) if (nums[i] === i) return i
+	return -1
+}
+
+/**
+ * @param {number[]} array1
+ * @param {number[]} array2
+ * @return {number[]}
+ * @see https://leetcode-cn.com/problems/sum-swap-lcci/
+ */
+var findSwapValues = function (array1, array2) {
+	const sum1 = array1.reduce((a, b) => a + b, 0)
+	const sum2 = array2.reduce((a, b) => a + b, 0)
+
+	let diff = sum1 - sum2
+	if (diff & 1) return []
+	diff >>= 1
+	let set = new Set(array1)
+	for (const num of array2) {
+		if (set.has(num - diff)) return [num, num - diff]
+	}
+
+	return []
+}
+
+/**
+ * @param {number[][]} matrix
+ * @return {void} Do not return anything, modify matrix in-place instead.
+ * @see https://leetcode-cn.com/problems/zero-matrix-lcci/
+ */
+var setZeroes = function (matrix) {
+	let m = matrix.length
+	if (!m) return
+	let n = matrix[0].length
+
+	let is = new Set()
+	let js = new Set()
+	for (let i = 0; i < m; i++) {
+		for (let j = 0; j < n; j++) {
+			if (!matrix[i][j]) {
+				is.add(i)
+				js.add(j)
+			}
+		}
+	}
+
+	for (const i of is) {
+		let k = 0
+		while (k < n) {
+			matrix[i][k++] = 0
+		}
+	}
+	for (const j of js) {
+		let k = 0
+		while (k < m) {
+			matrix[k++][j] = 0
+		}
+	}
+}
+
+/**
+ * @param {number[][]} land
+ * @return {number[]}
+ * @see https://leetcode-cn.com/problems/pond-sizes-lcci/
+ */
+var pondSizes = function (land) {
+	const m = land.length
+	const n = land[0].length
+	const dfs = (i, j) => {
+		if (i < 0 || j < 0 || i > m - 1 || j > n - 1 || land[i][j]) return 0
+		land[i][j] = 1
+		return (
+			1 +
+			dfs(i + 1, j) +
+			dfs(i - 1, j) +
+			dfs(i, j + 1) +
+			dfs(i, j - 1) +
+			dfs(i + 1, j + 1) +
+			dfs(i + 1, j - 1) +
+			dfs(i - 1, j + 1) +
+			dfs(i - 1, j - 1)
+		)
+	}
+
+	const res = []
+	for (let i = 0; i < m; i++) {
+		for (let j = 0; j < n; j++) {
+			if (land[i][j]) continue
+			res.push(dfs(i, j))
+		}
+	}
+
+	return res.sort()
+}
+
+/**
+ * @param {number[]} a
+ * @param {number[]} b
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/smallest-difference-lcci/
+ */
+var smallestDifference = function (a, b) {
+	const kuai = (arr, low, high) => {
+		let i = low
+		let j = high
+		if (i > j) return
+		let x = arr[low]
+
+		while (i < j) {
+			while (i < j && arr[j] > x) j++
+			while (i < j && arr[i] <= x) i++
+			if (i < j) {
+				let temp = arr[i]
+				arr[i] = arr[j]
+				arr[j] = temp
+			}
+		}
+		arr[low] = arr[i]
+		arr[i] = x
+
+		kuai(arr, low, i - 1)
+		kuai(arr, i + 1, high)
+	}
+
+	kuai(a, 0, a.length - 1)
+	kuai(b, 0, b.length - 1)
+	let i = 0
+	let j = 0
+	let min = Infinity
+	while (i < a.length && j < b.length) {
+		min = Math.min(min, Math.abs(a[i] - b[j]))
+		if (a[i] > b[j]) j++
+		else if (a[i] < b[j]) i++
+		if (a[i] === b[j]) return 0
+	}
+	return min
+}
