@@ -248,3 +248,184 @@ var smallestDifference = function (a, b) {
 	}
 	return min
 }
+
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/kth-node-from-end-of-list-lcci/
+ */
+var kthToLast = function (head, k) {
+	let left = head
+	let right = head
+	while (k) {
+		right = right.next
+		k--
+	}
+
+	while (right) {
+		right = right.next
+		left = left.next
+	}
+	return left.val
+}
+
+/**
+ * @param {number[][]} matrix
+ * @param {number} target
+ * @return {boolean}
+ * @see https://leetcode-cn.com/problems/sorted-matrix-search-lcci/
+ */
+var searchMatrix = function (matrix, target) {
+	let m = matrix.length
+	if (!m) return false
+	let n = matrix[0].length
+
+	let i = 0
+	let j = n - 1
+	while (i < m && j >= 0) {
+		let _target = matrix[i][j]
+		if (_target === target) return true
+		if (_target < target) i++
+		else n--
+	}
+	return false
+}
+
+/**
+ * @param {string[]} board
+ * @return {string}
+ * @see https://leetcode-cn.com/problems/tic-tac-toe-lcci/
+ */
+var tictactoe = function (board) {
+	let n = board.length
+	let hasEmpty = false
+
+	for (let i = 0; i < n; i++) {
+		let j = 1
+		while (j < n) {
+			if (board[i][j - 1] === ' ') {
+				hasEmpty = true
+				break
+			}
+			if (board[i][j - 1] !== board[i][j]) break
+		}
+		if (j === n) return board[i][j - 1]
+	}
+
+	for (let i = 0; i < n; i++) {
+		let j = 1
+		while (j < n) {
+			if (board[j - 1][i] === ' ' || board[j - 1][i] !== board[j][i]) break
+		}
+		if (j === n) return board[j - 1][i]
+	}
+
+	let i = 1
+	while (i < n) {
+		if (board[i - 1][i - 1] === ' ' || board[i][i] !== board[i - 1][i - 1]) break
+		i++
+	}
+	if (i === n) return board[0][0]
+
+	i = 1
+	let j = n - 2
+	while (i < n) {
+		if (board[i - 1][j + 1] === ' ' || board[i][j] !== board[i - 1][i + 1]) break
+		i++
+		j--
+	}
+	if (i === n) return board[0][n - 1]
+
+	if (hasEmpty) return 'Pending'
+	return 'Draw'
+}
+
+/**
+ * @param {string[]} array
+ * @return {string[]}
+ * @see https://leetcode-cn.com/problems/find-longest-subarray-lcci/
+ */
+var findLongestSubarray = function (array) {
+	let left = 0
+	let right = 0
+	let map = new Map()
+	let sum = 0
+	map.set(0, -1)
+
+	for (let i = 0; i < array.length; i++) {
+		;/[0-9]/.test(array[i]) ? sum-- : sum++
+		if (map.has(sum)) {
+			if (right - left < i - map.get(sum)) {
+				;[left, right] = [map.get(sum), i]
+			}
+		} else {
+			map.set(sum, i)
+		}
+	}
+
+	return array.slice(left + 1, right + 1)
+}
+
+/**
+ * @param {string} s1
+ * @param {string} s2
+ * @return {boolean}
+ */
+var CheckPermutation = function (s1, s2) {
+	if (s1.length !== s2.length) return false
+	let map1 = {}
+	let map2 = {}
+
+	for (let i = 0; i < s1.length; i++) {
+		map1[s1[i]] = (map1[s1[i]] || 0) + 1
+		map2[s2[i]] = (map2[s2[i]] || 0) + 1
+	}
+
+	for (const char of s1) {
+		if (map1[char] !== map2[char]) return false
+	}
+	return true
+}
+
+/**
+ * @param {number} n
+ * @param {number[][]} graph
+ * @param {number} start
+ * @param {number} target
+ * @return {boolean}
+ * @see https://leetcode-cn.com/problems/route-between-nodes-lcci/
+ */
+var findWhetherExistsPath = function (n, graph, start, target) {
+	// 创建邻接矩阵
+	// 使用Set 排除多条相同连接边，即平行边
+	const matrix = Array(n)
+		.fill(0)
+		.map(() => new Set())
+
+	for (let [k, v] of graph) {
+		// 填充邻接矩阵
+		if (!matrix[k].has(v)) matrix[k].add(v)
+	}
+
+	const bfs = j => {
+		const set = matrix[j]
+		//	为0则无须判断
+		if (set.size === 0) return false
+		// 找到target返回true
+		if (set.has(target)) return true
+
+		// 在循环之前删除当前邻接set，防止陷入死循环
+		const tempArr = [...set]
+		set.clear()
+
+		for (let i = 0; i < tempArr.length; i++) {
+			// 跳过自环
+			if (set[i] === j) continue
+			if (bfs(set[i])) return true
+		}
+		return false
+	}
+
+	return bfs(start)
+}
