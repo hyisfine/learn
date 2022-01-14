@@ -429,3 +429,150 @@ var findWhetherExistsPath = function (n, graph, start, target) {
 
 	return bfs(start)
 }
+
+/**
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ * @see https://leetcode-cn.com/problems/intersection-of-two-linked-lists-lcci/
+ */
+var getIntersectionNode = function (headA, headB) {
+	let A = headA
+	let B = headB
+
+	while (A !== B) {
+		if (!A) A = headB
+		else A = A.next
+		if (!B) B = headA
+		else B = B.next
+	}
+
+	return A
+}
+
+/**
+ * @param {number} n
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/coin-lcci/
+ */
+var waysToChange = function (n) {
+	if (!n) return 0
+
+	const arr = Array(n + 1).fill(1)
+	const coins = [5, 10, 25]
+	coins.forEach(item => {
+		let i = item
+		while (i <= n) {
+			arr[i] = (arr[i] + (arr[i - item] || 0)) % 1000000007
+			i++
+		}
+	})
+
+	return arr[n]
+}
+
+/**
+ * @param {number[]} height
+ * @param {number[]} weight
+ * @return {number}
+ */
+var bestSeqAtIndex = function (height, weight) {
+	if (!height.length) return 0
+	const stack = new Array(weight.length)
+	let idx = 0
+	for (const num of weight) {
+		let l = 0,
+			r = idx
+		while (l < r) {
+			let mid = Math.floor((l + r) / 2)
+			if (stack[mid] < num) l = mid + 1
+			else r = mid
+		}
+		if (l == idx) stack[idx++] = num
+		else stack[l] = num
+	}
+
+	return idx
+}
+
+/**
+ * @param {string} big
+ * @param {string[]} smalls
+ * @return {number[][]}
+ */
+var multiSearch = function (big, smalls) {
+	let max = 0
+	let keys = new Set()
+	console.time('1')
+	for (const char of smalls) {
+		max = Math.max(max, char.length)
+		keys.add(char.length)
+	}
+	console.timeEnd('1')
+
+	let map = new Map()
+	console.time('2')
+	for (let index = 0; index < big.length; index++) {
+		let k = index
+		while (k >= 0 && index - k <= max) {
+			if (keys.has(index - k + 1)) {
+				let key = big.slice(k, index + 1)
+				if (map.has(key)) map.get(key).push(k)
+				else map.set(key, [k])
+			}
+			k--
+		}
+	}
+	console.timeEnd('2')
+
+	let arr = []
+	console.time('3')
+	for (const char of smalls) {
+		if (map.has(char)) arr.push(map.get(char))
+		else arr.push([])
+	}
+	console.timeEnd('3')
+
+	return arr
+}
+// multiSearch('mississippijhbvcchbgftynbverbt', ['is', 'ppi', 'hi', 'sis', 'i', 'ssippia'])
+//
+
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isBalanced = function (root) {
+	if (!root) return 1
+	let l = isBalanced(root.left)
+	if (!l) return false
+	let r = isBalanced(root.right)
+	if (!r) return false
+	if (Math.abs(r - l) > 1) return false
+	return Math.abs(r - l) + 1
+}
+
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @return {TreeNode}
+ * @see https://leetcode-cn.com/problems/successor-lcci/
+ */
+var inorderSuccessor = function (root, p) {
+	let prev = null
+	let res = null
+
+	const dfs = node => {
+		if (!node || res) return
+		dfs(node.left)
+		if (prev === p && !res) {
+			res = node
+			return
+		}
+		prev = node
+		dfs(node.right)
+	}
+
+	dfs(root)
+	return res
+}
