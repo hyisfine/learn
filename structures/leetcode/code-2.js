@@ -1,3 +1,8 @@
+function TreeNode(val, left, right) {
+	this.val = val === undefined ? 0 : val
+	this.left = left === undefined ? null : left
+	this.right = right === undefined ? null : right
+}
 /**
  * @param {number[][]} grid
  * @return {number}
@@ -575,4 +580,178 @@ var inorderSuccessor = function (root, p) {
 
 	dfs(root)
 	return res
+}
+
+/**
+ * @param {string[]} names
+ * @param {string[]} synonyms
+ * @return {string[]}
+ */
+var trulyMostPopular = function (names, synonyms) {
+	let map1 = new Map()
+	for (const name of names) {
+		let [str] = name.match(/[a-zA-Z]+/g)
+		let [num] = name.match(/\d+/g)
+		map1.set(str, ~~num)
+	}
+
+	let map2 = new Map()
+	for (const syn of synonyms) {
+		let [name1, name2] = syn.match(/[a-zA-Z]+/g)
+		map2.set(name2, name1)
+	}
+
+	let arr = []
+	for (const map of map2) {
+		let count = 0
+		let [name1] = map
+		let name = name1
+		if (map1.has(name1)) {
+			while (map1.has(name1)) {
+				count += map1.get(name1)
+				map1.delete(name1)
+				name1 = map2.get(name1)
+				name = name > name1 ? name1 : name
+			}
+			arr.push(`${name}(${count})`)
+		}
+	}
+	return arr
+}
+
+/**
+ * @param {string} num
+ * @param {string[]} words
+ * @return {string[]}
+ * @see https://leetcode-cn.com/problems/t9-lcci/
+ */
+var getValidT9Words = function (num, words) {
+	const get = char => {
+		switch (true) {
+			case /[a-c]/.test(char):
+				return '2'
+			case /[d-f]/.test(char):
+				return '3'
+			case /[g-i]/.test(char):
+				return '4'
+			case /[j-l]/.test(char):
+				return '5'
+			case /[m-o]/.test(char):
+				return '6'
+			case /[p-s]/.test(char):
+				return '7'
+			case /[t-v]/.test(char):
+				return '8'
+			case /[w-z]/.test(char):
+				return '9'
+		}
+	}
+
+	let arr = []
+	for (const word of words) {
+		let flag = true
+		for (let i = 0; i < num.length; i++) {
+			const n = num[i]
+			const w = word[i]
+			if (n !== get(w)) {
+				flag = false
+				break
+			}
+		}
+
+		flag && arr.push(word)
+	}
+
+	return arr
+}
+
+/**
+ * @param {string[]} strs
+ * @return {string[][]}
+ * @see https://leetcode-cn.com/problems/group-anagrams-lcci/
+ */
+var groupAnagrams = function (strs) {
+	let map = new Map()
+	let arr = []
+	for (const str of strs) {
+		let key = Array.from(str).sort().join('')
+		if (map.has(key)) map.get(key).push(str)
+		else map.set(key, [str])
+	}
+
+	for (const [k, v] of map) {
+		arr.push(v)
+	}
+
+	return arr
+}
+
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ * @see https://leetcode-cn.com/problems/first-common-ancestor-lcci/
+ */
+var lowestCommonAncestor = function (root, p, q) {
+	const dfs = node => {
+		if (!node) return
+		// 后序遍历
+		let l = dfs(node.left)
+		let r = dfs(node.right)
+		// 如果左右节点都有node值，则当前node为最近祖先节点
+		if (l && r) return node
+		// 找到目标节点并返回
+		if (node === p || node === q) return node
+
+		if (l || r) return l || r
+	}
+
+	return dfs(root)
+}
+
+/**
+ * @param {number} k
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/get-kth-magic-number-lcci/
+ */
+var getKthMagicNumber = function (k) {
+	let arr = [1]
+	let p3 = 0,
+		p5 = 0,
+		p7 = 0
+
+	for (let i = 1; i < k; i++) {
+		let n3 = arr[p3] * 3
+		let n5 = arr[p5] * 5
+		let n7 = arr[p7] * 7
+		arr[i] = Math.min(n3, n5, n7)
+		if (n3 === arr[i]) p3++
+		if (n5 === arr[i]) p5++
+		if (n7 === arr[i]) p7++
+	}
+
+	return arr[k - 1]
+}
+
+/**
+ * @param {number} n
+ * @return {string[]}
+ * @see https://leetcode-cn.com/problems/bracket-lcci/
+ */
+var generateParenthesis = function (n) {
+	n = n * 2
+	let result = []
+	const bfs = (str, sum) => {
+		let len = str.length
+		if (sum > n - len || sum < 0) return
+		if (sum === 0 && (n - len) % 2 !== 0) return
+		if (len === n - 1) return result.push(str + ')')
+
+		bfs(str + '(', sum + 1)
+		bfs(str + ')', sum - 1)
+	}
+
+	bfs('(', 1)
+	return result
 }
