@@ -3,6 +3,11 @@ function TreeNode(val, left, right) {
 	this.left = left === undefined ? null : left
 	this.right = right === undefined ? null : right
 }
+function ListNode(val, next) {
+	this.val = val === undefined ? 0 : val
+	this.next = next === undefined ? null : next
+}
+
 /**
  * @param {number[][]} grid
  * @return {number}
@@ -755,3 +760,202 @@ var generateParenthesis = function (n) {
 	bfs('(', 1)
 	return result
 }
+
+/**
+ * @param {string[]} words1
+ * @param {string[]} words2
+ * @return {string[]}
+ */
+var wordSubsets = function (words1, words2) {
+	let map = Array(26).fill(0)
+
+	for (const word of words2) {
+		let __map = Array(26).fill(0)
+		for (const char of word) {
+			__map[char]++
+		}
+		__map.forEach((v, i) => {
+			map[i] = Math.max(map[i], v)
+		})
+	}
+
+	return words1.filter(word => {
+		let __map = Array(26).fill(0)
+		for (const char of word) {
+			__map[char]++
+		}
+		return __map.every((v, i) => v >= map[i])
+	})
+}
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+const waysToStep = n => {
+	const mod = 1000000007
+	if (n <= 2) return n
+	let n1 = 0
+	let n2 = 1
+	let n3 = 2
+	let v = n3
+	for (let i = 3; i <= n; i++) {
+		v = (n1 + n2 + n3) % mod
+		n1 = n2
+		n2 = n3
+		n3 = v
+	}
+	return v
+}
+
+/**
+ * @param {string[]} dictionary
+ * @param {string} sentence
+ * @return {number}
+ */
+var respace = function (dictionary, sentence) {
+	let dp = [0]
+	let len = sentence.length
+	for (let i = 1; i <= len; i++) {
+		dp[i] = dp[i - 1] + 1
+
+		for (const word of dictionary) {
+			if (sentence.substring(i - word.length, i) === word) {
+				dp[i] = Math.min(dp[i], dp[i - word.length])
+			}
+		}
+	}
+	return dp[len]
+}
+
+/**
+ * @param {ListNode} head
+ * @param {number} x
+ * @return {ListNode}
+ * @see https://leetcode-cn.com/problems/partition-list-lcci/
+ */
+var partition = function (head, x) {
+	let l1 = new ListNode(0)
+	const h1 = l1
+	let l2 = new ListNode(0)
+	const h2 = l2
+	while (head !== null) {
+		if (head.val < x) {
+			l1.next = head
+			l1 = l1.next
+		} else {
+			l2.next = head
+			l2 = l2.next
+		}
+		head = head.next
+	}
+	l2.next = null
+	l1.next = h2.next
+	return h1.next
+}
+
+/**
+ * @param {string} S
+ * @return {string[]}
+ */
+var permutation = function (S) {
+	let strs = S.split('').sort()
+	let isUsed = Array(strs.length).fill(false)
+	let arr = []
+	const dfs = str => {
+		if (str.length === S.length) {
+			arr.push(str)
+			return
+		}
+
+		for (let i = 0; i < strs.length; i++) {
+			if (i > 0 && S[i - 1] === S[i] && isUsed[i - 1]) continue
+			if (!isUsed[i]) {
+				isUsed[i] = true
+				dfs(str + S[i])
+				isUsed[i] = false
+			}
+		}
+	}
+
+	return arr
+}
+
+/**
+ * @see https://leetcode-cn.com/problems/permutation-ii-lcci/
+ */
+var permutation = function (S) {
+	S = S.split('').sort() //排序，方便确定相同字符
+	let res = []
+	let isTrue = new Array(S.length).fill(true)
+	var dfs = function (str) {
+		if (str.length == S.length) {
+			res.push(str)
+		}
+		for (let i = 0; i < S.length; i++) {
+			if (i > 0 && S[i - 1] == S[i] && !isTrue[i - 1]) continue //去重
+			if (isTrue[i]) {
+				isTrue[i] = false
+				dfs(str + S[i])
+				isTrue[i] = true
+			}
+		}
+	}
+	dfs('')
+	return res
+}
+
+/**
+ * @param {string[]} words
+ * @return {string}
+ * @see https://leetcode-cn.com/problems/longest-word-lcci/solution/gang-shua-liao-1713hou-biao-shi-1715hen-hao-gao-by/
+ */
+var longestWord = function (words) {
+	words = words.sort((a, b) => a.length - b.length)
+
+	const map = new Map()
+	let maxWord = ''
+	for (const word of words) {
+		let last = 0
+		for (let i = 0; i < word.length; i++) {
+			let key = word.substring(last, i)
+			if (map.has(key)) last = i
+		}
+		if (last === word.length) {
+			if (maxValue.length < word.length) maxWord = word
+			if (maxValue.length === word.length) maxWord = maxWord > word ? word : maxWord
+		}
+		map.set(word)
+	}
+
+	return maxWord
+}
+
+/**
+ * @param {number} num
+ * @return {number}
+ */
+var reverseBits = function (num) {
+	let count = 0
+	let zero = 0
+	let last = -1
+	let max = 0
+
+	let arr = num.toString(2).split('')
+	arr.forEach((item, index) => {
+		console.log(1)
+		if (item === '0') {
+			zero++
+			if (zero === 2) {
+				zero = 1
+				count = index - last - 1
+			}
+			last = index
+		}
+		count++
+		max = Math.max(max, count)
+	})
+
+	return max
+}
+reverseBits(1)
