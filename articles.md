@@ -9,10 +9,9 @@
 ### js
 
 - [ ] [手写 36 个方法](https://mp.weixin.qq.com/s/7KwM6fNM5MICHiIwoRDm-w)
-
 - [x] [JavaScript ASI 机制详解](https://segmentfault.com/a/1190000004548664)
-
 - [x] [你所忽略的 js 隐式转换](https://juejin.cn/post/6844903557968166926)
+- [ ] [2022 年了，这些 ES7-ES12 的知识点你都掌握了嘛？](https://mp.weixin.qq.com/s/QxaHOQIJW2nx0a_cVd824g)
 
 ### css3
 
