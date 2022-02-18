@@ -151,3 +151,97 @@ var kthSmallest = function (root, k) {
 	}
 	return t?.val
 }
+
+/**
+ * @param {number} m
+ * @param {number} n
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/unique-paths/
+ */
+var uniquePaths = function (m, n) {
+	if (!m || !n) return 0
+	const dp = Array(n).fill(0)
+	for (let i = 0; i < n; i++) dp[i] = 1
+	for (let i = 1; i < m; i++) {
+		for (let j = 1; j < n; j++) dp[j] = dp[j] + dp[j - 1]
+	}
+	return dp[n - 1]
+}
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ * @see https://leetcode-cn.com/problems/reverse-linked-list/
+ */
+var reverseList = function (head) {
+	let cur = head
+	let prv = null
+	let next = head.next
+
+	while (cur) {
+		cur.next = prv
+		prv = cur
+		cur = next
+		next = next?.cur
+	}
+
+	return prv
+}
+
+/**
+ * @param {number[][]} matrix
+ * @return {number[]}
+ * @see https://leetcode-cn.com/problems/spiral-matrix/
+ */
+var spiralOrder = function (matrix) {
+	let q = 0
+	let i = 0
+	let j = 0
+	let arr = []
+	let m = matrix.length
+	let n = matrix?.[0].length
+	while (arr.length !== matrix.length) {
+		arr.push(matrix[i][j])
+
+		switch (true) {
+			case i === q && j < n - 1 - q:
+				j++
+				break
+			case j === n - 1 - q && i < m - 1 - q:
+				i++
+				break
+			case i === m - 1 - q && j > q:
+				j--
+				break
+			case j === q && i > q + 1:
+				i--
+				break
+			case j === q && i === q + 1:
+				q++
+				j++
+		}
+	}
+
+	return arr
+}
+
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ * @see https://leetcode-cn.com/problems/linked-list-cycle/
+ */
+var hasCycle = function (head) {
+	if (head == null || head.next == null) {
+		return false
+	}
+	let slow = head
+	let fast = head.next
+	while (slow != fast) {
+		if (fast == null || fast.next == null) {
+			return false
+		}
+		slow = slow.next
+		fast = fast.next.next
+	}
+	return true
+}
