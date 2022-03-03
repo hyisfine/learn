@@ -245,3 +245,99 @@ var hasCycle = function (head) {
 	}
 	return true
 }
+
+/**
+ * @param {number[]} height
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/container-with-most-water/
+ */
+var maxArea = function (height) {
+	let l = 0
+	let r = height.length - 1
+	let max = 0
+
+	while (l < r) {
+		max = Math.max(max, Math.min(height[l], height[r]) * (r - l))
+		if (height[l] <= height[r]) l++
+		else r--
+	}
+
+	return max
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ * @see arr
+ */
+var permute = function (nums) {
+	const result = []
+
+	const dfs = arr => {
+		if (arr.length === nums.length) return result.push([...arr])
+
+		for (let i = 0; i < nums.length; i++) {
+			if (nums[i] === false) continue
+			let v = nums[i]
+			nums[i] = false
+			arr.push(v)
+			dfs(arr)
+			arr.pop()
+			nums[i] = v
+		}
+	}
+	dfs([])
+
+	return result
+}
+
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+var lowestCommonAncestor = function (root, p, q) {
+	const dfs = node => {
+		if (!node) return
+		let l = dfs(node.left)
+		let r = dfs(node.right)
+		if (l && r) return node
+		if (node === p || node === q) return node
+		return l || r
+	}
+
+	return dfs(root)
+}
+
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode}
+ */
+var rotateRight = function (head, k) {
+	if (!head) return head
+
+	let fast = head
+	let slow = head
+	while (fast) {
+		if (!k) {
+			fast = fast.next
+			slow = slow.next
+		} else {
+			fast = fast.next
+			if (!fast) fast = head
+			k--
+		}
+	}
+
+	let hs = slow
+
+	while (true) {
+		if (!slow.next) slow.next = head
+		slow = slow.next
+		if (slow.next === hs) break
+	}
+	slow.next = null
+	return hs
+}
