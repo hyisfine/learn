@@ -27,6 +27,7 @@
 - [x] [深入了解CSS字体度量，行高和vertical-align:](https://www.w3cplus.com/css/css-font-metrics-line-height-and-vertical-align.html)
 - [x] [字体构造与文字垂直居中方案探索](https://zhuanlan.zhihu.com/p/227770612)
 - [x] [真的理解font-size和line-height了吗？](https://juejin.cn/post/6971673576017494053)
+- [ ] [革命性创新，动画杀手锏 @scroll-timeline](https://mp.weixin.qq.com/s/mAQ2Px7fc8M0GKCP-6SG5Q)
 
 ### 架构
 
@@ -39,6 +40,7 @@
 ### react
 
 - [ ] [我所理解的 Hooks API](https://mp.weixin.qq.com/s/Q1zitZ3y819tuiDd31GACQ)
+- [ ] [React Fiber架构浅析](https://mp.weixin.qq.com/s/GDYfwQyIKOjqfC_n-oDPzQ)
 
 ### H5 开发
 
@@ -63,14 +65,14 @@
 - [ ] [Changesets: 流行的 monorepo 场景发包工具](https://zhuanlan.zhihu.com/p/427588430)
 - [ ] [All in one：项目级 monorepo 策略最佳实践](https://segmentfault.com/a/1190000039157365)
 - [ ] [软链接&硬链接在前端中的应用](https://mp.weixin.qq.com/s/o0eN8gBSqVMHykFXrTnikg)
+- [ ] [彻底搞懂 npm、yarn 与 pnpm 依赖管理逻辑](https://mp.weixin.qq.com/s/N2G--m4rGpgXb26X7WZF7Q)
 
 ### webpack
 
 - [ ] [关于 source map 这篇文章就够了](https://juejin.cn/post/6969748500938489892)
-
-  - [base64 阮一峰](https://www.ruanyifeng.com/blog/2008/06/base64.html)
-
-  - [VLQ 编码](https://zhuanlan.zhihu.com/p/104519418)
+- [base64 阮一峰](https://www.ruanyifeng.com/blog/2008/06/base64.html)
+  
+- [VLQ 编码](https://zhuanlan.zhihu.com/p/104519418)
 
 ### cli 工具
 
