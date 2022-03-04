@@ -341,3 +341,120 @@ var rotateRight = function (head, k) {
 	slow.next = null
 	return hs
 }
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ * @see https://leetcode-cn.com/problems/sort-list/
+ */
+var sortList = function (head) {
+	/**
+	 * @param {ListNode} A
+	 * @param {ListNode} B
+	 * @return {ListNode}
+	 */
+	const merge = (A, B) => {
+		if (!A || !B) return A || B
+		let head = new ListNode()
+		let l = head
+		while (A && B) {
+			if (A.val <= B.val) {
+				head.next = A
+				A = A.next
+			} else {
+				head.next = B
+				B = B.next
+			}
+			head = head.next
+		}
+		head.next = A || B
+		return l.next
+	}
+
+	/**
+	 * @param {ListNode} list
+	 * @return {ListNode}
+	 */
+	const sort = list => {
+		if (!list || !list.next) return list
+		let fast = list
+		let center = list
+		let prev
+		while (fast) {
+			if (!fast.next?.nex) prev = center
+			fast = fast.next?.next
+			center = center.next
+		}
+		prev.next = null
+		return merge(sort(list), sort(center))
+	}
+
+	return sort(head)
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ * @see https://leetcode-cn.com/problems/product-of-array-except-self/
+ */
+var productExceptSelf = function (nums) {
+	let len = nums.length
+	if (nums.length <= 1) return nums
+
+	let arr1 = Array(len).fill(1)
+	let arr2 = Array(len).fill(1)
+
+	for (let i = 1; i < len; i++) {
+		arr1[i] = arr1[i - 1] * nums[i - 1]
+	}
+	for (let i = len - 2; i >= 0; i--) {
+		arr2[i] = arr2[i + 1] * nums[i + 1]
+	}
+
+	return arr1.map((v, i) => v * arr2[i])
+}
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/3sum-closest/
+ */
+var threeSumClosest = function (nums, target) {
+	nums.sort((a, b) => a - b)
+
+	let result
+	let ans = Infinity
+
+	for (let i = 0; i < nums.length - 2; i++) {
+		let temp = nums[i]
+		nums[i] = NaN
+		let j = i + 1
+		let k = nums.length - 1
+
+		while (j < k) {
+			if (isNaN(nums[j])) {
+				j++
+				continue
+			}
+			if (isNaN(nums[k])) {
+				k--
+				continue
+			}
+			let _result = temp + nums[j] + nums[k]
+			let _ans = Math.abs(target - _result)
+			if (_ans < ans) {
+				ans = _ans
+				result = _result
+			}
+
+			if (_result === target) return target
+			if (_result < target) j++
+			else k--
+		}
+
+		nums[i] = temp
+	}
+
+	return result
+}
