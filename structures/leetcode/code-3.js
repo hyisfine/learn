@@ -9,6 +9,12 @@ function ListNode(val, next) {
 	this.next = next === undefined ? null : next
 }
 
+const change = (arr, i, j) => {
+	const temp = arr[i]
+	arr[i] = arr[j]
+	arr[j] = temp
+}
+
 /**
  * @param {string[]} words
  * @param {string} word1
@@ -457,4 +463,123 @@ var threeSumClosest = function (nums, target) {
 	}
 
 	return result
+}
+
+/**
+ * @param {ListNode} list1
+ * @param {ListNode} list2
+ * @return {ListNode}
+ * @see https://leetcode-cn.com/problems/merge-two-sorted-lists/
+ */
+var mergeTwoLists = function (list1, list2) {
+	let l = new ListNode()
+	let head = l
+	while (list1 && list2) {
+		if (list1.val <= list2.val) {
+			l.next = list1
+			list1 = list1.next
+		} else {
+			l.next = list2
+			list2 = list2.next
+		}
+		l = l.next
+	}
+	l.next = list1 || list2
+
+	return head.next
+}
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/kth-largest-element-in-an-array/
+ */
+var findKthLargest = function (nums, k) {
+	class Heap {
+		constructor(k) {
+			this.max = k
+			this.arr = []
+		}
+
+		add(val) {
+			this.arr.push(val)
+			let i = this.arr.length - 1
+			while (i) {
+				let p = i % 2 ? (i - 1) / 2 : (i - 2) / 2
+				if (this.arr[p] > this.arr[i]) {
+					change(this.arr, i, p)
+					;[p, i] = [i, p]
+				} else break
+			}
+
+			if (this.arr.length > this.max) this.delete()
+		}
+
+		delete() {
+			if (!this.arr.length) return
+			let bottom = this.arr.pop()
+			if (!this.arr.length) return
+			this.arr[0] = bottom
+			let i = 0
+			while (i < this.arr.length) {
+				let p = this.arr[i]
+				let l = this.arr[i * 2 + 1]
+				let r = this.arr[i * 2 + 2]
+
+				if ((r == undefined || r >= l) && p > l) {
+					change(this.arr, i, i * 2 + 1)
+					i = i * 2 + 1
+					continue
+				}
+
+				if (r < l && p > r) {
+					change(this.arr, i, i * 2 + 2)
+					i = i * 2 + 2
+					continue
+				}
+
+				break
+			}
+		}
+	}
+
+	let h = new Heap(k)
+
+	for (const num of nums) {
+		h.add(num)
+	}
+	return h.arr[0]
+}
+
+/**
+ * @param {number[]} prices
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/
+ */
+var maxProfit = function (prices) {
+	let ans = 0
+	let n = prices.length
+	for (let i = 1; i < n; ++i) {
+		ans += Math.max(0, prices[i] - prices[i - 1])
+	}
+	return ans
+}
+
+/**
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ */
+var getIntersectionNode = function (headA, headB) {
+	if (!headA || !headB) return null
+	let pa = headA
+	let pb = headB
+
+	while (pa !== pb) {
+		pa = pa ? pa.next : headB
+		pb = pb ? pb.next : headA
+	}
+
+	return pa
 }
