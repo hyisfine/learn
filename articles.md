@@ -95,11 +95,19 @@
 
 - [ ] [get post 区别](https://segmentfault.com/a/1190000021692911)
 
+- [ ] [script crossorigin 属性](https://juejin.cn/post/6969825311361859598)
+
+  
+
 ### 性能优化
 
 - [ ] [让 Instagram.com 变得更快：Part 1](https://mp.weixin.qq.com/s/T6j3OnqKkG63VTH2ubj_Pw)
 
 - [ ] [让 Instagram.com 变得更快：提前刷新和渐进式 HTML](https://mp.weixin.qq.com/s/hV7af5un_VheZ0dyZvS74w)
+
+- [ ] [前端优化：浏览器缓存技术介绍](https://juejin.cn/post/6844903672556552205#heading-3)
+
+  
 
 ### 安全
 
