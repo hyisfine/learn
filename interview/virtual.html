@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div onclick="console.log(event)">1234r</div>
+		<div id="root"></div>
+	</body>
+</html>
+<script>
+	const h = (sel, data) => {
+		let vnode = { sel, data, key: data?.key }
+		if (Array.isArray(data.children)) vnode.children = data.children
+		else if (data.children) vnode.text = String(data.children)
+		delete vnode.data?.children
+		return vnode
+	}
+
+	const A = () =>
+		h('button', {
+			class: 'btn',
+			children: '2345t',
+		})
+
+	const App = () =>
+		h('div', {
+			children: [
+				h('div', {
+					children: '234',
+				}),
+				A(),
+				h('p', {
+					children: 'dsfghj',
+				}),
+			],
+		})
+
+	const patch = {
+		render(oldNode, newNode) {
+			if (oldNode.nodeType === 1) {
+				let old = {
+					sel: oldNode.nodeName.toLowerCase(),
+					elm: oldNode,
+				}
+				oldNode = old
+			}
+			if (oldNode === newNode) {
+			} else {
+				const parent = oldNode.elm.parentNode
+				parent.insertBefore(this.createElm(newNode), oldNode.nextSibling)
+				parent.removeChild(oldNode.elm)
+			}
+		},
+		diff(oldNode, newNode) {},
+		createElm(vnode) {
+			const elm = document.createElement(vnode.sel, vnode.data)
+			if (vnode.children) {
+				for (const child of vnode.children) {
+					elm.appendChild(this.createElm(child))
+				}
+			}
+			if (vnode.text !== undefined) {
+				elm.appendChild(document.createTextNode(vnode.text))
+			}
+			return elm
+		},
+	}
+
+	console.log(App())
+	patch.render(document.querySelector('#root'), App())
+</script>

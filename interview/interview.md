@@ -6,7 +6,7 @@
 >
 > void 明确规定返回一个undefined
 
-#### 执行上下文与作用域
+#### 执行上下文与作用域 
 
 > 每个函数调用都有自己的上下文。当代码执行流进入函数时，函数的上下文被推到一个上下文栈上。 在函数执行完之后，上下文栈会弹出该函数上下文，将控制权返还给之前的执行上下文。
 >
@@ -94,17 +94,16 @@
 > **`instanceof`** **运算符**用于检测构造函数的 `prototype` 属性是否出现在某个实例对象的原型链上。
 
 ```js
-	const myInstance=(left,right)=>{
-    	const proto=Object.
-      if(proto)return false
-    	
-    while(right){ 
-      if(proto===right.prototype)return true
-      else right=right.prototype
-    }
-    return false
-    
-  }
+const myInstance = (left, right) => {
+	let proto = Object.getPrototypeOf(left)
+	const prototype = right.prototype
+
+	while (true) {
+		if (!proto) return false
+		if (proto === prototype) return true
+		proto = Object.getPrototypeOf(proto)
+	}
+} 
 			
 ```
 
@@ -162,13 +161,32 @@ const myNew = (Sub, ...args) => {
 
 #### script延迟加载
 
-> defer属性 推迟下载
+> defer属性 推迟下载 
+>
+> - 具有 `defer` 特性的脚本不会阻塞页面。
+> - 具有 `defer` 特性的脚本总是要等到 DOM 解析完毕，但在 `DOMContentLoaded` 事件之前执行。
+> - **具有 `defer` 特性的脚本保持其相对顺序执行，就像常规脚本一样。**
 >
 > async属性 立即下载但不阻塞
+>
+> - 浏览器不会因 `async` 脚本而阻塞（与 `defer` 类似）。
+>
+> - 其他脚本不会等待 `async` 脚本加载完成，同样，`async` 脚本也不会等待其他脚本。
+>
+> - ```
+>   DOMContentLoaded
+>   ```
+>
+>   和异步脚本不会彼此等待：
+>
+>   - `DOMContentLoaded` 可能会发生在异步脚本之前（如果异步脚本在页面完成后才加载完成）
+>   - `DOMContentLoaded` 也可能发生在异步脚本之后（如果异步脚本很短，或者是从 HTTP 缓存中加载的）
 >
 > create Element动态创建
 >
 > 使用 setTimeout 延迟方法
+>
+> 如果MIME类型不是 JavaScript 类型（上述支持的类型），则该元素所包含的内容会被当作数据块而不会被浏览器执行。
 
 #### fetch
 
@@ -348,10 +366,109 @@ Promise<Response> fetch(input[, init]);
 >
 > - 会话状态管理（如用户登录状态、购物车、游戏分数或其它需要记录的信息）
 > - 个性化设置（如用户自定义设置、主题等）
-> - 浏览器行为跟踪（如跟踪分析用户行为等）
+> - 浏览器行为跟踪（如跟踪分析用户行为等） 
 >
 > 跨域下不会自动发送，除非显示设置需要响应中携带 [`Access-Control-Allow-Credentials`](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials)`: true`，否则请求将无法获取响应响应首部。
 >
 > expires 过期时间，path 可用路径，domain 可用域名，secure 仅在https下传输，HttpOnlyjs不可读取，
 >
 > 
+
+#### 模块开发
+
+> 将代码拆分成独立的块，然后再把这些块连接起来可以通过模块模式来实现。这种模式背后的思想 很简单：把逻辑分块，各自封装，相互独立，每个块自行决定对外暴露什么，同时自行决定引入执行哪 些外部代码。
+>
+> ES6 之前的模块有时候会使用函数作用域和立即调用函数表达式 （IIFE，Immediately Invoked Function Expression）将模块定义封装在匿名闭包中。
+>
+> 所有模块都会像<script defer>加载的脚本一样按顺序执行。解析到<script type="module">标签后会立即下载模块文件，但执行会延迟到文档解析完成。
+>
+> 嵌入的模块定义代码不能使用 import 加载到其他模块。只有通过外部文件加载的模块才可以使用 import 加载。因此，嵌入模块只适合作为入口模块。
+>
+> Node.js是commonJS规范的主要实践者，它有四个重要的环境变量为模块化的实现提供支持：`module`、`exports`、`require`、`global`。同步的。
+>
+> AMD规范采用异步方式加载模块，模块的加载不影响它后面语句的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。
+>
+> 1. CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
+> 2. ES6 模块是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。 
+> 3. CommonJS 模块是运行时加载，ES6 模块 是编译时输出接口。
+
+#### 垃圾回收
+
+> 1. 标记清理，对所有的对象进行标记，并对上下文中的变量清除标记，在此之后如果重新标记了则清除。
+> 2. 引用计数，当某个引用值被赋值给一个变量时，对当前引入值的计数+1，当数量为0时则清除。
+> 3. v8垃圾回收，基于分代回收机制
+>    1. 空间分为新老两个空间，新空间存短时间对象，老空间存长时间对象。
+>    2. 新空间分为from和to空间，from空间存对象，to空间闲置。
+>    3. form空间满之后，进行垃圾回收：检查form对象是否存活，否则清除，是则判断满不满足晋升到老空间（是否之前经历过回收、to空间是否使用超过25%），满足晋升，不满足放到to空间。然后把to空间复制到form空间。
+>    4. 老空间对象使用标记清理+整理的方式。
+
+#### windows.history
+
+> ```js
+> history.pushState(state, title[, url])
+> ```
+>
+> `window.onpopstate`是`popstate`事件在window对象上的事件处理程序.
+>
+> **注意：**调用`history.pushState()`或者`history.replaceState()`不会触发popstate事件. `popstate`事件只会在浏览器某些行为下触发, 比如点击后退、前进按钮(或者在JavaScript中调用`history.back()、history.forward()、history.go()`方法)，此外，a 标签的锚点也会触发该事件.
+>
+> 一般的history模式下会手动出发popstate事件。
+
+#### 移动端适配
+
+> 尺寸不是宽高，而是屏幕对角线的长度。
+>
+> 用英寸描述屏幕的物理大小，如电脑显示器的`17`、`22`，手机显示器的`4.8`、`5.7`等使用的单位都是英寸。
+>
+> 屏幕分辨率指一个屏幕具体由多少个像素点组成。`图片分辨率`其实是指图片含有的`像素数`，比如一张图片的分辨率为`800 x 400`。这表示图片分别在垂直和水平上所具有的像素点数为`800`和`400`。
+>
+> `PPI(Pixel Per Inch)`：每英寸包括的像素数。
+>
+> `DPI(Dot Per Inch)`：即每英寸包括的点数。
+>
+> 实际上，上面我们描述的像素都是`物理像素`，即设备上真实的物理单元。
+>
+> 我们必须用一种单位来同时告诉不同分辨率的手机，它们在界面上显示元素的大小是多少，这个单位就是设备独立像素(`Device Independent Pixels`)简称`DIP`或`DP`。
+>
+> 设备像素比`device pixel ratio`简称`dpr`，即物理像素和设备独立像素的比值。
+>
+> 布局视口(`layout viewport`)：当我们以百分比来指定一个元素的大小时，它的计算值是由这个元素的包含块计算而来的。当这个元素是最顶级的元素时，它就是基于布局视口来计算的。
+
+####  深拷贝
+
+```js
+const isArray = arr => Array.isArray(arr)
+const isObj = obj => Object.prototype.toString.call(obj) === '[object Object]'
+const deepCopy = obj => {
+	if (!isArray(obj) && !isObj(obj)) return obj
+	let copy = isArray(obj) ? [] : {}
+	Object.entries(obj).forEach(([k, v]) => (copy[k] = deepCopy(v)))
+	return copy
+}
+deepCopy({ a: 1, b: { c: 2 }, d: [1, 2, 3, 4] })		
+```
+
+#### bind、call、apply
+
+```js
+
+const myCall = (context, handler, ...  ) => {
+	if (typeof context === 'bigint') context = BigInt(context)
+	if (typeof context === 'number') context = new Number(context)
+	if (typeof context === 'boolean') context = new Boolean(context)
+	if (typeof context === 'string') context = new String(context)
+	if (context === null || context === undefined) context = globalThis
+	let key = Math.random().toString(36).slice(2, 6)
+	context[key] = handler
+	const result = context[key](...args)
+	delete context[key]
+	return result
+}
+
+const myBind = (context, handler,...args0) => {
+	return function (...args1) {
+		myCall(context, handler,...,args0 ...args1)
+	}
+}	
+```
+
