@@ -583,3 +583,75 @@ var getIntersectionNode = function (headA, headB) {
 
 	return pa
 }
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/
+ */
+var removeDuplicates = function (nums) {
+	let len = nums.length
+	if (!len) return 0
+
+	let fast = 1
+	let slow = 1
+
+	while (fast < len) {
+		if (nums[fast] !== nums[fast - 1]) {
+			nums[slow] = nums[fast]
+			slow++
+		}
+		fast++
+	}
+
+	return slow
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/
+ */
+var maxPathSum = function (root) {
+	if (!root) return 0
+
+	let max = -Infinity
+	const dfs = node => {
+		if (!node) return 0
+		const l = Math.max(dfs(node.left), 0)
+		const r = Math.max(dfs(node.right), 0)
+		let res = node.val + l + r
+		max = Math.max(max, res)
+		return node.val + Math.max(l, r)
+	}
+	dfs(root)
+	return max
+}
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ * @see https://leetcode-cn.com/problems/linked-list-cycle-ii/
+ */
+var detectCycle = function (head) {
+	if (!head) return head
+	let slow = head
+	let fast = head
+
+	while (fast && slow) {
+		fast = fast.next?.next
+		slow = slow.next
+
+		if (fast && fast === slow) {
+			fast = head
+			while (slow != fast) {
+				slow = slow.next
+				fast = fast.next
+			}
+
+			return fast
+		}
+	}
+
+	return null
+}
