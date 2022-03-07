@@ -655,3 +655,82 @@ var detectCycle = function (head) {
 
 	return null
 }
+<<<<<<< Updated upstream
+=======
+
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ * @see https://leetcode-cn.com/problems/subsets/
+ */
+var subsets = function (nums) {
+	nums.sort((a, b) => a - b)
+
+	const res = []
+	const len = nums.length
+
+	const dfs = arr => {
+		res.push(arr)
+		if (arr.length === len) return
+
+		for (let index = 0; index < len; index++) {
+			if (nums[index] <= arr[arr.length - 1]) continue
+			dfs([...arr, nums[index]])
+		}
+	}
+	dfs([])
+	return res
+}
+
+/**
+ * @param {string} s
+ * @return {string}
+ * @see https://leetcode-cn.com/problems/longest-palindromic-substring/
+ */
+var longestPalindrome = function (s) {
+	let len = s.length
+	let res = ''
+	for (let i = 0; i < len; i++) {
+		let left = i
+		let right = i
+		while (left >= 0 && right < len && s[left] === s[right]) {
+			left--
+			right++
+		}
+
+		if (res.length < right - 1 - left) {
+			res = s.substring(left + 1, right)
+		}
+
+		left = i
+		right = i + 1
+
+		while (left >= 0 && right < len && s[left] === s[right]) {
+			left--
+			right++
+		}
+
+		if (res.length < right - 1 - left) {
+			res = s.substring(left + 1, right)
+		}
+	}
+
+	return res
+}
+
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ * @see https://leetcode-cn.com/problems/add-two-numbers/
+ */
+var addTwoNumbers = function (l1, l2) {
+	if (!l1 || !l2) return l1 || l2
+
+	let l = new ListNode()
+	let head = l
+	while (l1 && l2) {
+		let val = l1.val + l2.val + l2.val
+	}
+}
+>>>>>>> Stashed changes
