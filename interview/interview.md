@@ -487,3 +487,41 @@ const myBind = (context, handler,...args0) => {
 > `then()` 函数会返回一个和原来不同的**新的 Promise**：
 >
 > 
+
+#### React
+
+> 在浏览器每一帧的时间中，预留一些时间给JS线程，`React`利用这部分时间更新组件（可以看到，在[源码 (opens new window)](https://github.com/facebook/react/blob/1fb18e22ae66fdb1dc127347e169e73948778e5a/packages/scheduler/src/forks/SchedulerHostConfig.default.js#L119)中，预留的初始时间是5ms）。
+>
+> 这种将长任务分拆到每一帧中，像蚂蚁搬家一样一次执行一小段任务的操作，被称为`时间切片`（time slice）
+>
+> 我们日常使用App，浏览网页时，有两类场景会制约`快速响应`：
+>
+> - 当遇到大计算量的操作或者设备性能不足使页面掉帧，导致卡顿。
+> - 发送网络请求后，由于需要等待数据返回才能进一步操作导致不能快速响应。
+>
+> 这两类场景可以概括为：
+>
+> - CPU的瓶颈
+> - IO的瓶颈
+>
+> 解决`CPU瓶颈`的关键是实现`时间切片`，而`时间切片`的关键是：将**同步的更新**变为**可中断的异步更新**。
+>
+> `React Fiber`可以理解为：
+>
+> `React`内部实现的一套状态更新机制。支持任务不同`优先级`，可中断与恢复，并且恢复后可以复用之前的`中间状态`。
+>
+> 其中每个任务更新单元为`React Element`对应的`Fiber节点`。
+>
+> `Fiber`包含三层含义：
+>
+> 1. 作为架构来说，之前`React15`的`Reconciler`采用递归的方式执行，数据保存在递归调用栈中，所以被称为`stack Reconciler`。`React16`的`Reconciler`基于`Fiber节点`实现，被称为`Fiber Reconciler`。
+> 2. 作为静态的数据结构来说，每个`Fiber节点`对应一个`React element`，保存了该组件的类型（函数组件/类组件/原生组件...）、对应的DOM节点等信息。
+> 3. 作为动态的工作单元来说，每个`Fiber节点`保存了本次更新中该组件改变的状态、要执行的工作（需要被删除/被插入页面中/被更新...）。
+>
+> **在内存中构建并直接替换**的技术叫做[双缓存 (opens new window)](https://baike.baidu.com/item/双缓冲)。即先在内存构建好新ui，构建完成后直接替换。
+>
+> `React`使用“双缓存”来完成`Fiber树`的构建与替换——对应着`DOM树`的创建与更新
+>
+> ## 双缓存Fiber树
+>
+> 在`React`中最多会同时存在两棵`Fiber树`。当前屏幕上显示内容对应的`Fiber树`称为`current Fiber树`，正在内存中构建的`Fiber树`称为`workInProgress Fiber树`。
