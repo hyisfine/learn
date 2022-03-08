@@ -655,8 +655,6 @@ var detectCycle = function (head) {
 
 	return null
 }
-<<<<<<< Updated upstream
-=======
 
 /**
  * @param {number[]} nums
@@ -733,4 +731,3 @@ var addTwoNumbers = function (l1, l2) {
 		let val = l1.val + l2.val + l2.val
 	}
 }
->>>>>>> Stashed changes

@@ -15,6 +15,8 @@
 - [x] [浅析 Snabbdom 中 vnode 和 diff 算法](https://mp.weixin.qq.com/s/njLGrxqUSZHpC_GSLVuSOA)
 - [x] [面试官：有了for循环 为什么还要forEach？](https://mp.weixin.qq.com/s/xwv-iAxxI8utIcUZes3Jtg)
 - [ ] [几张动图带你回顾JS的变量提升](https://mp.weixin.qq.com/s/4eAlAW3SCamnFSolzCiz8Q)
+- [ ] [手写一个虚拟DOM库，彻底让你理解diff算法](https://mp.weixin.qq.com/s/BG8nmRW4nfXKP5L-kKx-GQ)
+- [ ] [Async是如何被 JavaScript 实现的](https://mp.weixin.qq.com/s/P_DPkH72_1bdOl78M_ISsQ)
 
 ### css3
 
