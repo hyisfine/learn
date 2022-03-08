@@ -717,17 +717,92 @@ var longestPalindrome = function (s) {
 }
 
 /**
- * @param {ListNode} l1
- * @param {ListNode} l2
- * @return {ListNode}
- * @see https://leetcode-cn.com/problems/add-two-numbers/
+ * @param {number[]} nums
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/majority-element/
  */
-var addTwoNumbers = function (l1, l2) {
-	if (!l1 || !l2) return l1 || l2
+var majorityElement = function (nums) {
+	let target
+	let count = 0
 
-	let l = new ListNode()
-	let head = l
-	while (l1 && l2) {
-		let val = l1.val + l2.val + l2.val
+	for (const num of nums) {
+		if (count === 0) target = num
+		if (num === target) count++
+		else count--
 	}
+
+	return target
+}
+
+/**
+ * @param {string[]} strs
+ * @return {string}
+ * @see https://leetcode-cn.com/problems/longest-common-prefix/
+ */
+var longestCommonPrefix = function (strs) {
+	if (!strs.length) return ''
+	let i = 0
+	while (true) {
+		let char = strs[0][i]
+		if (!strs.every(str => char && str[i] === char)) break
+		i++
+	}
+	return strs[0].substring(0, i)
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var singleNumber = function (nums) {
+	let count = 0
+	let target
+	for (let i = 0; i < nums.length; i++) {
+		count += nums[i]
+		if (count % 2 && i % 2) target = nums[i]
+	}
+	return target
+}
+
+var addTwoNumbers = function (l1, l2) {
+	let head = null,
+		tail = null
+	let carry = 0
+	while (l1 || l2) {
+		const n1 = l1 ? l1.val : 0
+		const n2 = l2 ? l2.val : 0
+		const sum = n1 + n2 + carry
+		if (!head) {
+			head = tail = new ListNode(sum % 10)
+		} else {
+			tail.next = new ListNode(sum % 10)
+			tail = tail.next
+		}
+		carry = Math.floor(sum / 10)
+		if (l1) {
+			l1 = l1.next
+		}
+		if (l2) {
+			l2 = l2.next
+		}
+	}
+	if (carry > 0) {
+		tail.next = new ListNode(carry)
+	}
+	return head
+}
+
+/**
+ * @param {number[]} prices
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/
+ */
+var maxProfit = function (prices) {
+	let minPrice = Infinity
+	let max = 0
+	for (const price of prices) {
+		if (price < minPrice) minPrice = price
+		else max = Math.max(max, price - minPrice)
+	}
+	return max
 }
