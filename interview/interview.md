@@ -6,7 +6,7 @@
 >
 > void 明确规定返回一个undefined
 
-#### 执行上下文与作用域 
+#### 执行上下文与作用域
 
 > 每个函数调用都有自己的上下文。当代码执行流进入函数时，函数的上下文被推到一个上下文栈上。 在函数执行完之后，上下文栈会弹出该函数上下文，将控制权返还给之前的执行上下文。
 >
@@ -510,6 +510,8 @@ const myBind = (context, handler,...args0) => {
 >
 > `React`内部实现的一套状态更新机制。支持任务不同`优先级`，可中断与恢复，并且恢复后可以复用之前的`中间状态`。
 >
+> 在React16中，**Reconciler**与**Renderer**不再是交替工作。当**Scheduler**将任务交给**Reconciler**后，**Reconciler**会为变化的虚拟DOM打上代表增/删/更新的标记，
+>
 > 其中每个任务更新单元为`React Element`对应的`Fiber节点`。
 >
 > `Fiber`包含三层含义：
@@ -525,3 +527,32 @@ const myBind = (context, handler,...args0) => {
 > ## 双缓存Fiber树
 >
 > 在`React`中最多会同时存在两棵`Fiber树`。当前屏幕上显示内容对应的`Fiber树`称为`current Fiber树`，正在内存中构建的`Fiber树`称为`workInProgress Fiber树`。
+>
+> 从`React`v16开始，`componentWillXXX`钩子前增加了`UNSAFE_`前缀。
+>
+> 究其原因，是因为`Stack Reconciler`重构为`Fiber Reconciler`后，`render阶段`的任务可能中断/重新开始，对应的组件在`render阶段`的生命周期钩子（即`componentWillXXX`）可能触发多次。
+>
+> 可见，`useEffect`异步执行的原因主要是防止同步执行时阻塞浏览器渲染。
+>
+> ```js
+> // App组件对应的fiber对象
+> const fiber = {
+>   // 保存该FunctionComponent对应的Hooks链表
+>   memoizedState: null,
+>   // 指向App函数
+>   stateNode: App
+> 
+> 
+> };
+> ```
+>
+> Concurrent 模式是一组 React 的新功能，可帮助应用保持响应，并根据用户的设备性能和网速进行适当的调整。
+>
+> 从源码层面讲，Concurrent Mode是一套可控的“多优先级更新架构”。
+>
+> 底层 
+
+
+
+
+

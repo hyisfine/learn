@@ -46,6 +46,7 @@
 
 - [ ] [我所理解的 Hooks API](https://mp.weixin.qq.com/s/Q1zitZ3y819tuiDd31GACQ)
 - [ ] [React Fiber架构浅析](https://mp.weixin.qq.com/s/GDYfwQyIKOjqfC_n-oDPzQ)
+- [ ] [React内部让人迷惑的性能优化策略](https://mp.weixin.qq.com/s/zB129uJfOYG2If4tSySLyA)
 
 ### H5 开发
 
