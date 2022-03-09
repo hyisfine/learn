@@ -806,3 +806,105 @@ var maxProfit = function (prices) {
 	}
 	return max
 }
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function (s) {
+	if (s.length % 2) return false
+	let stack = []
+
+	for (const char of s) {
+		if ('{[('.includes(char)) stack.push(char)
+		else {
+			let _char
+			if (char === '}') _char = '{'
+			if (char === ']') _char = ']'
+			if (char === ')') _char = ')'
+			if (!stack.length || stack[stack.length - 1] !== _char) return false
+			stack.pop()
+		}
+	}
+
+	return !stack.length
+}
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var climbStairs = function (n) {
+	let n1 = 0,
+		n2 = 0,
+		sum = 1
+
+	while (n > 0) {
+		n1 = n2
+		n2 = sum
+		sum = n1 + n2
+		n--
+	}
+
+	return sum
+}
+
+/**
+ * @param {number} n
+ * @return {number[][]}
+ * @see https://leetcode-cn.com/problems/spiral-matrix-ii/
+ */
+var generateMatrix = function (n) {
+	let arr = Array(n).fill(() => Array(n).fill(0))
+
+	let i = 0
+	let j = 0
+	let q = 0
+	let index = 1
+	let max = n * n
+
+	while (index <= max) {
+		arr[i][j] = index++
+
+		if (i === q && j < n - 1 - q) j++
+		else if (j === n - 1 - q && i < n - 1 - q) i++
+		else if (i === n - 1 - q && j > q) j--
+		else if (j === q && i === q + 1) {
+			q++
+			j++
+		} else if (j === q && i > q) i--
+	}
+
+	return arr
+}
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/search-in-rotated-sorted-array/
+ */
+var search = function (nums, target) {
+	let len = nums.length
+	if (!len) return -1
+	if (len === 1) nums[0] === target ? 0 : -1
+
+	let i = 0
+	let j = len - 1
+
+	while (i <= j) {
+		let m = i + Math.floor((j - i) / 2)
+		if (nums[m] === target) return m
+		if (nums[0] <= nums[m]) {
+			if (nums[0] <= target && target < nums[m]) {
+				j = m - 1
+			} else i = m + 1
+		} else {
+			if (nums[len - 1] >= target && target > nums[m]) {
+				i = m + 1
+			} else j = m - 1
+		}
+	}
+
+	return -1
+}
