@@ -133,7 +133,6 @@ var canPartition = function (nums) {
 	}
 	return result.pop()
 }
-
 // console.log(canPartition([1, 2, 5]))
 
 /**
@@ -187,10 +186,10 @@ var getLeastNumbers = function (arr, k) {
 
 	return _arr2.length > k ? _arr2.slice(0, k) : _arr2
 }
+// TODO
 
 // const a = [0, 0, 1, 2, 4, 2, 2, 3, 1, 4]
 // console.log(getLeastNumbers(a, 8))
-
 /** @see https://leetcode-cn.com/problems/gaM7Ch/ */
 var coinChange = function (coins, amount) {
 	let dp = new Array(amount + 1).fill(Infinity)
