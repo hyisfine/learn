@@ -186,8 +186,6 @@ var getLeastNumbers = function (arr, k) {
 
 	return _arr2.length > k ? _arr2.slice(0, k) : _arr2
 }
-// TODO
-
 // const a = [0, 0, 1, 2, 4, 2, 2, 3, 1, 4]
 // console.log(getLeastNumbers(a, 8))
 /** @see https://leetcode-cn.com/problems/gaM7Ch/ */
@@ -212,7 +210,6 @@ function ListNode(val, next) {
 	this.val = val === undefined ? 0 : val
 	this.next = next === undefined ? null : next
 }
-
 /** @see https://leetcode-cn.com/problems/lMSNwu/ */
 // var addTwoNumbers = function (l1, l2) {
 // 	let arr1 = []
@@ -254,6 +251,8 @@ function ListNode(val, next) {
 // 	// const doo = (l, arr) => l.next =
 // }
 
+// TODO
+// TODO
 /** @see https://leetcode-cn.com/problems/kLl5u1/ */
 var twoSum = function (numbers, target) {
 	// let i = 0
@@ -290,6 +289,7 @@ var minCostClimbingStairs = function (cost) {
 	}
 	return dp.pop()
 }
+// TODO
 
 // console.log(minCostClimbingStairs([10, 15]))
 

@@ -99,3 +99,71 @@ var findRedundantConnection = function (edges) {
 	}
 	return [0]
 }
+
+/**
+ * @param {number[]} coins
+ * @param {number} amount
+ * @return {number}
+ */
+var coinChange = function (coins, amount) {
+	let dp = Array(amount + 1).fill(amount + 1)
+	dp[0] = 0
+	for (let i = 1; i <= amount; i++) {
+		for (let j = 0; j < coins.length; j++) {
+			if (i >= coins[j]) dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1)
+		}
+	}
+	return dp[amount] > amount ? -1 : dp[amount]
+}
+
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+var addTwoNumbers = function (l1, l2) {
+	if (!l1 || !l2) return l1 || l2
+	let arr1 = []
+	let arr2 = []
+	let arr3 = []
+
+	while (l1) {
+		arr1.unshift(l1)
+		l1 = l1.next
+	}
+
+	while (l2) {
+		arr2.unshift(l2)
+		l2 = l2.next
+	}
+}
+/**
+ * @param {number[]} numbers
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum = function (numbers, target) {
+	let left = 0
+	let right = numbers.length - 1
+	while (left < right) {
+		let sum = numbers[left] + numbers[right]
+		if (sum === target) return [left, right]
+		if (sum < target) left++
+		else right--
+	}
+}
+
+/**
+ * @param {number[]} cost
+ * @return {number}
+ */
+var minCostClimbingStairs = function (cost) {
+	let dp0 = 0
+	let dp1 = 0
+	for (let index = 2; index <= cost.length; index++) {
+		let temp = dp1
+		dp1 = Math.min(dp1 + cost[index - 1], dp0 + cost[index - 2])
+		dp0 = temp
+	}
+	return dp1
+}
