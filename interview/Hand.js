@@ -239,3 +239,18 @@ const assign = (target, ...sources) => {
 	})
 	return target
 }
+let obj = {
+	[Symbol.iterator]() {
+		let count = 0
+		return {
+			next() {
+				count++
+				console.log(1)
+				return {done: count === 4, value: count}
+			}
+		}
+	}
+}
+
+let a = [...obj]
+document.createElement('link').href

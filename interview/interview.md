@@ -552,7 +552,58 @@ const myBind = (context, handler,...args0) => {
 >
 > 底层 
 
+#### 迭代器、生成器
 
+> 迭代器模式（特别是在 ECMAScript 这个语境下）描述了一个方案，即可以把有些结构称为“可迭 代对象”（iterable），因为它们实现了正式的 Iterable 接口，而且可以通过迭代器 Iterator 消费。
 
+#### Proxoy
 
+> 之所以 Vue3.0 要使用 `Proxy` 替换原本的 API 原因在于 `Proxy` 无需一层层递归为每个属性添加代理，一次即可完成以上操作，性能上更好，并且原本的实现有一些数据更新不能监听到，但是 `Proxy` 可以完美监听到任何方式的数据改变，唯一缺陷就是浏览器的兼容性不好。
+>
+> 
 
+#### 内置对象
+
+>  js 中的内置对象主要指的是在程序执行前存在全局作用域里的由 js 定义的一些全局值属性、函数和用来实例化其他对象的构造函数对象。
+
+#### css工程化
+
+> CSS 工程化是为了解决以下问题：
+>
+> 1. **宏观设计**：CSS 代码如何组织、如何拆分、模块结构怎样设计？
+> 2. **编码优化**：怎样写出更好的 CSS？
+> 3. **构建**：如何处理我的 CSS，才能让它的打包结果最优？
+> 4. **可维护性**：代码写完了，如何最小化它后续的变更成本？如何确保任何一个同事都能轻松接手？
+
+#### position
+
+> static，relative，absolute，fixed，sticky
+>
+> fixed `fixed` 属性会创建新的层叠上下文。当元素祖先的 `transform`, `perspective` 或 `filter` 属性非 `none` 时，容器由视口改为该祖先。
+> 
+> 元素根据正常文档流进行定位，然后相对它的最近滚动祖先（nearest scrolling ancestor）和 containing block (最近块级祖先 nearest block-level ancestor)，包括table-related元素，基于top, right, bottom, 和 left的值进行偏移。偏移值不会影响任何其他元素的位置。
+>该值总是创建一个新的层叠上下文（stacking context）。注意，一个sticky元素会“固定”在离它最近的一个拥有“滚动机制”的祖先上（当该祖先的overflow 是 hidden, scroll, auto, 或 overlay时），即便这个祖先不是最近的真实可滚动祖先。这有效地抑制了任何“sticky”行为（详情见Github issue on W3C CSSWG）。
+
+#### z-index层叠上下文
+
+> 页面元素不仅会在xy轴上排列，在z轴上也会进行排列。默认的元素排列顺序是背景、z-index负数、display block、浮动、inline- block、z-index0、z-index0。
+>
+> 产生层叠上下文的有：根元素、absolute设置z-index、fixed、sticky、opacity、transform、filter、flex、grid子元素设置z-index。
+>
+> 层叠上下文和层叠顺序是两回事 
+>
+> - CSS2.1规范中，只在定位元素position上有效（非static）
+> - z-index值改变元素在其parent stacking context中Z轴的相对偏移量
+> - 根节点、position！=static 、flex 子元素、grid、opacity、transform、filter
+
+#### 盒子
+
+> 
+
+#### BFC
+
+> 格式化上下文，是css中的一种规则，可以解决浮动高度塌陷、上下边距合并问题
+>
+> 根元素、position、flex、grid、子元素、浮动、overflow、inline- block、
+>
+> 
