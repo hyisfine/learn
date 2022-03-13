@@ -594,16 +594,21 @@ const myBind = (context, handler,...args0) => {
 >
 > - CSS2.1规范中，只在定位元素position上有效（非static）
 > - z-index值改变元素在其parent stacking context中Z轴的相对偏移量
-> - 根节点、position！=static 、flex 子元素、grid、opacity、transform、filter
-
-#### 盒子
-
-> 
+> - 根节点、position！=static 、flex ｜grid子元素、opacity、transform、filter
 
 #### BFC
 
-> 格式化上下文，是css中的一种规则，可以解决浮动高度塌陷、上下边距合并问题
+> 格式化上下文，是css中的一种规则，开启以后拥有独立的布局，可以解决浮动高度塌陷、上下边距合、排除外部浮动问题
 >
-> 根元素、position、flex、grid、子元素、浮动、overflow、inline- block、
+> 根元素、position=absolute ｜fixed、flex｜grid的子元素、浮动、overflow不为visible、inline- block、表格、display=flow-root
+
+#### Grid
+
+> 与弹性盒子不同的是，在定义网格后，网页并不会马上发生变化。因为`display: grid`的声明只创建了一个只有一列的网格，所以你的子项还是会像正常布局流那样从上而下一个接一个的排布。
+
+#### css动画
+
+> transition delay、function、prototype、duration
 >
-> 
+> animation delay、name、function、duration、count、direction、mode、state 
+

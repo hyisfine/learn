@@ -18,7 +18,7 @@
 - [ ] [手写一个虚拟DOM库，彻底让你理解diff算法](https://mp.weixin.qq.com/s/BG8nmRW4nfXKP5L-kKx-GQ)
 - [ ] [Async是如何被 JavaScript 实现的](https://mp.weixin.qq.com/s/P_DPkH72_1bdOl78M_ISsQ)
 
-### css3
+### css3 
 
 - [ ] [css 新特性 contain ，减少回流重绘](https://mp.weixin.qq.com/s/W9kYPRjM92YEvmL0OutO6A)
 - [ ] [CSS 实现多行文本“展开收起”](https://mp.weixin.qq.com/s/wDQeq0Tr4rKEInCKJncOhA)
@@ -33,6 +33,9 @@
 - [x] [字体构造与文字垂直居中方案探索](https://zhuanlan.zhihu.com/p/227770612)
 - [x] [真的理解font-size和line-height了吗？](https://juejin.cn/post/6971673576017494053)
 - [ ] [革命性创新，动画杀手锏 @scroll-timeline](https://mp.weixin.qq.com/s/mAQ2Px7fc8M0GKCP-6SG5Q)
+- [ ] [彻底搞懂CSS层叠上下文、层叠等级、层叠顺序、z-index](https://juejin.cn/post/6844903667175260174)
+- [ ] [最强大的 CSS 布局 —— Grid 布局](https://juejin.cn/post/6854573220306255880)
+- [ ] [CSS动画：animation、transition、transform、translate傻傻分不清](https://juejin.cn/post/6844903615920898056#heading-2)
 
 ### 架构
 
