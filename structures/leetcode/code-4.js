@@ -297,3 +297,84 @@ var sortList = function (head) {
 	l.next = head || next
 	return h.next
 }
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var detectCycle = function (head) {
+	if (!head) return head
+	let slow = head
+	let fast = head
+
+	while (slow && fast) {
+		slow = slow.next
+		fast = fast.next?.next
+		if (slow && slow === fast) {
+			while (head !== slow) {
+				slow = slow.next
+				head = head.next
+			}
+			return head
+		}
+	}
+	return null
+}
+
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var minPathSum = function (grid) {
+	let m = grid.length
+	let n = grid[0].length
+
+	for (let i = 0; i < m; i++) {
+		for (let j = 0; j < n; j++) {
+			if (!i && j) grid[i][j] += grid[i][j - 1]
+			if (i && !j) grid[i][j] += grid[i - 1][j]
+			if (i && j) grid[i][j] = Math.min(grid[i - 1][j], grid[i][j - 1]) + grid[i][j]
+		}
+	}
+
+	return grid[m - 1][n - 1]
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findMaxLength = function (nums) {
+	let len = nums.length
+	if (!len) return 0
+	let map = new Map()
+	map.set(0, -1)
+	let count = 0
+	let max = 0
+	for (let i = 0; i < len; i++) {
+		if (nums[i]) count += 1
+		else count -= 1
+		if (map.has(count)) max = Math.max(max, i - map.get(count))
+		else map.set(count, i)
+	}
+	return max
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var sumNumbers = function (root) {
+	let sum = 0
+	let arr = []
+	const dfs = node => {
+		if (!node) return
+		arr.unshift(node.val)
+		dfs(node.left)
+		dfs(node.right)
+		if (!node.left && !node.right) sum += arr.reduce((prev, item, index) => prev + item * 10 ** index, 0)
+		arr.shift()
+	}
+	dfs(root)
+	return sum
+}

@@ -1,52 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-		<style>
-			.grid {
-				display: grid;
-				/* width: 400px; */
-				gap: 20px 10px;
-				grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-				/* grid-auto-flow: row dense; */
-				justify-items: center;
-				align-items: center;
-			}
-			.grid div {
-				height: 30px;
-			}
-			.grid div:nth-child(4) {
-				justify-self: start;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="grid">
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-		</div>
 
-		<script>
-			document.querySelectorAll('.grid div').forEach(item => {
-				item.style.width = `${Math.random() * 40 + 20}px`
-				item.style.background = `#${Math.random().toString(16).slice(2, 8)}`
-			})
-		</script>
-	</body>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		.grid {
+			display: grid;
+			/* width: 400px; */
+			gap: 20px 10px;
+			grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+			/* grid-auto-flow: row dense; */
+			justify-items: center;
+			align-items: center;
+		}
+
+		.grid div {
+			height: 30px;
+		}
+
+		.grid div:nth-child(4) {
+			justify-self: start;
+		}
+
+		.margin {
+			background-color: royalblue;
+			height: 300px;
+		}
+
+		.m1 {
+			padding: 0 200px;
+			background-color: rebeccapurple;
+			height: 100%;
+			float: left;
+			width: 100%;
+			box-sizing: border-box;
+		}
+
+		.m2 {
+			float: left;
+			margin-left: -100%;
+			height: 100%;
+			background-color: darkcyan;
+			width: 200px;
+		}
+
+		.m3 {
+			float: left;
+			margin-left: -200px;
+			background-color: salmon;
+			height: 100%;
+			width: 200px;
+
+		}
+	</style>
+</head>
+
+<body>
+	<!-- <div class="grid">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div> -->
+	<div class="margin">
+		<div class="m1">m1</div>
+		<div class="m2">one</div>
+		<div class="m3">two</div>
+	</div>
+
+	<script>
+		document.querySelectorAll('.grid div').forEach(item => {
+			item.style.width = `${Math.random() * 40 + 20}px`
+			item.style.background = `#${Math.random().toString(16).slice(2, 8)}`
+		})
+	</script>
+</body>
+
 </html>
