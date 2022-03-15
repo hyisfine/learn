@@ -378,3 +378,168 @@ var sumNumbers = function (root) {
 	dfs(root)
 	return sum
 }
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var topKFrequent = function (nums, k) {
+	let map = {}
+	for (const num of nums) map[num] = (map[num] || 0) + 1
+
+	const change = (arr, i, j) => {
+		;[arr[i], arr[j]] = [arr[j], arr[i]]
+	}
+
+	class Heap {
+		constructor(k, map) {
+			this.k = k
+			this.arr = Object.entries(map)
+			this.build()
+		}
+
+		build() {
+			let last = this.arr.length - 1
+			let lastP = last % 2 ? (last - 1) / 2 : (last - 2) / 2
+
+			for (let i = lastP; i >= 0; i--) {
+				let j = i
+				while (j <= last) {
+					let p = this.arr[j]
+					let left = this.arr[j * 2 + 1]
+					let right = this.arr[j * 2 + 2]
+
+					if ((!right || left[1] >= right[1]) && left[1] > p[1]) {
+						change(this.arr, j, j * 2 + 1)
+						j = j * 2 + 1
+						continue
+					}
+
+					if (left[1] < right[1] && right[1] > p[1]) {
+						change(this.arr, j, j * 2 + 2)
+						j = j * 2 + 2
+
+						continue
+					}
+					break
+				}
+			}
+		}
+
+		delete() {
+			let result = []
+			while (this.arr.length || result.length === this.k) {
+				let top = this.arr[0]
+				let bottom = this.arr.pop()
+				result.push(+top[0])
+				if (!this.arr.length) break
+				this.arr[0] = bottom
+
+				let last = this.arr.length - 1
+				let lastP = last % 2 ? (last - 1) / 2 : (last - 2) / 2
+				let j = 0
+				while (j <= lastP) {
+					let p = this.arr[j]
+					let left = this.arr[j * 2 + 1]
+					let right = this.arr[j * 2 + 2]
+
+					if ((!right || left[1] >= right[1]) && left[1] > p[1]) {
+						change(this.arr, j, j * 2 + 1)
+						j = j * 2 + 1
+						continue
+					}
+
+					if (left[1] < right[1] && right[1] > p[1]) {
+						change(this.arr, j, j * 2 + 2)
+						j = j * 2 + 2
+						continue
+					}
+					break
+				}
+			}
+			return result
+		}
+	}
+
+	let h = new Heap(k, map)
+	return h.delete()
+}
+
+// var topKFrequent = function (nums, k) {
+// 	const map = new Map()
+// 	for (const n of nums) map.set(n, 1 + (map.get(n) || 0))
+
+// 	const arr = []
+// 	for (const kv of map) arr.push(kv)
+// 	return arr
+// 		.sort((a, b) => b[1] - a[1])
+// 		.slice(0, k)
+// 		.map(a => a[0])
+// }
+
+/**
+ * @param {string[]} deadends
+ * @param {string} target
+ * @return {number}
+ */
+var openLock = function (deadends, target) {
+	let dead = new Set(deadends)
+	if (target === '0000') return 0
+	if (dead.has(target)) return -1
+	if (dead.has('0000')) return -1
+
+	const nextStr = (str, i) => {
+		let char = str[i]
+		let char1 = +str[i] + 1
+		let char2 = +str[i] - 1
+		if (char === '9') char1 = 0
+		if (char === '0') char2 = 9
+		return [str.substr(0, i) + char1 + str.substr(i + 1), str.substr(0, i) + char2 + str.substr(i + 1)]
+	}
+
+	let queue = []
+	let created = new Set()
+	queue.push('0000')
+	created.add('0000')
+
+	let step = 0
+	while (queue.length) {
+		let len = queue.length
+		let i = 0
+		step++
+		while (i < len) {
+			let current = queue.shift()
+			let j = 0
+			while (j < 4) {
+				let [str1, str2] = nextStr(current, j)
+				if ([str1, str2].includes(target)) return step
+				if (!dead.has(str1) && !created.has(str1)) {
+					queue.push(str1)
+					created.add(str1)
+				}
+				if (!dead.has(str2) && !created.has(str2)) {
+					queue.push(str2)
+					created.add(str2)
+				}
+				j++
+			}
+			i++
+		}
+	}
+
+	return -1
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var invertTree = function (root) {
+	if (!root) return root
+	let left = invertTree(root.left)
+	let right = invertTree(root.right)
+	root.left = right
+	root.right = left
+	return root
+}

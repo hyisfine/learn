@@ -757,7 +757,6 @@ var sumNumbers = function (root) {
 
 	return result
 }
-// TODO
 
 const root = new TreeNode(4)
 root.left = new TreeNode(9)
@@ -877,6 +876,7 @@ const getNextStr = (str, i) => {
 
 	return [str1, str2]
 }
+
 /**
  * @param {string[]} deadends
  * @param {string} target
@@ -918,6 +918,7 @@ var openLock = function (deadends, target) {
 
 	return -1
 }
+
 // console.log(openLock(['7777'], '1009'))
 
 /**
@@ -979,6 +980,7 @@ var NumMatrix = function (matrix) {
 
 	this.matrix = matrix
 }
+// TODO
 
 /**
  * @param {number} row1
