@@ -1058,14 +1058,18 @@ var findAnagrams = function (s, p) {
 
 	let prev = 0
 	const result = []
-	const win = {}
+	let win = {}
 	let valid = 0
 	for (let i = 0; i < s.length; i++) {
 		const c = s[i]
-		if (map[c]) {
-			win[c] = win[c] + 1 || 1
-			if (win[c] === map[c]) valid++
+		if (!(c in map)) {
+			win = {}
+			valid = 0
+			prev = i + 1
+			continue
 		}
+		win[c] = win[c] || 0 + 1
+		if (win[c] === map[c]) valid++
 
 		if (i - prev !== p.length - 1) continue
 		if (valid === Object.keys(map).length) {
@@ -1191,6 +1195,7 @@ var maximalRectangle = function (matrix) {
 	return max
 }
 // console.log(maximalRectangle(['1101', '1101', '1111']))
+// TODO
 
 /**
  * @param {number[]} asteroids

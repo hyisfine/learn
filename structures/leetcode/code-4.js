@@ -543,3 +543,96 @@ var invertTree = function (root) {
 	root.right = left
 	return root
 }
+
+/**
+ * @param {number} n
+ * @param {number} k
+ * @return {number[][]}
+ */
+var combine = function (n, k) {
+	let res = []
+	let arr = []
+	let dfs = start => {
+		if (arr.length === k) return res.push([...arr])
+		for (let i = start + 1; i <= n; i++) {
+			arr.push(i)
+			dfs(i)
+			arr.pop()
+		}
+	}
+	dfs(0)
+	return res
+}
+
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function (head, n) {
+	if (!head) return head
+
+	let fast = head
+	let slow = head
+
+	while (n && fast) {
+		fast = fast.next
+		n--
+	}
+	let prev = slow
+	while (fast) {
+		prev = slow
+		fast = fast.next
+		slow = slow.next
+	}
+
+	if (!prev || prev === slow) return slow.next
+	prev.next = slow?.next
+	if (slow) slow.next = null
+	return head
+}
+
+/**
+ * @param {string} s
+ * @param {string} p
+ * @return {number[]}
+ */
+var findAnagrams = function (s, p) {
+	const map = {}
+	for (const char of p) map[char] = (map[char] || 0) + 1
+
+	let prev = 0
+	const result = []
+	let win = {}
+	let valid = 0
+	let len = Object.keys(map).length
+
+	for (let i = 0; i < s.length; i++) {
+		const key = s[i]
+		if (!(key in map)) {
+			win = {}
+			valid = 0
+			prev = i + 1
+			continue
+		}
+
+		win[key] = (win[key] || 0) + 1
+		if (win[key] < map[key]) continue
+		if (win[key] === map[key]) valid++
+		if (win[key] > map[key]) {
+			while (win[key] !== map[key]) {
+				let key = s[prev]
+				win[key]--
+				if (win[key] === map[key] - 1) valid--
+				prev++
+			}
+		}
+		if (valid < len) continue
+		result.push(prev)
+		win[s[prev]]--
+		valid--
+		prev++
+	}
+
+	return result
+}
