@@ -17,8 +17,10 @@
 - [ ] [几张动图带你回顾JS的变量提升](https://mp.weixin.qq.com/s/4eAlAW3SCamnFSolzCiz8Q)
 - [ ] [手写一个虚拟DOM库，彻底让你理解diff算法](https://mp.weixin.qq.com/s/BG8nmRW4nfXKP5L-kKx-GQ)
 - [ ] [Async是如何被 JavaScript 实现的](https://mp.weixin.qq.com/s/P_DPkH72_1bdOl78M_ISsQ)
+- [ ] [浏览器的回流与重绘 (Reflow & Repaint)](https://juejin.cn/post/6844903569087266823)
+- [ ] [箭头函数原来是这样的，99.9% 的人都不知道这点](https://mp.weixin.qq.com/s/I4MZ49EwVkVTHPOhYPTJJQ)
 
-### css3 
+### css3
 
 - [ ] [css 新特性 contain ，减少回流重绘](https://mp.weixin.qq.com/s/W9kYPRjM92YEvmL0OutO6A)
 - [ ] [CSS 实现多行文本“展开收起”](https://mp.weixin.qq.com/s/wDQeq0Tr4rKEInCKJncOhA)
@@ -36,26 +38,26 @@
 - [ ] [彻底搞懂CSS层叠上下文、层叠等级、层叠顺序、z-index](https://juejin.cn/post/6844903667175260174)
 - [ ] [最强大的 CSS 布局 —— Grid 布局](https://juejin.cn/post/6854573220306255880)
 - [ ] [CSS动画：animation、transition、transform、translate傻傻分不清](https://juejin.cn/post/6844903615920898056#heading-2)
+- [ ] [字节跳动最爱考的前端面试题：CSS 基础](https://mp.weixin.qq.com/s/Kmvph764Ec8Y40uFUf4Phw)
 
 ### 架构
 
 - [ ] [可能是你见过最完善的微前端解决方案](https://zhuanlan.zhihu.com/p/78362028)
-
-### 移动开发
-
-- [x] [关于移动端适配，你必须要知道的](https://juejin.cn/post/6844903845617729549#heading-11)
 
 ### react
 
 - [ ] [我所理解的 Hooks API](https://mp.weixin.qq.com/s/Q1zitZ3y819tuiDd31GACQ)
 - [ ] [React Fiber架构浅析](https://mp.weixin.qq.com/s/GDYfwQyIKOjqfC_n-oDPzQ)
 - [ ] [React内部让人迷惑的性能优化策略](https://mp.weixin.qq.com/s/zB129uJfOYG2If4tSySLyA)
+- [ ] [React Hooks 的原理，有的简单有的不简单](https://mp.weixin.qq.com/s/u89G-Uas0mzZQsiWT_4EZQ)
+- [ ] [图解 React 原理系列](https://github.com/7kms/react-illustration-series/tree/master)
+- [ ] [React技术揭秘](https://react.iamkasong.com/)
 
 ### H5 开发
 
 - [ ] [H5 常见问题及解决方案手册](https://mp.weixin.qq.com/s/HsDRqbfiKq3Wd8kVr5wxwQ)
-
 - [ ] [骨架屏生成方案](https://mp.weixin.qq.com/s/1Vy06emNPZJiXeDP04Ipfw)
+- [ ] [关于移动端适配，你必须要知道的](https://juejin.cn/post/6844903845617729549#heading-11)
 
 ### Node.js
 
