@@ -393,7 +393,7 @@ var topKFrequent = function (nums, k) {
 	}
 
 	class Heap {
-		constructor(k, map) {
+		constructor (k, map) {
 			this.k = k
 			this.arr = Object.entries(map)
 			this.build()
@@ -636,3 +636,117 @@ var findAnagrams = function (s, p) {
 
 	return result
 }
+
+/**
+ * @param {number[]} asteroids
+ * @return {number[]}
+ */
+var asteroidCollision = function (asteroids) {
+	let stack = []
+	let res = []
+	let index = asteroids.findIndex(num => num > 0)
+	if (~index) res = asteroids.slice(0, index)
+
+	for (let i = index; i < asteroids.length; i++) {
+		let num = asteroids[i]
+		if (num > 0) {
+			stack.push(num)
+			continue
+		}
+
+		let len = stack.length
+		if (!len) {
+			res.push(num)
+			continue
+		}
+
+		while (true) {
+			let last = stack[stack.length - 1]
+			if (last > -num) break
+			if (last === -num) {
+				stack.pop()
+				break
+			}
+			if (last < -num) {
+				stack.pop()
+				if (!stack.length) {
+					res.push(num)
+					break
+				}
+			}
+		}
+
+	}
+
+	return res
+
+};
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isPalindrome = function (s) {
+	if (!s) return true
+
+	let left = 0
+	let right = s.length - 1
+
+	while (left < right) {
+		while (left < right) {
+			if (/[\w^_]/.test(s[left])) break
+			else left++
+		}
+		while (left < right) {
+			if (/[0-9a-zA-Z]/.test(s[right])) break
+			else right--
+		}
+		if (!s[left] && !s[right]) return true
+		if (s[left].toLowerCase() !== s[right].toLowerCase()) return false
+		right--
+		left++
+	}
+	return true
+};
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @param {number} t
+ * @return {boolean}
+ */
+var containsNearbyAlmostDuplicate = function (nums, k, t) {
+	let len = nums.length
+	if (!len) return true
+
+	let win = []
+	let min1 = -1
+	let min2 = -1
+
+	for (let i = 0; i < len; i++) {
+		let num = nums[i]
+		win.push(i)
+		if (win.length <= k) {
+			if (min1 === -1 || num <= nums[min1]) {
+				min2 = min1
+				min1 = i
+			} else if (min2 === -1 || num <= nums[min2]) {
+				min2 = i
+			}
+		} else {
+			let first = win.shift()
+			if (first === min1) {
+				min1 = min2
+
+				let min = win[0]
+
+			}
+
+
+
+		}
+
+
+	}
+
+};
