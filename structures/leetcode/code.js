@@ -1280,7 +1280,6 @@ var containsNearbyAlmostDuplicate = function (nums, k, t) {
 	return false
 }
 // console.log(containsNearbyAlmostDuplicate([1, 5, 9, 1, 5, 9], 2, 3))
-// TODO
 
 /**
  * @param {ListNode[]} lists
@@ -1350,6 +1349,7 @@ var findNthDigit = function (n) {
 		return ~~wei.toString(10)[(n - 1) % (i + 1)]
 	}
 }
+
 // console.log(findNthDigit(13))
 /**
  * @param {number[][]} matrix
@@ -1479,6 +1479,7 @@ var singleNonDuplicate = function (nums) {
 	}
 	return binary(0, nums.length - 1)
 }
+// TODO
 
 /**
  * @param {number[]} w

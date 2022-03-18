@@ -710,43 +710,50 @@ var isPalindrome = function (s) {
 };
 
 /**
- * @param {number[]} nums
- * @param {number} k
- * @param {number} t
+ * @param {string} s1
+ * @param {string} s2
+ * @param {string} s3
  * @return {boolean}
  */
-var containsNearbyAlmostDuplicate = function (nums, k, t) {
-	let len = nums.length
-	if (!len) return true
+var isInterleave = function (s1, s2, s3) {
+	let len1 = s1.length
+	let len2 = s2.length
+	let len3 = s3.length
+	if (len1 + len2 !== len3) return false
+	const dp = Array(len2 + 1).fill(false)
+	dp[0] = true
 
-	let win = []
-	let min1 = -1
-	let min2 = -1
-
-	for (let i = 0; i < len; i++) {
-		let num = nums[i]
-		win.push(i)
-		if (win.length <= k) {
-			if (min1 === -1 || num <= nums[min1]) {
-				min2 = min1
-				min1 = i
-			} else if (min2 === -1 || num <= nums[min2]) {
-				min2 = i
+	for (let i = 0; i <= len1; i++) {
+		for (let j = 0; j <= len2; j++) {
+			const p = i + j - 1
+			if (i > 0) {
+				dp[j] = dp[j] && s1[i - 1] == s3[p]
 			}
-		} else {
-			let first = win.shift()
-			if (first === min1) {
-				min1 = min2
-
-				let min = win[0]
-
+			if (j > 0) {
+				dp[j] = dp[j] || dp[j - 1] && s2[j - 1] == s3[p]
 			}
+		}
+	}
 
+	return dp[len2]
 
+};
 
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var singleNonDuplicate = function (nums) {
+	const binary = (low, hight) => {
+		if (low === hight) return low
+		let m = low + Math.floor((hight - low) / 2)
+		if (m === 0 || m === nums.length - 1) return m
+		if (nums[m] !== nums[m - 1] && nums[m] !== nums[m + 1]) return m
+		if (low + 1 === hight) {
+			if (nums[low] === nums[low] - 1) return hight
+			return low
 		}
 
 
 	}
-
 };
