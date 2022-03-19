@@ -393,7 +393,7 @@ var topKFrequent = function (nums, k) {
 	}
 
 	class Heap {
-		constructor (k, map) {
+		constructor(k, map) {
 			this.k = k
 			this.arr = Object.entries(map)
 			this.build()
@@ -675,12 +675,10 @@ var asteroidCollision = function (asteroids) {
 				}
 			}
 		}
-
 	}
 
 	return res
-
-};
+}
 
 /**
  * @param {string} s
@@ -707,7 +705,7 @@ var isPalindrome = function (s) {
 		left++
 	}
 	return true
-};
+}
 
 /**
  * @param {string} s1
@@ -730,30 +728,176 @@ var isInterleave = function (s1, s2, s3) {
 				dp[j] = dp[j] && s1[i - 1] == s3[p]
 			}
 			if (j > 0) {
-				dp[j] = dp[j] || dp[j - 1] && s2[j - 1] == s3[p]
+				dp[j] = dp[j] || (dp[j - 1] && s2[j - 1] == s3[p])
 			}
 		}
 	}
 
 	return dp[len2]
-
-};
+}
 
 /**
  * @param {number[]} nums
  * @return {number}
  */
 var singleNonDuplicate = function (nums) {
-	const binary = (low, hight) => {
-		if (low === hight) return low
-		let m = low + Math.floor((hight - low) / 2)
-		if (m === 0 || m === nums.length - 1) return m
-		if (nums[m] !== nums[m - 1] && nums[m] !== nums[m + 1]) return m
-		if (low + 1 === hight) {
-			if (nums[low] === nums[low] - 1) return hight
-			return low
+	let low = 0
+	let high = nums.length - 1
+	while (low < high) {
+		let middle = low + Math.floor((high - low) / 2)
+		if (middle % 2) {
+			if (nums[middle] === nums[middle - 1]) low = middle + 1
+			else high = middle - 1
+		} else {
+			if (nums[middle] === nums[middle - 1]) high = middle - 1
+			else low = middle + 1
+		}
+	}
+
+	return nums[low]
+}
+
+/**
+ * @param {ListNode} head
+ * @return {void} Do not return anything, modify head in-place instead.
+ */
+var reorderList = function (head) {
+	if (!head || !head.next) return
+	let slow = head
+	let fast = head
+	let prev
+	while (fast && fast.next) {
+		prev = slow
+		slow = slow.next
+		fast = fast.next.next
+	}
+	prev.next = null
+
+	prev = slow
+	slow = slow.next
+	let next = slow?.next
+	while (slow) {
+		slow.next = prev
+		prev = slow
+		slow = next
+		next = next?.next
+	}
+
+	let l = new ListNode()
+	let list = l
+	let flag = true
+
+	while (prev && head) {
+		if (flag) {
+			l.next = head
+			head = head.next
+		} else {
+			l.next = prev
+			prev = prev.next
+		}
+		l = l.next
+		flag = !fast
+	}
+	l.next = prev || head
+	return list.next
+}
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var findKthLargest = function (nums, k) {
+	const change = (arr, i, j) => {
+		const temp = arr[i]
+		arr[i] = arr[j]
+		arr[j] = temp
+	}
+	const sort = (low, high) => {
+		if (low >= high) return
+		let i = low
+		let j = high
+		let x = nums[low]
+
+		while (i < j) {
+			while (i < j && nums[j] < x) j--
+			while (i < j && nums[i] >= x) i++
+			if (i < j) change(nums, i, j)
+		}
+		change(nums, i, low)
+
+		if (i >= k) sort(low, i - 1)
+		else sort(i + 1, high)
+	}
+	sort(0, nums.length - 1)
+	console.log(nums)
+	return nums[k - 1]
+}
+var findKthLargest = function (nums, k) {
+	const change = (arr, i, j) => {
+		let temp = arr[i]
+		arr[i] = arr[j]
+		arr[j] = temp
+	}
+	class MaxHeap {
+		constructor(nums, k) {
+			this.arr = nums
+			this.k = k
+			this.num = null
+			this.build()
+			this.find()
 		}
 
+		build() {
+			const len = this.arr.length - 1
+			const lastP = len % 2 === 0 ? (len - 2) / 2 : (len - 1) / 2
+			for (let j = lastP; j >= 0; j--) {
+				let i = j
+				while (i <= len) {
+					const p = this.arr[i]
+					const l = this.arr[i * 2 + 1]
+					const r = this.arr[i * 2 + 2]
 
+					if ((r === undefined || l >= r) && l > p) {
+						change(this.arr, i, i * 2 + 1)
+						i = i * 2 + 1
+						continue
+					}
+					if (r > l && r > p) {
+						change(this.arr, i, i * 2 + 2)
+						i = i * 2 + 2
+						continue
+					}
+
+					break
+				}
+			}
+		}
+		find() {
+			while (this.k !== 1) {
+				this.arr[0] = this.arr.pop()
+				let i = 0
+				while (i <= this.arr.length - 1) {
+					const p = this.arr[i]
+					const l = this.arr[i * 2 + 1]
+					const r = this.arr[i * 2 + 2]
+					if ((r === undefined || l >= r) && l > p) {
+						change(this.arr, i, i * 2 + 1)
+						i = i * 2 + 1
+						continue
+					}
+					if (r > l && r > p) {
+						change(this.arr, i, i * 2 + 2)
+						i = i * 2 + 2
+						continue
+					}
+					break
+				}
+
+				this.k--
+			}
+			this.num = this.arr[0]
+		}
 	}
-};
+	let h = new MaxHeap(nums, k)
+	return h.num
+}

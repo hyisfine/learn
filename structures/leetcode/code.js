@@ -338,7 +338,7 @@ var getIntersectionNode = function (headA, headB) {
 	}
 
 	;[l1, l2] = len1 >= len2 ? [headA, headB] : [headB, headA]
-		;[len1, len2] = len1 >= len2 ? [len1, len2] : [len2, len1]
+	;[len1, len2] = len1 >= len2 ? [len1, len2] : [len2, len1]
 
 	while (len1 - len2) {
 		l1 = l1.next
@@ -780,7 +780,7 @@ var topKFrequent = function (nums, k) {
 	}
 
 	class Heap {
-		constructor () {
+		constructor() {
 			this.arr = []
 		}
 
@@ -1143,7 +1143,7 @@ var maximalRectangle = function (matrix) {
 		.map(() =>
 			Array(len2)
 				.fill(0)
-				.map(() => [0, 0])
+				.map(() => [0, 0]),
 		)
 	arr[0][0] = [~~matrix[0][0], ~~matrix[0][0]]
 
@@ -1368,7 +1368,7 @@ var longestIncreasingPath = function (matrix) {
 		[1, 0],
 		[-1, 0],
 		[0, 1],
-		[0, -1]
+		[0, -1],
 	]
 	const dfs = (i, j) => {
 		if (arr[i][j]) return arr[i][j]
@@ -1479,7 +1479,6 @@ var singleNonDuplicate = function (nums) {
 	}
 	return binary(0, nums.length - 1)
 }
-// TODO
 
 /**
  * @param {number[]} w
@@ -1606,6 +1605,7 @@ var findKthLargest = function (nums, k) {
 	sort(0, nums.length - 1)
 	return max
 }
+// TODO
 
 /**
  * @param {string} s
@@ -1947,7 +1947,7 @@ var KthLargest = function (k, nums) {
 	}
 
 	class Head {
-		constructor (arr, k) {
+		constructor(arr, k) {
 			this.arr = arr
 			this.minArr = []
 			this.k = k
@@ -3385,7 +3385,7 @@ var missingNumber = function (nums) {
  * @param {number} m
  * @return {number}
  */
-var lastRemaining = function (n, m) { }
+var lastRemaining = function (n, m) {}
 
 /**
  * @param {number[]} nums
@@ -3740,7 +3740,7 @@ var maxSlidingWindow = function (nums, k) {
  */
 var maxSlidingWindow = function (nums, k) {
 	class MaxHeap {
-		constructor () {
+		constructor() {
 			this.arr = []
 		}
 		add(val, i) {
@@ -3770,7 +3770,11 @@ var maxSlidingWindow = function (nums, k) {
 				let l = i * 2 + 1
 				let r = i * 2 + 2
 				console.log({ l, r, i }, this.arr[l], this.arr[r], this.arr[l]?.val >= this.arr[r]?.val)
-				if (this.arr[l] && (!this.arr[r] || this.arr[l].val >= this.arr[r].val) && this.arr[l].val > this.arr[i].val) {
+				if (
+					this.arr[l] &&
+					(!this.arr[r] || this.arr[l].val >= this.arr[r].val) &&
+					this.arr[l].val > this.arr[i].val
+				) {
 					let temp = this.arr[i]
 					this.arr[i] = this.arr[l]
 					this.arr[l] = temp
