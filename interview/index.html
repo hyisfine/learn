@@ -45,10 +45,32 @@
 			<main></main>
 			<footer>下边界重叠 87 不能再高了</footer>
 		</section>
-		<!-- <div class="aaa">
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde voluptates officiis quaerat blanditiis
-			dignissimos doloribus doloremque repellendus libero explicabo incidunt quos cum, porro sequi dolores ut
-			<div class="bbb"></div>
-		</div> -->
 	</body>
+
+	<script>
+		setTimeout(() => {
+			console.log(1)
+		}, 0)
+		setTimeout(() => {
+			console.log(2)
+		})
+
+		setTimeout(() => {
+			console.log(3)
+		}, 0)
+
+		new Promise(a => {
+			console.log(4)
+			a()
+		})
+			.then(() => {
+				console.log(5)
+			})
+			.then(() => {
+				console.log(6)
+				setTimeout(() => {
+					console.log(7)
+				})
+			})
+	</script>
 </html>

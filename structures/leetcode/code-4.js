@@ -901,3 +901,115 @@ var findKthLargest = function (nums, k) {
 	let h = new MaxHeap(nums, k)
 	return h.num
 }
+/**
+ * @param {string} s
+ * @return {string[]}
+ */
+var restoreIpAddresses = function (s) {
+	let len = s.length
+	let res = []
+	let arr = []
+	const dfs = j => {
+		if (arr.length === 4 && j === len) return res.push(arr.join('.'))
+		if (arr.length === 4 && j < len) return
+		let str = ''
+		for (let i = j; i < len; i++) {
+			str += s[i]
+			if (str === '0') {
+				arr.push(str)
+				dfs(i + 1)
+				arr.pop()
+				break
+			}
+			if (+str > 255) break
+			arr.push(str)
+			dfs(i + 1)
+			arr.pop()
+		}
+	}
+	dfs(0)
+	return res
+}
+
+/**
+ * @param {number[]} heights
+ * @return {number}
+ */
+var largestRectangleArea = function (heights) {
+	let stack = []
+	let max = 0
+	heights.push(0)
+	heights.unshift(0)
+	for (let i = 0; i < heights.length; i++) {
+		while (heights[i] < heights[stack[stack.length - 1]]) {
+			let index = stack.pop()
+			max = Math.max(max, heights[index] * (i - stack[stack.length - 1] - 1))
+		}
+		stack.push(i)
+	}
+	return max
+}
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var findTargetSumWays = function (nums, target) {
+	let sum = nums.reduce((a, b) => a + b)
+	let newTarget = sum - target
+	let count = 0
+
+	let map = new Map()
+	let newSum = 0
+	for (const num of nums) {
+		newSum += num
+		map.set(newSum, (map.get(newSum) || 0) + 1)
+		if (map.has(newTarget - newSum)) count += map.get(newTarget - newSum)
+	}
+
+	return count
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var subsets = function (nums) {
+	let res = []
+	let arr = []
+	const dfs = j => {
+		res.push([...arr])
+		for (let i = j; i < nums.length; i++) {
+			arr.push(nums[i])
+			dfs(i + 1)
+			arr.pop()
+		}
+	}
+	dfs(0)
+	return res
+}
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var findTargetSumWays = function (nums, target) {
+	let arr1 = [0]
+	let arr2 = [0]
+	for (let i = nums.length - 2; i >= 1; i--) {
+		arr1.unshift(arr1[0] + nums[i + 1])
+		arr2.unshift(arr1[0] - nums[i + 1])
+	}
+
+	let count = 0
+	const dfs = (sum, i) => {
+		if (i === nums.length) return count++
+		if (sum + target <= arr1[i]) dfs(sum + nums[i])
+		if (sum - target <= arr2[i]) dfs(sum - nums[i])
+	}
+	dfs(0, 0)
+
+	return count
+}
