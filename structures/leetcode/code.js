@@ -338,7 +338,7 @@ var getIntersectionNode = function (headA, headB) {
 	}
 
 	;[l1, l2] = len1 >= len2 ? [headA, headB] : [headB, headA]
-	;[len1, len2] = len1 >= len2 ? [len1, len2] : [len2, len1]
+		;[len1, len2] = len1 >= len2 ? [len1, len2] : [len2, len1]
 
 	while (len1 - len2) {
 		l1 = l1.next
@@ -780,7 +780,7 @@ var topKFrequent = function (nums, k) {
 	}
 
 	class Heap {
-		constructor() {
+		constructor () {
 			this.arr = []
 		}
 
@@ -1718,7 +1718,6 @@ var subsets = function (nums) {
 	console.log(result)
 	return result
 }
-// TODO
 
 /**
  * @param {number[]} nums
@@ -1738,6 +1737,7 @@ var combinationSum4 = function (nums, target) {
 	}
 	return dp[target]
 }
+
 // console.log(combinationSum4([2, 1, 3], 35))
 
 /**
@@ -1815,6 +1815,7 @@ var flatten = function (head) {
 
 	return arr[0]
 }
+// TODO
 
 /**
  * @param {number} target
@@ -1948,7 +1949,7 @@ var KthLargest = function (k, nums) {
 	}
 
 	class Head {
-		constructor(arr, k) {
+		constructor (arr, k) {
 			this.arr = arr
 			this.minArr = []
 			this.k = k
@@ -3386,7 +3387,7 @@ var missingNumber = function (nums) {
  * @param {number} m
  * @return {number}
  */
-var lastRemaining = function (n, m) {}
+var lastRemaining = function (n, m) { }
 
 /**
  * @param {number[]} nums
@@ -3741,7 +3742,7 @@ var maxSlidingWindow = function (nums, k) {
  */
 var maxSlidingWindow = function (nums, k) {
 	class MaxHeap {
-		constructor() {
+		constructor () {
 			this.arr = []
 		}
 		add(val, i) {

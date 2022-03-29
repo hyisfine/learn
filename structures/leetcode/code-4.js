@@ -1,3 +1,4 @@
+// @ts-ignore
 function ListNode(val, next) {
 	this.val = val === undefined ? 0 : val
 	this.next = next === undefined ? null : next
@@ -51,6 +52,7 @@ var minSteps = function (n) {
  * @return {number[]}
  * @see https://leetcode-cn.com/problems/w3tCBm/
  */
+// @ts-ignore
 var countBits = function (n) {
 	let dp = Array(n + 1).fill(0)
 
@@ -110,6 +112,7 @@ var findRedundantConnection = function (edges) {
  * @param {number} amount
  * @return {number}
  */
+// @ts-ignore
 var coinChange = function (coins, amount) {
 	let dp = Array(amount + 1).fill(amount + 1)
 	dp[0] = 0
@@ -130,6 +133,7 @@ var addTwoNumbers = function (l1, l2) {
 	if (!l1 || !l2) return l1 || l2
 	let arr1 = []
 	let arr2 = []
+	// @ts-ignore
 	let arr3 = []
 
 	while (l1) {
@@ -147,6 +151,7 @@ var addTwoNumbers = function (l1, l2) {
  * @param {number} target
  * @return {number[]}
  */
+// @ts-ignore
 var twoSum = function (numbers, target) {
 	let left = 0
 	let right = numbers.length - 1
@@ -393,7 +398,7 @@ var topKFrequent = function (nums, k) {
 	}
 
 	class Heap {
-		constructor(k, map) {
+		constructor (k, map) {
 			this.k = k
 			this.arr = Object.entries(map)
 			this.build()
@@ -832,6 +837,7 @@ var findKthLargest = function (nums, k) {
 	console.log(nums)
 	return nums[k - 1]
 }
+// @ts-ignore
 var findKthLargest = function (nums, k) {
 	const change = (arr, i, j) => {
 		let temp = arr[i]
@@ -839,7 +845,7 @@ var findKthLargest = function (nums, k) {
 		arr[j] = temp
 	}
 	class MaxHeap {
-		constructor(nums, k) {
+		constructor (nums, k) {
 			this.arr = nums
 			this.k = k
 			this.num = null
@@ -1013,3 +1019,94 @@ var findTargetSumWays = function (nums, target) {
 
 	return count
 }
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var combinationSum4 = function (nums, target) {
+	const dp = new Array(target + 1).fill(0);
+	dp[0] = 1;
+	for (let i = 1; i <= target; i++) {
+		for (const num of nums) {
+			if (num <= i) {
+				dp[i] += dp[i - num];
+			}
+		}
+	}
+	return dp[target];
+};
+
+/**
+ * @param {number[][]} mat
+ * @return {number[][]}
+ */
+var updateMatrix = function (mat) {
+	let m = mat.length
+	let n = mat[0].length
+
+	const arr = Array(m).fill(0).map(() => Array(n).fill(Infinity))
+
+
+	for (let i = 0; i < m; i++) {
+		for (let j = 0; j < n; j++) {
+			if (!mat[i][j]) arr[i][j] = 0
+			else {
+				if (i - 1 >= 0) arr[i][j] = Math.min(arr[i][j], arr[i - 1][j] + 1)
+				if (j - 1 >= 0) arr[i][j] = Math.min(arr[i][j], arr[i][j - 1] + 1)
+
+			}
+
+		}
+	}
+	for (let i = m - 1; i >= 0; i--) {
+		for (let j = n - 1; j >= 0; j--) {
+			if (!mat[i][j]) arr[i][j] = 0
+			else {
+				if (i + 1 < m) arr[i][j] = Math.min(arr[i][j], arr[i + 1][j] + 1)
+				if (j + 1 < n) arr[i][j] = Math.min(arr[i][j], arr[i][j + 1] + 1)
+			}
+
+		}
+	}
+
+	return arr
+
+};
+
+// @ts-ignore
+function Node(val, prev, next, child) {
+	this.val = val;
+	this.prev = prev;
+	this.next = next;
+	this.child = child;
+};
+/**
+ * @param {Node} head
+ * @return {Node}
+ */
+var flatten = function (head) {
+	// @ts-ignore
+	if (!head || !head.next) return head
+	let list = new Node()
+	let l = list
+
+	const dfs = (node) => {
+		if (!node) return null
+		let prev = l.next
+		let cur = node
+		let next = node.next
+
+		while (cur) {
+			if (cur.child) {
+				dfs(cur.child)
+			}
+			cur.prev = prev
+			prev = cur
+			cur = next
+			next = next && next.next
+		}
+
+	}
+};
