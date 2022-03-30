@@ -1,4 +1,3 @@
-// @ts-ignore
 function ListNode(val, next) {
 	this.val = val === undefined ? 0 : val
 	this.next = next === undefined ? null : next
@@ -398,7 +397,7 @@ var topKFrequent = function (nums, k) {
 	}
 
 	class Heap {
-		constructor (k, map) {
+		constructor(k, map) {
 			this.k = k
 			this.arr = Object.entries(map)
 			this.build()
@@ -845,7 +844,7 @@ var findKthLargest = function (nums, k) {
 		arr[j] = temp
 	}
 	class MaxHeap {
-		constructor (nums, k) {
+		constructor(nums, k) {
 			this.arr = nums
 			this.k = k
 			this.num = null
@@ -1026,17 +1025,17 @@ var findTargetSumWays = function (nums, target) {
  * @return {number}
  */
 var combinationSum4 = function (nums, target) {
-	const dp = new Array(target + 1).fill(0);
-	dp[0] = 1;
+	const dp = new Array(target + 1).fill(0)
+	dp[0] = 1
 	for (let i = 1; i <= target; i++) {
 		for (const num of nums) {
 			if (num <= i) {
-				dp[i] += dp[i - num];
+				dp[i] += dp[i - num]
 			}
 		}
 	}
-	return dp[target];
-};
+	return dp[target]
+}
 
 /**
  * @param {number[][]} mat
@@ -1046,8 +1045,9 @@ var updateMatrix = function (mat) {
 	let m = mat.length
 	let n = mat[0].length
 
-	const arr = Array(m).fill(0).map(() => Array(n).fill(Infinity))
-
+	const arr = Array(m)
+		.fill(0)
+		.map(() => Array(n).fill(Infinity))
 
 	for (let i = 0; i < m; i++) {
 		for (let j = 0; j < n; j++) {
@@ -1055,9 +1055,7 @@ var updateMatrix = function (mat) {
 			else {
 				if (i - 1 >= 0) arr[i][j] = Math.min(arr[i][j], arr[i - 1][j] + 1)
 				if (j - 1 >= 0) arr[i][j] = Math.min(arr[i][j], arr[i][j - 1] + 1)
-
 			}
-
 		}
 	}
 	for (let i = m - 1; i >= 0; i--) {
@@ -1067,46 +1065,201 @@ var updateMatrix = function (mat) {
 				if (i + 1 < m) arr[i][j] = Math.min(arr[i][j], arr[i + 1][j] + 1)
 				if (j + 1 < n) arr[i][j] = Math.min(arr[i][j], arr[i][j + 1] + 1)
 			}
-
 		}
 	}
 
 	return arr
-
-};
+}
 
 // @ts-ignore
 function Node(val, prev, next, child) {
-	this.val = val;
-	this.prev = prev;
-	this.next = next;
-	this.child = child;
-};
+	this.val = val
+	this.prev = prev
+	this.next = next
+	this.child = child
+}
 /**
  * @param {Node} head
  * @return {Node}
  */
 var flatten = function (head) {
-	// @ts-ignore
-	if (!head || !head.next) return head
-	let list = new Node()
-	let l = list
-
-	const dfs = (node) => {
-		if (!node) return null
-		let prev = l.next
+	const dfs = node => {
 		let cur = node
-		let next = node.next
-
+		let next = null
+		let last = null
 		while (cur) {
+			next = cur.next
 			if (cur.child) {
-				dfs(cur.child)
-			}
-			cur.prev = prev
-			prev = cur
+				const childLast = dfs(cur.child)
+				cur.next = cur.child
+				cur.child.prev = cur
+				cur.child = null
+				last = childLast
+				if (next) {
+					childLast.next = next
+					next.prev = childLast
+				}
+			} else last = cur
 			cur = next
-			next = next && next.next
+		}
+		return last
+	}
+	dfs(head)
+
+	return head
+}
+
+/**
+ * @param {number} target
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minSubArrayLen = function (target, nums) {
+	let len = nums.length
+
+	let left = 0
+	let count = 0
+	let min = Infinity
+
+	for (let i = 0; i < len; i++) {
+		count += nums[i]
+		while (count > target) {
+			count -= target[left++]
+			min = Math.min(min, i - left + 1)
+		}
+	}
+
+	return min === Infinity ? 0 : min
+}
+
+/**
+ * @param {number[][]} triangle
+ * @return {number}
+ */
+var minimumTotal = function (triangle) {
+	let arr = []
+
+	for (let i = 1; i < triangle.length; i++) {
+		let len = triangle[i].length
+		for (let j = len - 1; j >= 0; j--) {
+			arr[i] = triangle[i][j] + Math.min(arr[j - 1] ?? Infinity, arr[j] ?? Infinity)
+		}
+	}
+	return Math.min(...arr)
+}
+
+/**
+ * @param {string} s
+ * @return {string[][]}
+ */
+var partition = function (s) {
+	let len = s.length
+
+	let dp = Array(len)
+		.fill(0)
+		.map(() => Array(len).fill(true))
+
+	for (let i = len - 1; i >= 0; i--) {
+		for (let j = i + 1; j < len; j++) {
+			dp[i][j] = s[i] === s[j] && dp[i + 1][j - 1]
+		}
+	}
+
+	let res = []
+	let ans = []
+
+	const dfs = i => {
+		if (i === len) return res.push([...ans])
+		for (let j = i; j < len; j++) {
+			if (dp[i][j]) {
+				ans.push(s.slice(i, j + 1))
+				dfs(j + 1)
+				ans.pop()
+			}
+		}
+	}
+	dfs(0)
+
+	return res
+}
+
+/**
+ * @param {TreeNode} root
+ * @param {number} targetSum
+ * @return {number}
+ */
+var pathSum = function (root, targetSum) {
+	let map = new Map()
+	map.set(0, 1)
+	let count = 0
+	let sum = 0
+	const dfs = node => {
+		if (!node) return node
+		sum += node.val
+		count += map.get(sum - targetSum) || 0
+		map.set(sum, (map.get(sum) || 0) + 1)
+		dfs(node.left)
+		dfs(node.right)
+		map.set(sum, map.get(sum) - 1)
+		sum -= node.val
+	}
+	dfs(root)
+	return count
+}
+
+class KthLargest {
+	constructor(k, nums) {
+		this.k = k
+		this.arr = []
+		for (const num of nums) {
+			this.add(num)
+		}
+	}
+
+	change(i, j) {
+		let temp = this.arr[i]
+		this.arr[i] = this.arr[j]
+		this.arr[j] = temp
+	}
+
+	add(num) {
+		this.arr.push(num)
+		let i = this.arr.length - 1
+		while (i >= 0) {
+			let p = i % 2 ? (i - 1) / 2 : (i - 2) / 2
+			if (this.arr[p] > this.arr[i]) {
+				this.change(p, i)
+				i = p
+			} else break
 		}
 
+		if (this.arr.length > this.k) this.delete()
+		return this.arr[0]
 	}
-};
+
+	delete() {
+		let top = this.arr[0]
+		let bottom = this.arr.pop()
+		if (!this.arr.length) return top
+		this.arr[0] = bottom
+		let i = 0
+		while (i < this.arr.length) {
+			let left = this.arr[i * 2 + 1]
+			let right = this.arr[i * 2 + 2]
+
+			if ((right === undefined || left <= right) && left < this.arr[i]) {
+				this.change(i, i * 2 + 1)
+				i = i * 2 + 1
+				continue
+			}
+			if (left > right && right < this.arr[i]) {
+				this.change(i, i * 2 + 2)
+				i = i * 2 + 2
+				continue
+			}
+			break
+		}
+
+		return top
+	}
+}
