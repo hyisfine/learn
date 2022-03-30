@@ -19,6 +19,9 @@
 - [ ] [Async是如何被 JavaScript 实现的](https://mp.weixin.qq.com/s/P_DPkH72_1bdOl78M_ISsQ)
 - [ ] [浏览器的回流与重绘 (Reflow & Repaint)](https://juejin.cn/post/6844903569087266823)
 - [ ] [箭头函数原来是这样的，99.9% 的人都不知道这点](https://mp.weixin.qq.com/s/I4MZ49EwVkVTHPOhYPTJJQ)
+- [ ] [简单的复习下前端模块化相关的知识](https://mp.weixin.qq.com/s/9hUgVjd9ezfqQxJN4igyYQ)
+- [ ] [模块化的前世今生](https://mp.weixin.qq.com/s/-Ula0tL8neffdvIhho47xQ)
+- [ ] [JS语法 ES6、ES7、ES8、ES9、ES10、ES11、ES12新特性](https://segmentfault.com/a/1190000039272641)
 
 ### css3
 
