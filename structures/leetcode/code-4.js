@@ -51,6 +51,7 @@ var minSteps = function (n) {
  * @return {number[]}
  * @see https://leetcode-cn.com/problems/w3tCBm/
  */
+// @ts-ignore
 var countBits = function (n) {
 	let dp = Array(n + 1).fill(0)
 
@@ -110,6 +111,7 @@ var findRedundantConnection = function (edges) {
  * @param {number} amount
  * @return {number}
  */
+// @ts-ignore
 var coinChange = function (coins, amount) {
 	let dp = Array(amount + 1).fill(amount + 1)
 	dp[0] = 0
@@ -130,6 +132,7 @@ var addTwoNumbers = function (l1, l2) {
 	if (!l1 || !l2) return l1 || l2
 	let arr1 = []
 	let arr2 = []
+	// @ts-ignore
 	let arr3 = []
 
 	while (l1) {
@@ -147,6 +150,7 @@ var addTwoNumbers = function (l1, l2) {
  * @param {number} target
  * @return {number[]}
  */
+// @ts-ignore
 var twoSum = function (numbers, target) {
 	let left = 0
 	let right = numbers.length - 1
@@ -832,6 +836,7 @@ var findKthLargest = function (nums, k) {
 	console.log(nums)
 	return nums[k - 1]
 }
+// @ts-ignore
 var findKthLargest = function (nums, k) {
 	const change = (arr, i, j) => {
 		let temp = arr[i]
@@ -1011,5 +1016,357 @@ var findTargetSumWays = function (nums, target) {
 	}
 	dfs(0, 0)
 
+	return count
+}
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var combinationSum4 = function (nums, target) {
+	const dp = new Array(target + 1).fill(0)
+	dp[0] = 1
+	for (let i = 1; i <= target; i++) {
+		for (const num of nums) {
+			if (num <= i) {
+				dp[i] += dp[i - num]
+			}
+		}
+	}
+	return dp[target]
+}
+
+/**
+ * @param {number[][]} mat
+ * @return {number[][]}
+ */
+var updateMatrix = function (mat) {
+	let m = mat.length
+	let n = mat[0].length
+
+	const arr = Array(m)
+		.fill(0)
+		.map(() => Array(n).fill(Infinity))
+
+	for (let i = 0; i < m; i++) {
+		for (let j = 0; j < n; j++) {
+			if (!mat[i][j]) arr[i][j] = 0
+			else {
+				if (i - 1 >= 0) arr[i][j] = Math.min(arr[i][j], arr[i - 1][j] + 1)
+				if (j - 1 >= 0) arr[i][j] = Math.min(arr[i][j], arr[i][j - 1] + 1)
+			}
+		}
+	}
+	for (let i = m - 1; i >= 0; i--) {
+		for (let j = n - 1; j >= 0; j--) {
+			if (!mat[i][j]) arr[i][j] = 0
+			else {
+				if (i + 1 < m) arr[i][j] = Math.min(arr[i][j], arr[i + 1][j] + 1)
+				if (j + 1 < n) arr[i][j] = Math.min(arr[i][j], arr[i][j + 1] + 1)
+			}
+		}
+	}
+
+	return arr
+}
+
+// @ts-ignore
+function Node(val, prev, next, child) {
+	this.val = val
+	this.prev = prev
+	this.next = next
+	this.child = child
+}
+/**
+ * @param {Node} head
+ * @return {Node}
+ */
+var flatten = function (head) {
+	const dfs = node => {
+		let cur = node
+		let next = null
+		let last = null
+		while (cur) {
+			next = cur.next
+			if (cur.child) {
+				const childLast = dfs(cur.child)
+				cur.next = cur.child
+				cur.child.prev = cur
+				cur.child = null
+				last = childLast
+				if (next) {
+					childLast.next = next
+					next.prev = childLast
+				}
+			} else last = cur
+			cur = next
+		}
+		return last
+	}
+	dfs(head)
+
+	return head
+}
+
+/**
+ * @param {number} target
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minSubArrayLen = function (target, nums) {
+	let len = nums.length
+
+	let left = 0
+	let count = 0
+	let min = Infinity
+
+	for (let i = 0; i < len; i++) {
+		count += nums[i]
+		while (count > target) {
+			count -= target[left++]
+			min = Math.min(min, i - left + 1)
+		}
+	}
+
+	return min === Infinity ? 0 : min
+}
+
+/**
+ * @param {number[][]} triangle
+ * @return {number}
+ */
+var minimumTotal = function (triangle) {
+	let arr = []
+
+	for (let i = 1; i < triangle.length; i++) {
+		let len = triangle[i].length
+		for (let j = len - 1; j >= 0; j--) {
+			arr[i] = triangle[i][j] + Math.min(arr[j - 1] ?? Infinity, arr[j] ?? Infinity)
+		}
+	}
+	return Math.min(...arr)
+}
+
+/**
+ * @param {string} s
+ * @return {string[][]}
+ */
+var partition = function (s) {
+	let len = s.length
+
+	let dp = Array(len)
+		.fill(0)
+		.map(() => Array(len).fill(true))
+
+	for (let i = len - 1; i >= 0; i--) {
+		for (let j = i + 1; j < len; j++) {
+			dp[i][j] = s[i] === s[j] && dp[i + 1][j - 1]
+		}
+	}
+
+	let res = []
+	let ans = []
+
+	const dfs = i => {
+		if (i === len) return res.push([...ans])
+		for (let j = i; j < len; j++) {
+			if (dp[i][j]) {
+				ans.push(s.slice(i, j + 1))
+				dfs(j + 1)
+				ans.pop()
+			}
+		}
+	}
+	dfs(0)
+
+	return res
+}
+
+/**
+ * @param {TreeNode} root
+ * @param {number} targetSum
+ * @return {number}
+ */
+var pathSum = function (root, targetSum) {
+	let map = new Map()
+	map.set(0, 1)
+	let count = 0
+	let sum = 0
+	const dfs = node => {
+		if (!node) return node
+		sum += node.val
+		count += map.get(sum - targetSum) || 0
+		map.set(sum, (map.get(sum) || 0) + 1)
+		dfs(node.left)
+		dfs(node.right)
+		map.set(sum, map.get(sum) - 1)
+		sum -= node.val
+	}
+	dfs(root)
+	return count
+}
+
+class KthLargest {
+	constructor(k, nums) {
+		this.k = k
+		this.arr = []
+		for (const num of nums) {
+			this.add(num)
+		}
+	}
+
+	change(i, j) {
+		let temp = this.arr[i]
+		this.arr[i] = this.arr[j]
+		this.arr[j] = temp
+	}
+
+	add(num) {
+		this.arr.push(num)
+		let i = this.arr.length - 1
+		while (i >= 0) {
+			let p = i % 2 ? (i - 1) / 2 : (i - 2) / 2
+			if (this.arr[p] > this.arr[i]) {
+				this.change(p, i)
+				i = p
+			} else break
+		}
+
+		if (this.arr.length > this.k) this.delete()
+		return this.arr[0]
+	}
+
+	delete() {
+		let top = this.arr[0]
+		let bottom = this.arr.pop()
+		if (!this.arr.length) return top
+		this.arr[0] = bottom
+		let i = 0
+		while (i < this.arr.length) {
+			let left = this.arr[i * 2 + 1]
+			let right = this.arr[i * 2 + 2]
+
+			if ((right === undefined || left <= right) && left < this.arr[i]) {
+				this.change(i, i * 2 + 1)
+				i = i * 2 + 1
+				continue
+			}
+			if (left > right && right < this.arr[i]) {
+				this.change(i, i * 2 + 2)
+				i = i * 2 + 2
+				continue
+			}
+			break
+		}
+
+		return top
+	}
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var convertBST = function (root) {
+	let sum = 0
+	const dfs = node => {
+		if (!node) return 0
+		dfs(node.right)
+		let val = node.val
+		node.val += sum
+		sum += val
+		dfs(node.left)
+	}
+	dfs(root)
+	return root
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var findBottomLeftValue = function (root) {
+	// let queue = [root]
+	// while (queue.length) {
+	// 	let arr = []
+	// 	for (const node of queue) {
+	// 		if (node.left) arr.push(node.left)
+	// 		if (node.right) arr.push(node.right)
+	// 	}
+	// 	if (!arr.length) return queue[0].val
+	// 	queue = arr
+	// }
+
+	let val
+	let max = -1
+	const dfs = (node, level) => {
+		if (!node) return
+		if (!node.left && !node.right) {
+			if (level > max) {
+				max = level
+				val = node.val
+			}
+			return
+		}
+		dfs(node.left, level + 1)
+		dfs(node.right, level + 1)
+	}
+	dfs(root, 0)
+	return val
+}
+
+/**
+ * @param {number[]} temperatures
+ * @return {number[]}
+ */
+var dailyTemperatures = function (temperatures) {
+	let stack = []
+	let res = []
+	temperatures.push(0)
+	for (let i = 0; i < temperatures.length; i++) {
+		let temp = temperatures[i]
+		while (temperatures[stack[stack.length - 1]] < temp) {
+			res.push(i - stack.pop())
+		}
+		stack.push(i)
+	}
+	return res
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var largestValues = function (root) {
+	let res = []
+	const dfs = (node, k) => {
+		if (!node) return
+		res[k] = Math.max(res[k] ?? -Infinity, node.val)
+		dfs(node.left, k + 1)
+		dfs(node.right, k + 1)
+	}
+	dfs(root, 0)
+	return res
+}
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var numSubarrayProductLessThanK = function (nums, k) {
+	if (!k || k === 1) return 0
+	let left = 0
+	let sum = 1
+	let count = 0
+	for (let i = 0; i < nums.length; i++) {
+		sum *= nums[i]
+		while (sum >= k) {
+			sum /= nums[left]
+			left++
+		}
+		count += i - left + 1
+	}
 	return count
 }
