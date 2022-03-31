@@ -6,6 +6,12 @@
 
 - [ ] [react status 中文周刊](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzIzOTkwMjM0OQ==&action=getalbum&album_id=1477042053917245448&scene=173&from_msgid=2247488993&from_itemidx=1&count=3&nolastread=1#wechat_redirect)
 
+### ts
+
+- [ ] [TypeScript 终极初学者指南](https://mp.weixin.qq.com/s/_ShxBnF-HdLR_tK8qip7wA)
+- [ ] [一个容易忽略但很有用的 TS 类型](https://mp.weixin.qq.com/s/D0i5uUVXo7qPkKaFoP7cog)
+- [ ] [TS interface vs type](https://mp.weixin.qq.com/s/C0flsrCyVIyXMNaH2uNU-w)
+
 ### js
 
 - [ ] [手写 36 个方法](https://mp.weixin.qq.com/s/7KwM6fNM5MICHiIwoRDm-w)
@@ -19,6 +25,12 @@
 - [ ] [Async是如何被 JavaScript 实现的](https://mp.weixin.qq.com/s/P_DPkH72_1bdOl78M_ISsQ)
 - [ ] [浏览器的回流与重绘 (Reflow & Repaint)](https://juejin.cn/post/6844903569087266823)
 - [ ] [箭头函数原来是这样的，99.9% 的人都不知道这点](https://mp.weixin.qq.com/s/I4MZ49EwVkVTHPOhYPTJJQ)
+- [ ] [简单的复习下前端模块化相关的知识](https://mp.weixin.qq.com/s/9hUgVjd9ezfqQxJN4igyYQ)
+- [ ] [模块化的前世今生](https://mp.weixin.qq.com/s/-Ula0tL8neffdvIhho47xQ)
+- [ ] [JS语法 ES6、ES7、ES8、ES9、ES10、ES11、ES12新特性](https://segmentfault.com/a/1190000039272641)
+- [ ] [JavaScript 中 Infinity 的奇异世界](https://mp.weixin.qq.com/s/HuEwzvgwy5r5la8MODt6eA)
+- [ ] [ES 2022 即将新增这6个特性，最后一个绝了。](https://mp.weixin.qq.com/s/7r0JbvnsYImh09qkH-S3qg)
+- [ ] [秒懂 Web Component](https://mp.weixin.qq.com/s/IqXYrk17XEOo8AJmvr4YZA)
 
 ### css3
 
@@ -39,10 +51,10 @@
 - [ ] [最强大的 CSS 布局 —— Grid 布局](https://juejin.cn/post/6854573220306255880)
 - [ ] [CSS动画：animation、transition、transform、translate傻傻分不清](https://juejin.cn/post/6844903615920898056#heading-2)
 - [ ] [字节跳动最爱考的前端面试题：CSS 基础](https://mp.weixin.qq.com/s/Kmvph764Ec8Y40uFUf4Phw)
-
-### 架构
-
-- [ ] [可能是你见过最完善的微前端解决方案](https://zhuanlan.zhihu.com/p/78362028)
+- [ ] [有趣的 CSS 数学函数](https://mp.weixin.qq.com/s/vIz5RbgHtZqXLwQTZiTCEA)
+- [ ] [2022 年最受瞩目的新特性 CSS @layer 到底是个啥？](https://mp.weixin.qq.com/s/OcUFEJcym_AzGakYxxCEaA)
+- [ ] [大漠老师：2022 年的 CSS，到底有哪些特性](https://mp.weixin.qq.com/s/b0pbUCPN_KmmDE6SaV3B5Q)
+- [ ] [终于搞懂了 CSS 中的百分比是基于什么工作的了！](https://mp.weixin.qq.com/s/qOijlt_XCFpycdUPr_TnDA)
 
 ### react
 
@@ -52,6 +64,7 @@
 - [ ] [React Hooks 的原理，有的简单有的不简单](https://mp.weixin.qq.com/s/u89G-Uas0mzZQsiWT_4EZQ)
 - [ ] [图解 React 原理系列](https://github.com/7kms/react-illustration-series/tree/master)
 - [ ] [React技术揭秘](https://react.iamkasong.com/)
+- [ ] [阿里三面：灵魂拷问——有react fiber，为什么不需要vue fiber？](https://mp.weixin.qq.com/s/po503V7TTezSVFHqsgoZVw)
 
 ### H5 开发
 
@@ -81,9 +94,9 @@
 ### webpack
 
 - [ ] [关于 source map 这篇文章就够了](https://juejin.cn/post/6969748500938489892)
-- [base64 阮一峰](https://www.ruanyifeng.com/blog/2008/06/base64.html)
-  
-- [VLQ 编码](https://zhuanlan.zhihu.com/p/104519418)
+- [ ] [base64 阮一峰](https://www.ruanyifeng.com/blog/2008/06/base64.html)
+
+- [ ] [VLQ 编码](https://zhuanlan.zhihu.com/p/104519418)
 
 ### cli 工具
 
@@ -113,12 +126,17 @@
 ### 性能优化
 
 - [ ] [让 Instagram.com 变得更快：Part 1](https://mp.weixin.qq.com/s/T6j3OnqKkG63VTH2ubj_Pw)
-
 - [ ] [让 Instagram.com 变得更快：提前刷新和渐进式 HTML](https://mp.weixin.qq.com/s/hV7af5un_VheZ0dyZvS74w)
-
 - [ ] [前端优化：浏览器缓存技术介绍](https://juejin.cn/post/6844903672556552205#heading-3)
 
-  
+### 其他
+
+- [ ] [2022 前端行业的趋势总结，押宝 Vue3 ？](https://mp.weixin.qq.com/s/QkM6BoeCVZ79gYu6Zc4xlA)
+- [ ] [推荐 10 个你没见过的 VsCode 的高效开源神器，YYDS](https://mp.weixin.qq.com/s/qs7W0C00wW9Q-yt3JLEa-w)
+
+### 架构
+
+- [ ] [可能是你见过最完善的微前端解决方案](https://zhuanlan.zhihu.com/p/78362028)
 
 ### 安全
 
@@ -167,3 +185,7 @@
 ### 架构
 
 - [x] [微服务架构：BFF 和网关是如何演化出来的？](https://mp.weixin.qq.com/s?__biz=MzIxMzEzMjM5NQ==&mid=2651029903&idx=1&sn=6977a8d48acaa7f1393020f9ede246e5&scene=21#wechat_redirect)
+
+## 算法
+
+- [ ] [字节面试：两个栈实现一个队列](https://mp.weixin.qq.com/s/75XYGFPpir045_6p2eoufg)

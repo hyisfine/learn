@@ -1,76 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-		<style>
-			.aaa {
-				width: 100px;
-				height: 100px;
-				background: yellowgreen;
-			}
 
-			.bbb {
-				width: 50px;
-				height: 50px;
-				position: fixed;
-				background: black;
-				top: 0;
-			}
-		</style>
-	</head>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<style>
+		.aaa {
+			width: 100px;
+			height: 100px;
+			background: yellowgreen;
+		}
 
-	<body onclick="console.log(event)">
-		<style type="text/css">
-			section {
-				margin-top: 13px;
-				margin-bottom: 87px;
-			}
+		.bbb {
+			width: 50px;
+			height: 50px;
+			position: fixed;
+			background: black;
+			top: 0;
+		}
+	</style>
+</head>
 
-			header {
-				margin-top: 87px;
-				display: inline-flex;
-			}
+<body onclick="console.log(event)">
+	<style type="text/css">
+		section {
+			margin-top: 13px;
+			margin-bottom: 87px;
+		}
 
-			footer {
-				margin-bottom: 13px;
-			}
-		</style>
+		header {
+			margin-top: 87px;
+			display: inline-flex;
+		}
 
-		<section>
-			<header>上边界重叠 87</header>
-			2345
-			<main></main>
-			<footer>下边界重叠 87 不能再高了</footer>
-		</section>
-	</body>
+		footer {
+			margin-bottom: 13px;
+		}
+	</style>
 
-	<script>
-		setTimeout(() => {
-			console.log(1)
-		}, 0)
-		setTimeout(() => {
-			console.log(2)
-		})
+	<section>
+		<header>上边界重叠 87</header>
+		2345
+		<main></main>
+		<footer>下边界重叠 87 不能再高了</footer>
+	</section>
+</body>
 
-		setTimeout(() => {
-			console.log(3)
-		}, 0)
+<script type='module' src='./a.js'></script>
 
-		new Promise(a => {
-			console.log(4)
-			a()
-		})
-			.then(() => {
-				console.log(5)
-			})
-			.then(() => {
-				console.log(6)
-				setTimeout(() => {
-					console.log(7)
-				})
-			})
-	</script>
 </html>
