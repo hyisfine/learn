@@ -1263,3 +1263,110 @@ class KthLargest {
 		return top
 	}
 }
+
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var convertBST = function (root) {
+	let sum = 0
+	const dfs = node => {
+		if (!node) return 0
+		dfs(node.right)
+		let val = node.val
+		node.val += sum
+		sum += val
+		dfs(node.left)
+	}
+	dfs(root)
+	return root
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var findBottomLeftValue = function (root) {
+	// let queue = [root]
+	// while (queue.length) {
+	// 	let arr = []
+	// 	for (const node of queue) {
+	// 		if (node.left) arr.push(node.left)
+	// 		if (node.right) arr.push(node.right)
+	// 	}
+	// 	if (!arr.length) return queue[0].val
+	// 	queue = arr
+	// }
+
+	let val
+	let max = -1
+	const dfs = (node, level) => {
+		if (!node) return
+		if (!node.left && !node.right) {
+			if (level > max) {
+				max = level
+				val = node.val
+			}
+			return
+		}
+		dfs(node.left, level + 1)
+		dfs(node.right, level + 1)
+	}
+	dfs(root, 0)
+	return val
+}
+
+/**
+ * @param {number[]} temperatures
+ * @return {number[]}
+ */
+var dailyTemperatures = function (temperatures) {
+	let stack = []
+	let res = []
+	temperatures.push(0)
+	for (let i = 0; i < temperatures.length; i++) {
+		let temp = temperatures[i]
+		while (temperatures[stack[stack.length - 1]] < temp) {
+			res.push(i - stack.pop())
+		}
+		stack.push(i)
+	}
+	return res
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var largestValues = function (root) {
+	let res = []
+	const dfs = (node, k) => {
+		if (!node) return
+		res[k] = Math.max(res[k] ?? -Infinity, node.val)
+		dfs(node.left, k + 1)
+		dfs(node.right, k + 1)
+	}
+	dfs(root, 0)
+	return res
+}
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var numSubarrayProductLessThanK = function (nums, k) {
+	if (!k || k === 1) return 0
+	let left = 0
+	let sum = 1
+	let count = 0
+	for (let i = 0; i < nums.length; i++) {
+		sum *= nums[i]
+		while (sum >= k) {
+			sum /= nums[left]
+			left++
+		}
+		count += i - left + 1
+	}
+	return count
+}

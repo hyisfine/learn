@@ -251,8 +251,6 @@ function ListNode(val, next) {
 // 	// const doo = (l, arr) => l.next =
 // }
 
-// TODO
-// TODO
 /** @see https://leetcode-cn.com/problems/kLl5u1/ */
 var twoSum = function (numbers, target) {
 	// let i = 0
@@ -338,7 +336,7 @@ var getIntersectionNode = function (headA, headB) {
 	}
 
 	;[l1, l2] = len1 >= len2 ? [headA, headB] : [headB, headA]
-		;[len1, len2] = len1 >= len2 ? [len1, len2] : [len2, len1]
+	;[len1, len2] = len1 >= len2 ? [len1, len2] : [len2, len1]
 
 	while (len1 - len2) {
 		l1 = l1.next
@@ -531,7 +529,7 @@ var sortList = function (head) {
 	for (const key in map1) {
 		result.push(...Array(map1[key]).fill(+key))
 	}
-	console.log({ map2 })
+	console.log({map2})
 	for (const key in map2) {
 		result.unshift(...Array(map2[key]).fill(-key))
 	}
@@ -780,7 +778,7 @@ var topKFrequent = function (nums, k) {
 	}
 
 	class Heap {
-		constructor () {
+		constructor() {
 			this.arr = []
 		}
 
@@ -980,7 +978,6 @@ var NumMatrix = function (matrix) {
 
 	this.matrix = matrix
 }
-// TODO
 
 /**
  * @param {number} row1
@@ -1143,7 +1140,7 @@ var maximalRectangle = function (matrix) {
 		.map(() =>
 			Array(len2)
 				.fill(0)
-				.map(() => [0, 0]),
+				.map(() => [0, 0])
 		)
 	arr[0][0] = [~~matrix[0][0], ~~matrix[0][0]]
 
@@ -1368,7 +1365,7 @@ var longestIncreasingPath = function (matrix) {
 		[1, 0],
 		[-1, 0],
 		[0, 1],
-		[0, -1],
+		[0, -1]
 	]
 	const dfs = (i, j) => {
 		if (arr[i][j]) return arr[i][j]
@@ -1815,7 +1812,6 @@ var flatten = function (head) {
 
 	return arr[0]
 }
-// TODO
 
 /**
  * @param {number} target
@@ -1908,6 +1904,7 @@ var partition = function (s) {
 	console.log(result)
 	return result
 }
+
 // partition('google')
 
 /**
@@ -1949,7 +1946,7 @@ var KthLargest = function (k, nums) {
 	}
 
 	class Head {
-		constructor (arr, k) {
+		constructor(arr, k) {
 			this.arr = arr
 			this.minArr = []
 			this.k = k
@@ -2154,6 +2151,7 @@ var numSubarrayProductLessThanK = function (nums, k) {
 
 	return count
 }
+// TODO
 
 /**
  * @param {number[]} nums
@@ -2232,13 +2230,13 @@ var ladderLength = function (beginWord, endWord, wordList) {
 		}
 	}
 
-	console.log({ map }, JSON.stringify(queue))
+	console.log({map}, JSON.stringify(queue))
 
 	const bfs = count => {
 		let size = queue.size
 		if (size === 0) return 0
 		let i = 1
-		console.log({ count, queue })
+		console.log({count, queue})
 		for (let v of queue.values()) {
 			let str = wordList[v]
 			if (str === endWord) return count
@@ -2555,7 +2553,7 @@ var isStraight = function (nums) {
 		min = Math.min(min, num)
 		max = Math.max(max, num)
 	}
-	console.log({ map, max, min })
+	console.log({map, max, min})
 	if (Object.keys(map).length < 5) return false
 	if (max - min > 4) return false
 	return true
@@ -3387,7 +3385,7 @@ var missingNumber = function (nums) {
  * @param {number} m
  * @return {number}
  */
-var lastRemaining = function (n, m) { }
+var lastRemaining = function (n, m) {}
 
 /**
  * @param {number[]} nums
@@ -3742,17 +3740,17 @@ var maxSlidingWindow = function (nums, k) {
  */
 var maxSlidingWindow = function (nums, k) {
 	class MaxHeap {
-		constructor () {
+		constructor() {
 			this.arr = []
 		}
 		add(val, i) {
-			this.arr.push({ val, i })
+			this.arr.push({val, i})
 			let len = this.arr.length - 1
 			while (len > 0) {
 				let p = len % 2 ? (len - 1) / 2 : (len - 2) / 2
 				if (val > this.arr[p].val) {
 					this.arr[len] = this.arr[p]
-					this.arr[p] = { val, i }
+					this.arr[p] = {val, i}
 					len = p
 					continue
 				}
@@ -3771,12 +3769,8 @@ var maxSlidingWindow = function (nums, k) {
 			while (i < this.arr.length) {
 				let l = i * 2 + 1
 				let r = i * 2 + 2
-				console.log({ l, r, i }, this.arr[l], this.arr[r], this.arr[l]?.val >= this.arr[r]?.val)
-				if (
-					this.arr[l] &&
-					(!this.arr[r] || this.arr[l].val >= this.arr[r].val) &&
-					this.arr[l].val > this.arr[i].val
-				) {
+				console.log({l, r, i}, this.arr[l], this.arr[r], this.arr[l]?.val >= this.arr[r]?.val)
+				if (this.arr[l] && (!this.arr[r] || this.arr[l].val >= this.arr[r].val) && this.arr[l].val > this.arr[i].val) {
 					let temp = this.arr[i]
 					this.arr[i] = this.arr[l]
 					this.arr[l] = temp
