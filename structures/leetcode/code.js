@@ -336,7 +336,7 @@ var getIntersectionNode = function (headA, headB) {
 	}
 
 	;[l1, l2] = len1 >= len2 ? [headA, headB] : [headB, headA]
-		;[len1, len2] = len1 >= len2 ? [len1, len2] : [len2, len1]
+	;[len1, len2] = len1 >= len2 ? [len1, len2] : [len2, len1]
 
 	while (len1 - len2) {
 		l1 = l1.next
@@ -778,7 +778,7 @@ var topKFrequent = function (nums, k) {
 	}
 
 	class Heap {
-		constructor () {
+		constructor() {
 			this.arr = []
 		}
 
@@ -1947,7 +1947,7 @@ var KthLargest = function (k, nums) {
 	}
 
 	class Head {
-		constructor (arr, k) {
+		constructor(arr, k) {
 			this.arr = arr
 			this.minArr = []
 			this.k = k
@@ -2152,7 +2152,6 @@ var numSubarrayProductLessThanK = function (nums, k) {
 
 	return count
 }
-// TODO
 
 /**
  * @param {number[]} nums
@@ -2397,6 +2396,7 @@ var permute = function (nums) {
 
 	return result
 }
+// TODO
 
 /**
  * @param {number[]} nums
@@ -3386,7 +3386,7 @@ var missingNumber = function (nums) {
  * @param {number} m
  * @return {number}
  */
-var lastRemaining = function (n, m) { }
+var lastRemaining = function (n, m) {}
 
 /**
  * @param {number[]} nums
@@ -3741,7 +3741,7 @@ var maxSlidingWindow = function (nums, k) {
  */
 var maxSlidingWindow = function (nums, k) {
 	class MaxHeap {
-		constructor () {
+		constructor() {
 			this.arr = []
 		}
 		add(val, i) {

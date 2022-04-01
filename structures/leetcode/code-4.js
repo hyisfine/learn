@@ -1370,3 +1370,24 @@ var numSubarrayProductLessThanK = function (nums, k) {
 	}
 	return count
 }
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function (s) {
+	let str = ''
+	let max = 0
+
+	for (let i = 0; i < s.length; i++) {
+		let char = s[i]
+		if (str.includes(char)) {
+			let index = str.indexOf(char)
+			str = str.slice(index + 1)
+		}
+		str += char
+		max = Math.max(max, str.length)
+	}
+
+	return max
+}
