@@ -46,3 +46,113 @@ var permute = function (nums) {
 
 	return res
 }
+
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var threeSum = function (nums) {
+	let res = []
+	let len = nums.length
+	nums.sort((a, b) => a - b)
+	if (len < 3 || nums[0] > 0 || nums[len - 1] < 0) return res
+
+	for (let i = 0; i < len; i++) {
+		const num = nums[i]
+		if (i > 0 && num === nums[i - 1]) continue
+		if (num > 0) return res
+		let left = i + 1
+		let right = len - 1
+
+		while (left < right) {
+			let sum = num + nums[left] + nums[right]
+			if (sum === 0) {
+				res.push([num, nums[left], nums[right]])
+				while (left < right && nums[left] === nums[left + 1]) left++
+				while (left < right && nums[right] === nums[right - 1]) right--
+				left++
+				right--
+				continue
+			}
+			if (sum < 0) left++
+			if (sum > 0) right--
+		}
+	}
+
+	return res
+}
+
+var findTarget = function (root, k) {
+	let set = new Set()
+	let flag = false
+	const dfs = node => {
+		if (!node) return
+		if (set.has(k - node.val)) return (flag = true)
+		set.add(node.val)
+		dfs(node.left)
+		dfs(node.right)
+	}
+	return flag
+}
+
+/**
+ * @param {string} text1
+ * @param {string} text2
+ * @return {number}
+ */
+var longestCommonSubsequence = function (text1, text2) {
+	let m = text1.length
+	let n = text2.length
+	if (!m || !n) return 0
+
+	let dp = Array(m + 1)
+		.fill(0)
+		.map(() => Array(n + 1).fill(0))
+
+	for (let i = 1; i <= m; i++) {
+		let s1 = text1[i - 1]
+		for (let j = 1; j <= n; j++) {
+			let s2 = text2[j - 1]
+			if (s1 === s2) {
+				dp[i][j] = dp[i - 1][j - 1] + 1
+			} else {
+				dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1])
+			}
+		}
+	}
+
+	return dp[m][n]
+}
+
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var peakIndexInMountainArray = function (arr) {
+	let left = 0
+	let right = arr.length - 1
+	let middle = 0
+	while (left < right) {
+		middle = left + Math.floor((right - left) / 2)
+		if (arr[middle] > arr[middle + 1]) left = middle - 1
+		else left = middle + 1
+	}
+	return middle
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var pruneTree = function (root) {
+	const dfs = node => {
+		if (!node) return true
+		let left = dfs(node.left)
+		let right = dfs(node.right)
+		if (left) node.left = null
+		if (right) node.right = null
+		return left && right && !node.val
+	}
+	if (dfs(root)) return null
+	return root
+}

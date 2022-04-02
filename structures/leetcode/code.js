@@ -2396,7 +2396,6 @@ var permute = function (nums) {
 
 	return result
 }
-// TODO
 
 /**
  * @param {number[]} nums
@@ -2476,6 +2475,7 @@ var findTarget = function (root, k) {
  * @param {string} text1
  * @param {string} text2
  * @return {number}
+ * @see https://leetcode-cn.com/problems/longest-common-subsequence/
  */
 var longestCommonSubsequence = function (text1, text2) {
 	let m = text1.length
@@ -2533,6 +2533,7 @@ var pruneTree = function (root) {
 	if (!root.left && !root.right && !root.val) return null
 	return root
 }
+// TODO
 
 /**
  * @param {number[]} nums
