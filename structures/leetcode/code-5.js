@@ -156,3 +156,96 @@ var pruneTree = function (root) {
 	if (dfs(root)) return null
 	return root
 }
+
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var isStraight = function (nums) {
+	let set = new Set()
+	let max = -1
+	let min = 14
+	let zero = 0
+	for (const num of nums) {
+		if (!num) {
+			zero++
+			continue
+		}
+		set.add(num)
+		max = Math.max(max, num)
+		min = Math.min(min, num)
+	}
+
+	return set.size + zero === 5 && max - min === 4
+}
+
+var getIntersectionNode = function (headA, headB) {
+	if (!headA || !headB) return null
+	let a = headA,
+		b = headB
+	while (a !== b) {
+		a = a?.next || headB
+		b = b?.next || headA
+	}
+	return a
+}
+
+/**
+ * @param {TreeNode} root
+ * @param {number} target
+ * @return {number[][]}
+ */
+var pathSum = function (root, target) {
+	let sum = 0
+	let res = []
+	let arr = []
+	const dfs = node => {
+		if (!node) return
+		sum += node.val
+		arr.push(node.val)
+		if (!node.left && !node.right && sum === target) {
+			res.push([...arr])
+		}
+		dfs(node.left)
+		dfs(node.right)
+		sum -= node.val
+		arr.pop()
+	}
+	dfs(root)
+	return res
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var majorityElement = function (nums) {
+	let x = nums[0]
+	let count = 0
+
+	for (const num of nums) {
+		if (count === 0) x = num
+		if (x === num) count++
+		else count--
+	}
+	return x
+}
+
+/**
+ * @param {TreeNode} root
+ * @param {number} k
+ * @return {number}
+ */
+var kthLargest = function (root, k) {
+	let val = null
+	const dfs = node => {
+		if (!node) return
+		if (!k) return
+		dfs(node.right)
+		k--
+		if (!k) val = node.val
+		dfs(node.left)
+	}
+	dfs(root)
+	return val
+}
