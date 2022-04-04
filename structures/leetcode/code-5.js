@@ -249,3 +249,82 @@ var kthLargest = function (root, k) {
 	dfs(root)
 	return val
 }
+
+var maxDepth = function (root) {
+	const dfs = (node, k) => {
+		if (!node) return k
+		let left = dfs(node.left, k + 1)
+		let right = dfs(node.right, k + 1)
+		return Math.max(left, right)
+	}
+	return dfs(root)
+}
+
+/**
+ * @param {string} s
+ * @return {string[]}
+ */
+var permutation = function (s) {
+	let len = s.length
+	let strs = s.split('').sort()
+	let res = new Set()
+	let arr = []
+	const dfs = (j, str) => {
+		if (arr.length === len) return res.add(arr.join(''))
+		for (let i = 0; i < len; i++) {
+			if (!strs[i]) continue
+			if (i === j + 1 && strs[i] === str) continue
+			let char = strs[i]
+			strs[i] = ''
+			arr.push(char)
+			dfs(i, char)
+			strs[i] = char
+			arr.pop()
+		}
+	}
+	dfs(0, '')
+	return Array.from(res)
+}
+
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+var lowestCommonAncestor = function (root, p, q) {
+	let res = null
+	const dfs = node => {
+		if (!node) return false
+		let left = dfs(node.left)
+		let right = dfs(node.right)
+		if (left && right) res = node
+		if ((left || right) && (node.val === p || node.val === q)) res = node
+		return node.val === p || node.val === q
+	}
+	dfs(root)
+	return res
+}
+
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+var mergeTwoLists = function (l1, l2) {
+	let head = new ListNode()
+	let h = head
+	while (l1 && l2) {
+		if (l1.val <= l2.val) {
+			head.next = l1
+			l1 = l1.next
+		} else {
+			head.next = l2
+			l2 = l2.next
+		}
+		head = head.next
+	}
+	head.next = l1 || l2
+
+	return h.next
+}

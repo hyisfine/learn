@@ -2670,7 +2670,6 @@ var kthLargest = function (root, k) {
 
 	return dfs(root)
 }
-// TODO
 
 /**
  * @param {string} s
@@ -2764,6 +2763,7 @@ var mergeTwoLists = function (l1, l2) {
 	l2.next = mergeTwoLists(l1, l2.next)
 	return l2
 }
+// TODO
 
 /**
  * @param {ListNode} head
