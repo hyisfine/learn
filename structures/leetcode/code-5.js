@@ -328,3 +328,77 @@ var mergeTwoLists = function (l1, l2) {
 
 	return h.next
 }
+
+/**
+ * @param {ListNode} head
+ * @param {number} val
+ * @return {ListNode}
+ */
+var deleteNode = function (head, val) {
+	let l = new ListNode()
+	l.next = head
+	let prev = l
+	let cur = head
+	let next = cur?.next
+
+	while (cur) {
+		if (cur.val === val) {
+			prev.next = next
+			cur.next = null
+			return l.next
+		} else {
+			prev = cur
+			cur = next
+			next = next?.next
+		}
+	}
+	return l.next
+}
+
+/**
+ * @param {number} x
+ * @param {number} n
+ * @return {number}
+ */
+var myPow = function (x, n) {
+	if (n < 0) {
+		x = 1 / x
+		n = -n
+	}
+	if (n === 0) return 1
+	if (n === 1) return x
+	if (n & 1) {
+		let val = myPow(x, (n - 1) / 2)
+		return val * val * x
+	}
+	let val = myPow(x, n / 2)
+	return val * val
+}
+
+/**
+ * @param {number} n
+ * @return {number[]}
+ */
+var dicesProbability = function (n) {
+	let res = [0, 1, 1, 1, 1, 1, 1]
+	let max = 6 * n
+	for (let i = 1; i < n; i++) {
+		for (let j = max; j > 0; j--) {}
+	}
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var mirrorTree = function (root) {
+	const dfs = node => {
+		if (!node) return null
+		let left = dfs(node.left)
+		let right = dfs(node.right)
+		node.left = right
+		node.right = left
+		return node
+	}
+	return dfs(root)
+}

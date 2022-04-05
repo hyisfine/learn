@@ -31,6 +31,7 @@
 - [ ] [JavaScript 中 Infinity 的奇异世界](https://mp.weixin.qq.com/s/HuEwzvgwy5r5la8MODt6eA)
 - [ ] [ES 2022 即将新增这6个特性，最后一个绝了。](https://mp.weixin.qq.com/s/7r0JbvnsYImh09qkH-S3qg)
 - [ ] [秒懂 Web Component](https://mp.weixin.qq.com/s/IqXYrk17XEOo8AJmvr4YZA)
+- [ ] [e.target 和 e.currentTarget 的区别？你到底知不知道？](https://mp.weixin.qq.com/s/ZXDoaw3CjRd1rNE7MTkxTA)
 
 ### css3
 

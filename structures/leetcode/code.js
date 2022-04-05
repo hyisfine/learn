@@ -2763,7 +2763,6 @@ var mergeTwoLists = function (l1, l2) {
 	l2.next = mergeTwoLists(l1, l2.next)
 	return l2
 }
-// TODO
 
 /**
  * @param {ListNode} head
@@ -2837,6 +2836,7 @@ var mirrorTree = function (root) {
 	mirrorTree(root.left)
 	return root
 }
+// TODO
 
 /**
  * @param {TreeNode} root
