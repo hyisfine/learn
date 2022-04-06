@@ -6,11 +6,19 @@
 
 - [ ] [react status 中文周刊](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzIzOTkwMjM0OQ==&action=getalbum&album_id=1477042053917245448&scene=173&from_msgid=2247488993&from_itemidx=1&count=3&nolastread=1#wechat_redirect)
 
+### 面试题
+
+- [ ] [100道 JavaScript 面试题，助你查漏补缺](https://juejin.cn/post/6992525007716876325)
+- [ ] [「2021」高频前端面试题汇总之JavaScript篇（上）](https://juejin.cn/post/6940945178899251230)
+- [ ] [冴羽的博客](https://github.com/mqyqingfeng/Blog)
+
 ### ts
 
 - [ ] [TypeScript 终极初学者指南](https://mp.weixin.qq.com/s/_ShxBnF-HdLR_tK8qip7wA)
 - [ ] [一个容易忽略但很有用的 TS 类型](https://mp.weixin.qq.com/s/D0i5uUVXo7qPkKaFoP7cog)
 - [ ] [TS interface vs type](https://mp.weixin.qq.com/s/C0flsrCyVIyXMNaH2uNU-w)
+- [ ] [真实案例说明 TypeScript 类型体操的意义](https://mp.weixin.qq.com/s/0Mj9RoWY7HDoYy2rWAqOBA)
+- [ ] [几个一看就会的 TypeScript 小技巧](https://mp.weixin.qq.com/s/f4V7qPdM3iRHpr81j2zWqQ)
 
 ### js
 
@@ -32,6 +40,8 @@
 - [ ] [ES 2022 即将新增这6个特性，最后一个绝了。](https://mp.weixin.qq.com/s/7r0JbvnsYImh09qkH-S3qg)
 - [ ] [秒懂 Web Component](https://mp.weixin.qq.com/s/IqXYrk17XEOo8AJmvr4YZA)
 - [ ] [e.target 和 e.currentTarget 的区别？你到底知不知道？](https://mp.weixin.qq.com/s/ZXDoaw3CjRd1rNE7MTkxTA)
+- [ ] [深度剖析：一文搞懂前端路由原理](https://mp.weixin.qq.com/s/zuIFUvSlLYozlhngFenpxA)
+- [ ] [如何回答如何理解重排和重绘](https://mp.weixin.qq.com/s/PHV0LxsX4pBpMoMPLDi2ng)
 
 ### css3
 
@@ -56,6 +66,7 @@
 - [ ] [2022 年最受瞩目的新特性 CSS @layer 到底是个啥？](https://mp.weixin.qq.com/s/OcUFEJcym_AzGakYxxCEaA)
 - [ ] [大漠老师：2022 年的 CSS，到底有哪些特性](https://mp.weixin.qq.com/s/b0pbUCPN_KmmDE6SaV3B5Q)
 - [ ] [终于搞懂了 CSS 中的百分比是基于什么工作的了！](https://mp.weixin.qq.com/s/qOijlt_XCFpycdUPr_TnDA)
+- [ ] [如何用一行 CSS 实现 10 种现代布局](https://mp.weixin.qq.com/s/fyOP86kGicEIcVKoR8Iayg)
 
 ### react
 
@@ -66,12 +77,14 @@
 - [ ] [图解 React 原理系列](https://github.com/7kms/react-illustration-series/tree/master)
 - [ ] [React技术揭秘](https://react.iamkasong.com/)
 - [ ] [阿里三面：灵魂拷问——有react fiber，为什么不需要vue fiber？](https://mp.weixin.qq.com/s/po503V7TTezSVFHqsgoZVw)
+- [ ] [我在大厂写React，学到了什么？](https://mp.weixin.qq.com/s/g5VGJLI4Lo22kuK_vmPi7Q)
 
 ### H5 开发
 
 - [ ] [H5 常见问题及解决方案手册](https://mp.weixin.qq.com/s/HsDRqbfiKq3Wd8kVr5wxwQ)
 - [ ] [骨架屏生成方案](https://mp.weixin.qq.com/s/1Vy06emNPZJiXeDP04Ipfw)
 - [ ] [关于移动端适配，你必须要知道的](https://juejin.cn/post/6844903845617729549#heading-11)
+- [ ] [产品经理：实现一下分享出去的URL链接预览图片、标题和描述](https://mp.weixin.qq.com/s/V3CHTcuLQemkGI3QYszmOQ)
 
 ### Node.js
 
