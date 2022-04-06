@@ -1,14 +1,58 @@
-class MyPromise {
-	static PENDING = 'pending'
-	static FULFILLED = 'fulfilled'
-	static REJECTED = 'rejected'
+const PENDING = 'pending'
+const FULFILLED = 'fulfilled'
+const REJECTED = 'rejected'
 
+const isPending = status => status === PENDING
+const isFulfilled = status => status === FULFILLED
+const isRejected = status => status === REJECTED
+
+const isFunc = func => typeof func === 'function'
+
+const resolvePromiseX = (promise, x, resolve, reject) => {
+	if (promise === x) throw TypeError('1234567')
+	if (x === null || (typeof x !== 'object' && typeof x !== 'function')) return resolve(x)
+	if (x instanceof MyPromise) {
+		if (isPending(x.status)) return x.then(y => resolvePromiseX(promise, y, resolve, reject), reject)
+		if (isFulfilled(x.status)) return resolve(x.result)
+		return reject(x.reason)
+	}
+
+	let then
+	try {
+		then = x.then
+	} catch (error) {
+		reject(error)
+	}
+	if (!isFunc(then)) return resolve(x)
+	let called = false
+	try {
+		then.call(
+			x,
+			y => {
+				if (called) return
+				called = true
+				resolvePromiseX(promise, y, resolve, reject)
+			},
+			z => {
+				if (called) return
+				called = true
+				reject(z)
+			},
+		)
+	} catch (error) {
+		if (called) return
+		called = true
+		reject(error)
+	}
+}
+
+class MyPromise {
 	constructor(func) {
-		this.status = MyPromise.PENDING
+		this.status = PENDING
 		this.result = null
 		this.reason = null
-		this.fulfilledCallbacks = []
-		this.rejectedCallbacks = []
+		this.fulfilledCallback = []
+		this.rejectedCallback = []
 
 		try {
 			func(this.resolve, this.reject)
@@ -17,77 +61,73 @@ class MyPromise {
 		}
 	}
 
-	isPending = () => this.status === MyPromise.PENDING
-	isFulfilled = () => this.status === MyPromise.FULFILLED
-	isRejected = () => this.status === MyPromise.REJECTED
-
 	resolve = result => {
-		if (this.isPending()) {
+		if (isPending(this.status)) {
 			setTimeout(() => {
-				this.status = MyPromise.FULFILLED
+				this.status = FULFILLED
 				this.result = result
-				this.fulfilledCallbacks.forEach(callback => callback && callback(result))
+				this.fulfilledCallback.forEach(callback => callback())
 			})
 		}
 	}
 
 	reject = reason => {
-		if (this.isPending()) {
+		if (isPending(this.status)) {
 			setTimeout(() => {
-				this.status = MyPromise.REJECTED
+				this.status = REJECTED
 				this.reason = reason
-				this.rejectedCallbacks.forEach(callback => callback && callback(reason))
+				this.rejectedCallback.forEach(callback => callback())
 			})
 		}
 	}
 
 	then = (onfulfilled, onrejected) => {
-		onfulfilled = MyPromise.isFunc(onfulfilled) ? onfulfilled : value => value
-		onrejected = MyPromise.isFunc(onrejected)
+		onfulfilled = isFunc(onfulfilled) ? onfulfilled : val => val
+		onrejected = isFunc(onrejected)
 			? onrejected
-			: reason => {
-					throw reason
+			: val => {
+					throw val
 			  }
 
 		const promise = new MyPromise((resolve, reject) => {
-			if (this.isPending()) {
-				this.fulfilledCallbacks.push(() => {
+			if (isPending(this.status)) {
+				this.fulfilledCallback.push(() => {
 					setTimeout(() => {
 						try {
-							let x = onfulfilled(this.result)
-							MyPromise.resolvePromiseX(promise, x, resolve, reject)
+							const x = onfulfilled(this.result)
+							resolvePromiseX(promise, x, resolve, reject)
 						} catch (error) {
 							reject(error)
 						}
 					})
 				})
-				this.rejectedCallbacks.push(() => {
+				this.rejectedCallback.push(() => {
 					setTimeout(() => {
 						try {
-							let x = onrejected(this.reason)
-							MyPromise.resolvePromiseX(promise, x, resolve, reject)
+							const x = onrejected(this.reason)
+							resolvePromiseX(promise, x, resolve, reject)
 						} catch (error) {
 							reject(error)
 						}
 					})
 				})
-				return
 			}
-			if (this.isFulfilled()) {
-				return setTimeout(() => {
+
+			if (isFulfilled(this.status)) {
+				setTimeout(() => {
 					try {
-						let x = onfulfilled(this.result)
-						MyPromise.resolvePromiseX(promise, x, resolve, reject)
+						const x = onfulfilled(this.result)
+						resolvePromiseX(promise, x, resolve, reject)
 					} catch (error) {
 						reject(error)
 					}
 				})
 			}
-			if (this.isRejected()) {
-				return setTimeout(() => {
+			if (isRejected(this.status)) {
+				setTimeout(() => {
 					try {
-						let x = onrejected(this.reason)
-						MyPromise.resolvePromiseX(promise, x, resolve, reject)
+						const x = onrejected(this.reason)
+						resolvePromiseX(promise, x, resolve, reject)
 					} catch (error) {
 						reject(error)
 					}
@@ -100,44 +140,7 @@ class MyPromise {
 
 	catch = onrejected => this.then(null, onrejected)
 
-	static isFunc = func => typeof func === 'function'
-
-	static resolvePromiseX = (promise, x, resolve, reject) => {
-		if (promise === x) return reject(new TypeError('1234567'))
-		if (x === null || (typeof x !== 'object' && typeof x !== 'function')) return resolve(x)
-		if (x instanceof MyPromise) {
-			if (x.isPending()) return x.then(y => MyPromise.resolvePromiseX(promise, y, resolve, reject), reject)
-			if (x.isFulfilled()) return resolve(x.result)
-			if (x.isRejected()) return reject(x.reason)
-		}
-		let then
-		try {
-			then = x.then
-		} catch (error) {
-			reject(error)
-		}
-		if (!MyPromise.isFunc(then)) return resolve(x)
-		let called = false
-		try {
-			then.call(
-				x,
-				y => {
-					if (called) return
-					called = true
-					MyPromise.resolvePromiseX(promise, y, resolve, reject)
-				},
-				z => {
-					if (called) return
-					called = true
-					reject(z)
-				}
-			)
-		} catch (error) {
-			if (called) return
-			called = true
-			reject(error)
-		}
-	}
+	finally = callback => this.then(callback, callback)
 
 	static deferred = () => {
 		let result = {}
@@ -147,38 +150,34 @@ class MyPromise {
 		})
 		return result
 	}
+
+	static resolve = val => {
+		if (val instanceof MyPromise) return val
+		if (typeof val === 'object' && 'then' in val)
+			return new MyPromise((resolve, reject) => {
+				val.then(resolve, reject)
+			})
+		return new MyPromise((resolve, reject) => {
+			resolve(val)
+		})
+	}
+
+	static all = arr => {
+		return new MyPromise((resolve, reject) => {
+			let result = []
+			let count = 0
+			if (Array.isArray(arr)) {
+				if (!arr.length) resolve(arr)
+				arr.forEach(func => {
+					MyPromise.resolve(func).then((res, index) => {
+						result[index] = res
+						count++
+						if (count === arr.length) resolve(result)
+					}, reject)
+				})
+			} else reject('234')
+		})
+	}
 }
 
 module.exports = MyPromise
-
-MyPromise.resolve = value => {
-	if (value instanceof MyPromise) return value
-	if (value instanceof Object && 'then' in value)
-		return new MyPromise((resolve, reject) => {
-			value.then(resolve, reject)
-		})
-	return new MyPromise((resolve, reject) => {
-		resolve(value)
-	})
-}
-
-MyPromise.reject = value => {
-	return new MyPromise((resolve, reject) => {
-		reject(value)
-	})
-}
-
-MyPromise.all = funcs => {
-	return new Promise((resolve, reject) => {
-		let result = []
-		if (Array.isArray(funcs)) {
-			if (!funcs.length) resolve(funcs)
-			funcs.forEach(func => {
-				MyPromise.resolve(func).then(res => {
-					result.push(res)
-					result.length === funcs.length && resolve(result)
-				}, reject)
-			})
-		} else reject('args type error')
-	})
-}
