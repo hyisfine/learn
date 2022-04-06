@@ -402,3 +402,67 @@ var mirrorTree = function (root) {
 	}
 	return dfs(root)
 }
+
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var levelOrder = function (root) {
+	if (!root) return []
+	let res = [[root.val]]
+	let queue = [root]
+	let level = 1
+
+	while (queue.length) {
+		level++
+		let arr = []
+		let nums = []
+		for (let i = 0; i < queue.length; i++) {
+			let node = queue[i]
+			node.left && arr.push(node.left)
+			node.right && arr.push(node.right)
+			if (level & 1) nums.push(node.val)
+			else nums.unshift(node.val)
+		}
+		queue = arr
+	}
+
+	return res
+}
+
+/**
+ * @param {TreeNode} A
+ * @param {TreeNode} B
+ * @return {boolean}
+ */
+var isSubStructure = function (A, B) {
+	if (!A || !B) return false
+
+	const compare = (t1, t2) => {
+		if (!t1 && !t2) return true
+		if (t1 && !t2) return true
+		if (!t1 && t2) return false
+		if (t1.val !== t2.val) return false
+		return compare(t1.left, t2.left) && compare(t1.right, t2, right)
+	}
+	const dfs = node => {
+		if (!node) return false
+		if (node.val === B.val) return compare(node, B)
+		return dfs(node.left) || dfs(node.right)
+	}
+	return dfs(A)
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function (nums) {
+	let prev = -Infinity
+	let max = -Infinity
+	for (const num of nums) {
+		prev = Math.max(prev + num, num)
+		max = Math.max(prev, max)
+	}
+	return max === -Infinity ? 0 : max
+}
