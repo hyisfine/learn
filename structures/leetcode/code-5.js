@@ -466,3 +466,82 @@ var maxSubArray = function (nums) {
 	}
 	return max === -Infinity ? 0 : max
 }
+
+/**
+ * @param {character[][]} board
+ * @param {string} word
+ * @return {boolean}
+ */
+var exist = function (board, word) {
+	let str = word.split('')
+	let len = str.length
+	let len1 = board.length
+	if (!len1) return false
+	let len2 = board[0].length
+	const compare = (i, j, k) => {
+		if (i < 0 || j < 0 || i >= len1 || j >= len2) return false
+		if (board[i][j] !== word[k]) return false
+		if (!board[i][j]) return false
+		if (k === len - 1) return true
+		let char = board[i][j]
+		board[i][j] = ''
+		let result =
+			compare(i + 1, j, k + 1) || compare(i - 1, j, k + 1) || compare(i, j + 1, k + 1) || compare(i, j - 1, k + 1)
+		board[i][j] = char
+		return result
+	}
+
+	for (let i = 0; i < len1; i++) {
+		for (let j = 0; j < len2; j++) if (compare(i, j, 0)) return true
+	}
+
+	return false
+}
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var nthUglyNumber = function (n) {
+	let dp = [1]
+	let dp2 = 0
+	let dp3 = 0
+	let dp5 = 0
+
+	for (let i = 1; i < n; i++) {
+		let n2 = dp[dp2] * 2
+		let n3 = dp[dp3] * 3
+		let n5 = dp[dp5] * 5
+		dp[i] = Math.min(n2, n3, n5)
+		if (dp[i] === n2) dp2++
+		if (dp[i] === n3) dp3++
+		if (dp[i] === n5) dp5++
+	}
+
+	return dp[n - 1]
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isBalanced = function (root) {
+	if (!root) return 1
+	let l = isBalanced(root.left)
+	if (l === false) return false
+	let r = isBalanced(root.right)
+	if (r === false) return false
+	if (Math.abs(l - r) > 1) return false
+	return Math.max(l, r) + 1
+}
+
+/**
+ * @param {number[][]} matrix
+ * @param {number} target
+ * @return {boolean}
+ */
+var findNumberIn2DArray = function (matrix, target) {
+	let len1 = matrix.length
+	if (!len1) return false
+	let len2 = matrix[0].length
+}
