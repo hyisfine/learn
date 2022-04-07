@@ -11,6 +11,7 @@
 - [ ] [100道 JavaScript 面试题，助你查漏补缺](https://juejin.cn/post/6992525007716876325)
 - [ ] [「2021」高频前端面试题汇总之JavaScript篇（上）](https://juejin.cn/post/6940945178899251230)
 - [ ] [冴羽的博客](https://github.com/mqyqingfeng/Blog)
+- [ ] [年底 JS 烧脑面试题大赏](https://mp.weixin.qq.com/s/nTO4e4cfqlbB0p2xzYa6UA)
 
 ### ts
 
@@ -19,6 +20,7 @@
 - [ ] [TS interface vs type](https://mp.weixin.qq.com/s/C0flsrCyVIyXMNaH2uNU-w)
 - [ ] [真实案例说明 TypeScript 类型体操的意义](https://mp.weixin.qq.com/s/0Mj9RoWY7HDoYy2rWAqOBA)
 - [ ] [几个一看就会的 TypeScript 小技巧](https://mp.weixin.qq.com/s/f4V7qPdM3iRHpr81j2zWqQ)
+- [ ] [总结TypeScript在项目开发中的应用实践体会](https://mp.weixin.qq.com/s/9JIs04WHELr0rFWudw_hLQ)
 
 ### js
 
@@ -42,6 +44,7 @@
 - [ ] [e.target 和 e.currentTarget 的区别？你到底知不知道？](https://mp.weixin.qq.com/s/ZXDoaw3CjRd1rNE7MTkxTA)
 - [ ] [深度剖析：一文搞懂前端路由原理](https://mp.weixin.qq.com/s/zuIFUvSlLYozlhngFenpxA)
 - [ ] [如何回答如何理解重排和重绘](https://mp.weixin.qq.com/s/PHV0LxsX4pBpMoMPLDi2ng)
+- [ ] [avaScript 深入系列之 Promise 核心原理的模拟实现，通过 Promises/A+ 官方872个测试用例](https://github.com/yuanyuanbyte/Blog/issues/125)
 
 ### css3
 
@@ -104,6 +107,7 @@
 - [ ] [All in one：项目级 monorepo 策略最佳实践](https://segmentfault.com/a/1190000039157365)
 - [ ] [软链接&硬链接在前端中的应用](https://mp.weixin.qq.com/s/o0eN8gBSqVMHykFXrTnikg)
 - [ ] [彻底搞懂 npm、yarn 与 pnpm 依赖管理逻辑](https://mp.weixin.qq.com/s/N2G--m4rGpgXb26X7WZF7Q)
+- [ ] [前端现代包管理器的进化史](https://mp.weixin.qq.com/s/8C9L_z64NUI9kWan64-qAg)
 
 ### webpack
 
@@ -111,6 +115,8 @@
 - [ ] [base64 阮一峰](https://www.ruanyifeng.com/blog/2008/06/base64.html)
 
 - [ ] [VLQ 编码](https://zhuanlan.zhihu.com/p/104519418)
+
+- [ ] [由Babel理解前端编译原理](https://mp.weixin.qq.com/s/uaJD35x0Lw4ft4wtMaB9Ow)
 
 ### cli 工具
 

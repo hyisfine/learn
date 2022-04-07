@@ -246,11 +246,30 @@ let obj = {
 			next() {
 				count++
 				console.log(1)
-				return {done: count === 4, value: count}
-			}
+				return { done: count === 4, value: count }
+			},
 		}
-	}
+	},
 }
 
 let a = [...obj]
 document.createElement('link').href
+
+const myInstance = (c, p) => {
+	let proto = Object.getPrototypeOf(c)
+	const prototype = p.prototype
+
+	while (proto) {
+		if (proto === prototype) return true
+		proto = Object.getPrototypeOf(proto)
+	}
+	return false
+}
+
+const myNew2 = (constructor, ...args) => {
+	function Temp() {}
+	Temp.prototype = constructor.prototype
+	let obj = new Temp()
+	let res = constructor.call(obj, ...args)
+	return res instanceof Object ? res : obj
+}
