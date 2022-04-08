@@ -545,3 +545,93 @@ var findNumberIn2DArray = function (matrix, target) {
 	if (!len1) return false
 	let len2 = matrix[0].length
 }
+
+/**
+ * @param {number} target
+ * @return {number[][]}
+ */
+var findContinuousSequence = function (target) {
+	let res = []
+	let arr = []
+	let sum = 0
+	let index = 1
+	while (index <= Math.ceil(target / 2)) {
+		sum += index
+		arr.push(index)
+		while (sum >= target) {
+			if (sum === target) res.push([...arr])
+			sum -= arr.shift()
+		}
+		index++
+	}
+
+	return res
+}
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function (s) {
+	let map = {}
+	let left = -1
+	let max = 0
+	let len = s.length
+	for (let i = 0; i < len; i++) {
+		let str = s[i]
+		if (str in map) {
+			const last = map[str]
+			if (last > left) {
+				max = Math.max(max, i - left - 1)
+				left = last
+			}
+		}
+		map[str] = i
+	}
+	max = Math.max(len - left - 1, max)
+	return max
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var levelOrder = function (root) {
+	if (!root) return []
+	let queue = [root]
+	let res = []
+
+	while (queue.length) {
+		let arr = []
+		let vals = []
+
+		for (const node of queue) {
+			vals.push(node.val)
+			if (node.left) {
+				arr.push(node.left)
+			}
+			if (node.right) {
+				arr.push(node.right)
+			}
+		}
+
+		res.push(vals)
+		queue = arr
+	}
+
+	return res
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isSymmetric = function (root) {
+	if (!root) return true
+	const dfs = (A, B) => {
+		if (!A && !B) return true
+		if (A?.val !== B?.val) return false
+		return dfs(A.left, B.right) && dfs(A.right, B.left)
+	}
+	return dfs(root.left, root.right)
+}
