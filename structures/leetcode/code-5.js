@@ -635,3 +635,83 @@ var isSymmetric = function (root) {
 	}
 	return dfs(root.left, root.right)
 }
+
+/**
+ * @param {number} m
+ * @param {number} n
+ * @param {number} k
+ * @return {number}
+ * @see https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof/
+ */
+var movingCount = function (m, n, k) {
+	const set = new Set()
+	const sum = num => {
+		let s = 0
+		while (num) {
+			s += num % 10
+			num = Math.floor(num / 10)
+		}
+		return s
+	}
+
+	const dfs = (i, j) => {
+		let s = sum(i) + sum(j)
+		if (s > k || i >= m || j >= n || set.has(`${i},${j}`)) return 0
+		set.add(`${i},${j}`)
+		return dfs(i + 1, j) + dfs(i, j + 1) + 1
+	}
+
+	return dfs(0, 0)
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var exchange = function (nums) {
+	let left = 0
+	let right = nums.length - 1
+	while (left < right) {
+		while (left < right && nums[left] & 1) left++
+		while (left < right && !(nums[right] & 1)) right++
+		if (left < right) {
+			let temp = nums[left]
+			nums[left] = nums[right]
+			nums[right] = temp
+		}
+	}
+
+	return nums
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var missingNumber = function (nums) {
+	let i = 0
+	let j = nums.length - 1
+	while (i < j) {
+		let m = i + Math.floor((j - i) / 2)
+		if (nums[m] === m) i = m + 1
+		else j = m - 1
+	}
+	return nums[i] === i ? i + 1 : i
+}
+
+/**
+ * @param {number[]} pushed
+ * @param {number[]} popped
+ * @return {boolean}
+ */
+var validateStackSequences = function (pushed, popped) {
+	let stack = []
+	while (pushed.length) {
+		stack.push(pushed.shift())
+		while (stack[stack.length - 1] === popped[0]) {
+			stack.pop()
+			popped.shift()
+		}
+	}
+	return !stack.length
+}

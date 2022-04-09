@@ -12,6 +12,7 @@
 - [ ] [「2021」高频前端面试题汇总之JavaScript篇（上）](https://juejin.cn/post/6940945178899251230)
 - [ ] [冴羽的博客](https://github.com/mqyqingfeng/Blog)
 - [ ] [年底 JS 烧脑面试题大赏](https://mp.weixin.qq.com/s/nTO4e4cfqlbB0p2xzYa6UA)
+- [ ] [再来一打Webpack面试题](https://juejin.cn/post/6844904094281236487#heading-0)
 
 ### ts
 
@@ -117,6 +118,8 @@
 - [ ] [VLQ 编码](https://zhuanlan.zhihu.com/p/104519418)
 
 - [ ] [由Babel理解前端编译原理](https://mp.weixin.qq.com/s/uaJD35x0Lw4ft4wtMaB9Ow)
+
+- [ ] [webpack 易混淆知识点](https://www.cnblogs.com/skychx/tag/Webpack/)
 
 ### cli 工具
 
