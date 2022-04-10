@@ -109,6 +109,7 @@
 - [ ] [软链接&硬链接在前端中的应用](https://mp.weixin.qq.com/s/o0eN8gBSqVMHykFXrTnikg)
 - [ ] [彻底搞懂 npm、yarn 与 pnpm 依赖管理逻辑](https://mp.weixin.qq.com/s/N2G--m4rGpgXb26X7WZF7Q)
 - [ ] [前端现代包管理器的进化史](https://mp.weixin.qq.com/s/8C9L_z64NUI9kWan64-qAg)
+- [ ] [使用 npm 的语义版本控制](http://nodejs.cn/learn/semantic-versioning-using-npm)
 
 ### webpack
 
@@ -120,6 +121,8 @@
 - [ ] [由Babel理解前端编译原理](https://mp.weixin.qq.com/s/uaJD35x0Lw4ft4wtMaB9Ow)
 
 - [ ] [webpack 易混淆知识点](https://www.cnblogs.com/skychx/tag/Webpack/)
+
+- [ ] [总结 Webapck5 核心打包原理](https://mp.weixin.qq.com/s/fo9kpzyjVIN-t_2c15Tngg)
 
 ### cli 工具
 
