@@ -715,3 +715,88 @@ var validateStackSequences = function (pushed, popped) {
 	}
 	return !stack.length
 }
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var reverseList = function (head) {
+	let prev = null
+	let cur = head
+	let next = head?.next
+
+	while (cur) {
+		cur.next = prev
+		prev = cur
+		cur = next
+		next = next?.next
+	}
+	return prev
+}
+
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode}
+ */
+var getKthFromEnd = function (head, k) {
+	let fast = head
+	let low = head
+
+	while (k > 0) {
+		fast = fast.next
+		k--
+	}
+	while (fast) {
+		fast = fast.next
+		low = low.next
+	}
+	return low
+}
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var fib = function (n) {
+	let i = 0
+	let j = 1
+
+	while (n > 0) {
+		;[i, j] = [j, (i + j) % 1000000007]
+	}
+
+	return i
+}
+
+/**
+ * @param {number[]} postorder
+ * @return {boolean}
+ */
+var verifyPostorder = function (postorder) {
+	let len = postorder.length
+	if (len <= 1) return true
+	let root = postorder.pop()
+	let index = postorder.findIndex(item => item > root)
+	let middle = ~index ? index : len - 1
+	let left = postorder.slice(0, middle)
+	let right = postorder.slice(middle)
+	if (right.find(item => item < root)) return false
+	return verifyPostorder(left) && verifyPostorder(right)
+}
+
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+var maxProfit = function (prices) {
+	let max = 0
+	let min = Infinity
+
+	for (const price of prices) {
+		min = Math.min(min, price)
+		max = Math.max(max, price - min)
+	}
+
+	return max
+}
