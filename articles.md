@@ -115,10 +115,9 @@
 
 - [ ] [关于 source map 这篇文章就够了](https://juejin.cn/post/6969748500938489892)
 - [ ] [base64 阮一峰](https://www.ruanyifeng.com/blog/2008/06/base64.html)
-
 - [ ] [VLQ 编码](https://zhuanlan.zhihu.com/p/104519418)
-
 - [ ] [由Babel理解前端编译原理](https://mp.weixin.qq.com/s/uaJD35x0Lw4ft4wtMaB9Ow)
+- [ ] [当面试官问Webpack的时候他想知道什么](https://juejin.cn/post/6943468761575849992)
 
 - [ ] [webpack 易混淆知识点](https://www.cnblogs.com/skychx/tag/Webpack/)
 
