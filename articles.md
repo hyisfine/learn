@@ -13,6 +13,7 @@
 - [ ] [冴羽的博客](https://github.com/mqyqingfeng/Blog)
 - [ ] [年底 JS 烧脑面试题大赏](https://mp.weixin.qq.com/s/nTO4e4cfqlbB0p2xzYa6UA)
 - [ ] [再来一打Webpack面试题](https://juejin.cn/post/6844904094281236487#heading-0)
+- [ ] [2022前端面试小册【腾讯9、美团7、百度t5、快手3b】的offer](https://juejin.cn/post/7071922989238845453)
 
 ### ts
 

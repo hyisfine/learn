@@ -800,3 +800,71 @@ var maxProfit = function (prices) {
 
 	return max
 }
+
+/**
+ * @param {Node} root
+ * @return {Node}
+ */
+var treeToDoublyList = function (root) {
+	let cur
+	let prev
+	let head
+	const dfs = node => {
+		if (!node) return
+		dfs(node.left)
+		prev = cur
+		cur = node
+		if (prev) {
+			cur.left = prev
+			prev.right = cur
+		}
+		if (!head) head = cur
+		dfs(node.right)
+	}
+	dfs(root)
+	if (cur) {
+		cur.right = head
+		head.left = cur
+	}
+	return head
+}
+
+var CQueue = function () {
+	this.stackA = []
+	this.stackB = []
+}
+
+/**
+ * @param {number} value
+ * @return {void}
+ */
+CQueue.prototype.appendTail = function (value) {
+	this.stackA.push(value)
+}
+
+/**
+ * @return {number}
+ */
+CQueue.prototype.deleteHead = function () {
+	if (this.stackB.length) return this.stackB.pop()
+	if (!this.stackA.length) return -1
+
+	while (this.stackA.length) {
+		this.stackB.push(this.stackA.pop())
+	}
+	return this.stackB.pop()
+}
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var search = function (nums, target) {
+	let count = 0
+	for (const num of nums) {
+		if (!(target ^ num)) count++
+	}
+
+	return count
+}
