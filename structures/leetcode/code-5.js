@@ -868,3 +868,38 @@ var search = function (nums, target) {
 
 	return count
 }
+
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var maxValue = function (grid) {
+	let m = grid.length
+	let n = grid[0].length
+
+	for (let i = 0; i < m; i++) {
+		for (let j = 0; j < n; j++) {
+			grid[i][j] = grid[i][j] + Math.max(i > 0 ? grid[i - 1][j] : 0, j > 0 ? grid[i][j - 1] : 0)
+		}
+	}
+
+	return grid[m - 1][n - 1]
+}
+
+/**
+ * @param {number} num
+ * @return {number}
+ */
+var translateNum = function (num) {
+	let str = num.toString()
+	let len = str.length
+	let dp = Array(len + 1).fill(0)
+	dp[0] = 1
+
+	for (let i = 0; i < len; i++) {
+		dp[i + 1] += dp[i]
+		if (i > 0 && ~~str[i] && ~~str.slice(i - 1, i + 1) < 26) dp[i + 1] += dp[i - 1]
+	}
+
+	return dp[len]
+}

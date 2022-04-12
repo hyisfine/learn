@@ -47,6 +47,7 @@ var translateNum = function (num) {
 	}
 	return cur
 }
+// TODO
 
 /**
  * @param {number[]} nums
