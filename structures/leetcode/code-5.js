@@ -903,3 +903,70 @@ var translateNum = function (num) {
 
 	return dp[len]
 }
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function (nums) {
+	let prev = -Infinity
+	let max = 0
+	for (const num of nums) {
+		prev = Math.max(prev + num, num)
+		max = Math.max(max, prev)
+	}
+	return max
+}
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var removeDuplicateNodes = function (head) {
+	if (!head || !head.next) return head
+	let l = head
+	let count = head.val
+	let prev = head
+	head = head.next
+	while (head) {
+		count ^= head.val
+		if (!count) {
+			prev.next = head.next
+			prev = prev.next
+			head = head.next?.next
+		} else {
+			prev = head
+			head = head.next
+		}
+	}
+
+	return l
+}
+
+/**
+ * @param {number[]} A
+ * @param {number} m
+ * @param {number[]} B
+ * @param {number} n
+ * @return {void} Do not return anything, modify A in-place instead.
+ */
+var merge = function (A, m, B, n) {
+	let last = m + n - 1
+	let i = m - 1
+	let j = n - 1
+	while (last >= 0) {
+		switch (true) {
+			case i < 0:
+				A[last--] = B[j--]
+				break
+			case j < 0:
+				A[last--] = A[i--]
+				break
+			case A[i] <= B[j]:
+				A[last--] = B[j--]
+				break
+			default:
+				A[last--] = A[i--]
+		}
+	}
+}

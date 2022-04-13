@@ -47,7 +47,6 @@ var translateNum = function (num) {
 	}
 	return cur
 }
-// TODO
 
 /**
  * @param {number[]} nums
@@ -116,6 +115,7 @@ var merge = function (A, m, B, n) {
 		A[k--] = cur
 	}
 }
+// TODO
 
 /**
  * @param {number[]} nums

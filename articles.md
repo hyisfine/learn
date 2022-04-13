@@ -149,6 +149,10 @@
 
 - [ ] [面试：彻底理解Cookie以及Cookie安全](https://juejin.cn/post/6844904102544031757)
 
+- [ ] [详解 Cookie 新增的 SameParty 属性](https://juejin.cn/post/7002011181221167118)
+
+- [ ] [Cookie 从入门到进阶：一文彻底弄懂其原理以及应用](https://juejin.cn/post/7075129301527429133)
+
   
 
 ### 性能优化
