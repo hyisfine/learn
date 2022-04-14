@@ -970,3 +970,84 @@ var merge = function (A, m, B, n) {
 		}
 	}
 }
+
+/**
+ * @param {number[]} array1
+ * @param {number[]} array2
+ * @return {number[]}
+ */
+var findSwapValues = function (array1, array2) {
+	let sum1 = array1.reduce((prev, v) => prev + v)
+	let sum2 = array2.reduce((prev, v) => prev + v)
+	let diff = sum1 - sum2
+	if (diff & 1) return []
+	diff /= 2
+	let set = new Set(array2)
+	for (const num of array1) {
+		if (set.has(num - diff)) return [num, num - diff]
+	}
+	return []
+}
+
+/**
+ * @param {number[][]} matrix
+ * @return {void} Do not return anything, modify matrix in-place instead.
+ */
+var setZeroes = function (matrix) {
+	let m = matrix.length
+	if (!m) return
+	let n = matrix[0].length
+
+	let arrM = Array(m).fill(false)
+	let arrN = Array(n).fill(false)
+
+	for (let i = 0; i < m; i++) {
+		for (let j = 0; j < n; j++) {
+			if (!matrix[i][j]) {
+				arrM[i] = true
+				arrN[j] = true
+			}
+		}
+	}
+
+	for (let i = 0; i < m; i++) {
+		if (arrM[i]) for (let j = 0; j < n; j++) matrix[i][j] = 0
+	}
+	for (let i = 0; i < n; i++) {
+		if (arrN[i]) for (let j = 0; j < m; j++) matrix[j][i] = 0
+	}
+}
+
+/**
+ * @param {number[][]} land
+ * @return {number[]}
+ */
+var pondSizes = function (land) {
+	let m = land.length
+	let n = land[0].length
+	let res = []
+
+	const dfs = (i, j) => {
+		if (land[i][j] !== 0 || i < 0 || j < 0 || i >= m || j >= n) return 0
+		land[i][j] = -1
+		return (
+			dfs(i + 1, j) +
+			dfs(i - 1, j) +
+			dfs(i, j + 1) +
+			dfs(i, j - 1) +
+			dfs(i + 1, j + 1) +
+			dfs(i + 1, j - 1) +
+			dfs(i - 1, j + 1) +
+			dfs(i - 1, j - 1) +
+			1
+		)
+	}
+
+	for (let i = 0; i < m; i++) {
+		for (let j = 0; j < n; j++) {
+			if (land[i][j] === 0) res.push(dfs(i, j))
+		}
+	}
+
+	return res.sort((a, b) => a - b)
+}

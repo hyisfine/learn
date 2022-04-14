@@ -115,7 +115,6 @@ var merge = function (A, m, B, n) {
 		A[k--] = cur
 	}
 }
-// TODO
 
 /**
  * @param {number[]} nums
@@ -259,6 +258,7 @@ var smallestDifference = function (a, b) {
 	}
 	return min
 }
+// TODO
 
 /**
  * @param {ListNode} head
