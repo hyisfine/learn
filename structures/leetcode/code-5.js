@@ -1051,3 +1051,30 @@ var pondSizes = function (land) {
 
 	return res.sort((a, b) => a - b)
 }
+
+/**
+ * @param {string[]} array
+ * @return {string[]}
+ */
+var findLongestSubarray = function (array) {
+	let map = new Map()
+	map.set(0, -1)
+	let len = array.length
+	let res = []
+	let sum = 0
+	let left = 0
+	let right = 0
+
+	for (let i = 0; i < len; i++) {
+		if (/\d/.test(array[i])) sum++
+		else sum--
+		if (map.has(sum)) {
+			if (right - left < i - map.get(sum)) {
+				left = map.get(sum)
+				right = i
+			}
+		} else map.set(sum, i)
+	}
+
+	return array.slice(left + 1, right + 1)
+}

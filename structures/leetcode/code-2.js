@@ -258,7 +258,6 @@ var smallestDifference = function (a, b) {
 	}
 	return min
 }
-// TODO
 
 /**
  * @param {ListNode} head
@@ -960,3 +959,70 @@ var reverseBits = function (num) {
 	return max
 }
 reverseBits(1)
+
+/**
+ * @param {number[][]} matrix
+ * @param {number} target
+ * @return {boolean}
+ */
+var searchMatrix = function (matrix, target) {
+	let m = matrix.length
+	if (!m) return false
+	let n = matrix[0].length
+	let i = 0
+	let j = n - 1
+
+	while (i < m && j >= 0) {
+		if (matrix[i][j] === target) return true
+		if (matrix[i][j] > target) j--
+		else i++
+	}
+	return false
+}
+
+/**
+ * @param {string[]} board
+ * @return {string}
+ */
+var tictactoe = function (board) {
+	let n = board.length
+	for (let i = 0; i < n; i++) {
+		let first = board[i][0]
+		if (first === ' ') continue
+		for (var j = 0; j < n; j++) {
+			if (first !== board[i][j]) break
+		}
+		if (j === n) return first
+	}
+	for (let i = 0; i < n; i++) {
+		let first = board[0][i]
+		if (first === ' ') continue
+		for (var j = 0; j < n; j++) {
+			if (first !== board[j][i]) break
+		}
+		if (j === n) return first
+	}
+
+	let first = board[0][0]
+	if (first !== ' ') {
+		for (var i = 0; i < n; i++) {
+			if (first !== board[i][i]) break
+		}
+		if (i === n) return first
+	}
+
+	first = board[0][n - 1]
+	if (first !== ' ') {
+		for (var i = 0; i < n; i++) {
+			if (first !== board[i][n - i - 1]) break
+		}
+		if (i === n) return first
+	}
+
+	for (let i = 0; i < n; i++) {
+		for (var j = 0; j < n; j++) {
+			if (board[i][j] === ' ') return 'Pending'
+		}
+	}
+	return 'Draw'
+}
