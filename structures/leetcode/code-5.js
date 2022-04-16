@@ -1078,3 +1078,48 @@ var findLongestSubarray = function (array) {
 
 	return array.slice(left + 1, right + 1)
 }
+
+/**
+ * @param {number} n
+ * @param {number[][]} graph
+ * @param {number} start
+ * @param {number} target
+ * @return {boolean}
+ */
+var findWhetherExistsPath = function (n, graph, start, target) {
+	let map = new Map()
+	for (const [k, v] of graph) {
+		if (map.has(k)) {
+			if (!map.get(k).has(v)) map.get(k).add(v)
+		} else map.set(k, new Set([v]))
+	}
+	const dfs = k => {
+		let set = map.get(k)
+		map.set(k, null)
+		if (!set) return false
+		let flag = false
+		for (const num of set) {
+			if (num === target) return true
+			flag ||= dfs(num)
+		}
+		return flag
+	}
+	return dfs(start)
+}
+
+/**
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ */
+var getIntersectionNode = function (headA, headB) {
+	let A = headA
+	let B = headB
+	while (A !== B) {
+		if (!A) A = headB
+		else A = A.next
+		if (!B) B = headA
+		else B = B.next
+	}
+	return A
+}
