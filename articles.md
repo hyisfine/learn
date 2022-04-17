@@ -47,6 +47,7 @@
 - [ ] [深度剖析：一文搞懂前端路由原理](https://mp.weixin.qq.com/s/zuIFUvSlLYozlhngFenpxA)
 - [ ] [如何回答如何理解重排和重绘](https://mp.weixin.qq.com/s/PHV0LxsX4pBpMoMPLDi2ng)
 - [ ] [avaScript 深入系列之 Promise 核心原理的模拟实现，通过 Promises/A+ 官方872个测试用例](https://github.com/yuanyuanbyte/Blog/issues/125)
+- [ ] [ECMAScript 提案：toReversed()、toSorted()、toSpliced()、with()](https://mp.weixin.qq.com/s/4-nzPTbbAkdVUKAwoOk5aw)
 
 ### css3
 

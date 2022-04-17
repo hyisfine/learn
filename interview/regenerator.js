@@ -1,81 +1,93 @@
-const regenerator = fn => {
-	const context = {
-		next: 0,
-		sent: null,
-		done: false
-	}
+function* AA() {
+	console.log('start')
+	console.log(1)
+	console.log(yield '11')
+	console.log(2)
+	console.log(yield '22')
+	console.log('end')
+}
 
-	return {
-		next(param) {
-			context.sent = param
-			let value = fn(context)
-			return {
-				done: context.done,
-				value
-			}
+const gAA = () => {
+	let flag = 0
+	let value = undefined
+	let done = false
+	let prev = undefined
+	const fn = () => {
+		switch (flag) {
+			case 0:
+				value = '11'
+				console.log('start')
+				console.log(1)
+				return (flag = 1)
+			case 1:
+				value = '22'
+				console.log(prev)
+				console.log(2)
+				return (flag = 2)
+			case 2:
+				console.log(prev)
+				console.log('end')
+				done = true
+				flag = 3
+				value = undefined
+			case 3:
 		}
 	}
-}
-
-const fn = context => {
-	switch (context.next) {
-		case 1:
-
-		default:
-			break
+	return {
+		next(p) {
+			prev = p
+			fn()
+			return {
+				value,
+				done,
+			}
+		},
 	}
 }
 
-function promise1() {
-	return new Promise(resolve => {
-		setTimeout(() => {
-			console.log(1)
-			resolve(1)
-		}, 1000)
-	})
-}
-function promise2() {
-	return new Promise(resolve => {
-		setTimeout(() => {
-			console.log(1)
-			resolve(1)
-		}, 1000)
-	})
-}
-function promise3() {
-	return new Promise(resolve => {
-		setTimeout(() => {
-			console.log(1)
-			resolve(1)
-		}, 1000)
-	})
-}
-function promise4() {
-	return new Promise(resolve => {
-		setTimeout(() => {
-			console.log(1)
-			resolve(1)
-		}, 1000)
-	})
-}
+// let ga = gAA()
+// console.log(ga.next(1))
+// console.log(ga.next(2))
+// console.log(ga.next(3))
+// console.log(ga.next(4))
+// console.log('======')
+// let aa = AA()
+// console.log(aa.next(1))
+// console.log(aa.next(2))
+// console.log(aa.next(3))
+// console.log(aa.next(4))
 
-function* add() {
-	return (yield promise1()) + (yield promise2()) + (yield promise3()) + (yield promise4())
-}
+let p1 = new Promise(a => {
+	console.log('p1')
+	a('1')
+})
+let p2 = new Promise(a => {
+	console.log('p2')
+	setTimeout(() => {
+		a('2')
+	}, 2000)
+})
+let p3 = new Promise(a => {
+	console.log('p3')
+	a('3')
+})
 
 const co = fn => {
-	return new Promise((resolve, reject) => {
+	return new Promise(resolve => {
 		let g = fn()
-		const next = param => {
-			const {value, done} = g.next(param)
+		const next = val => {
+			const { value, done } = g.next(val)
 			if (done) resolve(value)
-			else Promise.resolve(value).then(res => next(res))
+			else Promise.resolve(value).then(next)
 		}
-
 		next()
 	})
 }
 
-co(add)
+function* aaa() {
+	console.log('====', yield p1)
+	console.log('====', yield p2)
+	console.log('====', yield p3)
+}
 
-// ;[promise1, promise2, promise3, promise4].reduce((p, v) => p.then(v), Promise.resolve())
+co(aaa)
