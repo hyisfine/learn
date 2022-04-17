@@ -1123,3 +1123,105 @@ var getIntersectionNode = function (headA, headB) {
 	}
 	return A
 }
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var waysToChange = function (n) {
+	let dp = Array(n + 1).fill(1)
+	let arr = [5, 10, 25]
+
+	for (const num of arr) {
+		for (let i = num; i <= n; i++) {
+			dp[i] = (dp[i] + dp[i - num] ?? 0) % 1000000007
+		}
+	}
+
+	return dp[n]
+}
+
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @return {TreeNode}
+ */
+var inorderSuccessor = function (root, p) {
+	let q = 0
+	let n = null
+	const dfs = node => {
+		if (!node) return
+		if (q === 1) return
+		dfs(node.left)
+		if (q === -1) {
+			n = node
+			q = 1
+			return
+		}
+		if (node === p) q = -1
+		dfs(node.right)
+	}
+	dfs(root)
+	return n
+}
+
+/**
+ * @param {string} num
+ * @param {string[]} words
+ * @return {string[]}
+ */
+var getValidT9Words = function (num, words) {
+	let arr = ['', '', 'abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
+	let res = []
+	let len = num.length
+
+	for (const word of words) {
+		if (word.length !== len) continue
+		let flag = true
+		for (let i = 0; i < len; i++) {
+			if (!arr[num[i]].includes(word[i])) {
+				flag = false
+				break
+			}
+		}
+		flag && res.push(word)
+	}
+
+	return res
+}
+
+/**
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+var groupAnagrams = function (strs) {
+	let map = new Map()
+
+	for (const str of strs) {
+		let arr = Array.from(str)
+		arr.sort()
+		let key = arr.join('')
+		if (map.has(key)) map.get(key).push(str)
+		else map.set(key, [str])
+	}
+
+	return Array.from(map.values())
+}
+
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+var lowestCommonAncestor = function (root, p, q) {
+	const dfs = node => {
+		if (!node) return null
+		let l = dfs(node.left)
+		let r = dfs(node.right)
+		if (l && r) return node
+		if (node === q || node === p) return node
+		return l || r
+	}
+	return dfs(root)
+}
