@@ -1225,3 +1225,87 @@ var lowestCommonAncestor = function (root, p, q) {
 	}
 	return dfs(root)
 }
+
+/**
+ * @param {number} k
+ * @return {number}
+ */
+var getKthMagicNumber = function (k) {
+	let dp = [1]
+	let p3 = 0
+	let p5 = 0
+	let p7 = 0
+
+	while (k >= 1) {
+		let n3 = dp[p3] * 3
+		let n5 = dp[p5] * 5
+		let n7 = dp[p7] * 7
+		dp.push(Math.min(n3, n5, n7))
+		if (dp.at(-1) === n3) p3++
+		if (dp.at(-1) === n5) p5++
+		if (dp.at(-1) === n7) p7++
+		k--
+	}
+	return dp.at(-1)
+}
+
+/**
+ * @param {number} n
+ * @return {string[]}
+ */
+var generateParenthesis = function (n) {
+	n = n * 2
+	let res = []
+	const dfs = (strs, num) => {
+		let len = strs.length
+		if (num < 0 || num > n - len) return
+		if (num === 0 && (n - len) & 1) return
+		if (len === n) res.push(strs.join(''))
+		strs.push('(')
+		dfs(strs, num + 1)
+		strs.pop()
+		strs.push(')')
+		dfs(strs, num - 1)
+		strs.pop()
+	}
+	dfs(['('], 1)
+	return res
+}
+
+/**
+ * @param {ListNode} head
+ * @param {number} x
+ * @return {ListNode}
+ */
+var partition = function (head, x) {
+	let l1 = new ListNode(0)
+	const h1 = l1
+	let l2 = new ListNode(0)
+	const h2 = l2
+	while (head !== null) {
+		if (head.val < x) {
+			l1.next = head
+			l1 = l1.next
+		} else {
+			l2.next = head
+			l2 = l2.next
+		}
+		head = head.next
+	}
+}
+
+const respace = (dictionary, sentence) => {
+	const len = sentence.length
+	const dp = new Array(len + 1)
+	dp[0] = 0
+	for (let i = 1; i <= len; i++) {
+		dp[i] = dp[i - 1] + 1
+		for (const word of dictionary) {
+			let len = word.length
+			if (sentence.substring(i - len, i) === word) {
+				dp[i] = Math.min(dp[i], dp[i - len])
+			}
+		}
+	}
+	return dp[len]
+}
