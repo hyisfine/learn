@@ -114,6 +114,11 @@
 - [ ] [前端现代包管理器的进化史](https://mp.weixin.qq.com/s/8C9L_z64NUI9kWan64-qAg)
 - [ ] [使用 npm 的语义版本控制](http://nodejs.cn/learn/semantic-versioning-using-npm)
 
+### babel
+
+- [ ] [@babel/plugin-transform-runtime 到底是什么？](https://zhuanlan.zhihu.com/p/147083132)
+- [ ] [Babel 和 TypeScript 都可以编译，到底选谁！？](https://mp.weixin.qq.com/s/FQTQX4A4oRhyHrkj-dxC3g)
+
 ### webpack
 
 - [ ] [关于 source map 这篇文章就够了](https://juejin.cn/post/6969748500938489892)

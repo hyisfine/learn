@@ -158,3 +158,8 @@ Function.prototype.bind2 = function (ctx, ...args) {
 }
 
 function AAAA() {}
+
+try {
+} catch (error) {
+	console.log(1)
+}
