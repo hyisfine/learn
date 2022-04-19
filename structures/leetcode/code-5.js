@@ -1309,3 +1309,114 @@ const respace = (dictionary, sentence) => {
 	}
 	return dp[len]
 }
+
+/**
+ * @param {string} S
+ * @return {string[]}
+ */
+var permutation = function (S) {
+	let strs = S.split('').sort()
+	let res = []
+	let arr = []
+	let len = strs.length
+	const dfs = () => {
+		if (arr.length === len) return res.push(arr.join())
+		for (let i = 0; i < len; i++) {
+			if (!strs[i]) continue
+			if (i > 0 && strs[i] === strs[i - 1]) continue
+			let str = strs[i]
+			strs[i] = ''
+			arr.push(str)
+			dfs()
+			strs[i] = str
+			arr.pop()
+		}
+	}
+	dfs()
+	return res
+}
+
+/**
+ * @param {string[]} words
+ * @return {string}
+ */
+var longestWord = function (words) {
+	words.sort((a, b) => a.length - b.length)
+
+	let set = new Set()
+	let maxV = ''
+
+	for (const word of words) {
+		let len = word.length
+		let last = 0
+		for (let i = 0; i < len; i++) {
+			let key = word.substring(last, i + 1)
+			if (set.has(key)) {
+				for (let j = i; j < len; j++) {}
+			}
+		}
+		if (last === len) maxV = maxV.length < len ? word : maxV
+		set.add(word)
+	}
+
+	return maxV
+}
+
+var findClosest = function (words, word1, word2) {
+	let arr1 = []
+	let arr2 = []
+	let len = words.length
+	for (let i = 0; i < len; i++) {
+		let word = words[i]
+		if (word1 === word) arr1.push(i)
+		if (word2 === word) arr2.push(i)
+	}
+
+	let len1 = arr1.length
+	let len2 = arr2.length
+	let i = 0
+	let j = 0
+	let min = Infinity
+
+	while (i < len1 && j < len2) {
+		let diff = Math.abs(arr1[i] - arr2[j])
+		if (diff < min) min = diff
+		if (diff === 0) return 0
+		if (arr1[i] <= arr2[j]) i++
+		else j++
+	}
+	return min
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var threeSum = function (nums) {
+	nums.sort((a, b) => a - b)
+	let res = []
+	let len = nums.length
+	for (let i = 0; i < len; i++) {
+		let a = nums[i]
+		let j = i + 1
+		let k = len - 1
+		while (j < k) {
+			if (j > i + 1 && nums[j] === nums[j - 1]) {
+				j++
+				continue
+			}
+			let b = nums[j]
+			let c = nums[k]
+			let sum = a + b + c
+			if (sum === 0) {
+				res.push([a, b, c])
+				j++
+				k--
+			}
+			if (sum < 0) j++
+			if (sum > 0) k--
+		}
+	}
+
+	return res
+}

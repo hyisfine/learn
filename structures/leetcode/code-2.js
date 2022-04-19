@@ -853,7 +853,6 @@ var partition = function (head, x) {
 	l1.next = h2.next
 	return h1.next
 }
-// TODO
 
 /**
  * @param {string} S
@@ -905,7 +904,6 @@ var permutation = function (S) {
 	dfs('')
 	return res
 }
-
 /**
  * @param {string[]} words
  * @return {string}

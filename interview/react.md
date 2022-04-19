@@ -19,3 +19,4 @@
 9. react 18新特性
    1. 自动批任务处理。suspense list。新的hook useTransition、useDeferredValue、supense list的展示模式、可中断渲染、设置渲染优先级。
    2. 更合理的拉去数据与组件渲染关系。之前：先渲染获取数据后再更新。现在：获取数据时即rneder、等待数据填充。
+10. router

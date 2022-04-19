@@ -42,7 +42,6 @@ var findClosest = function (words, word1, word2) {
 
 	return min
 }
-
 /**
  * @param {number[]} nums
  * @return {number[][]}
@@ -74,6 +73,7 @@ var threeSum = function (nums) {
 	}
 	return arr
 }
+// TODO
 
 /**
  * @param {string} s

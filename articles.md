@@ -23,6 +23,7 @@
 - [ ] [真实案例说明 TypeScript 类型体操的意义](https://mp.weixin.qq.com/s/0Mj9RoWY7HDoYy2rWAqOBA)
 - [ ] [几个一看就会的 TypeScript 小技巧](https://mp.weixin.qq.com/s/f4V7qPdM3iRHpr81j2zWqQ)
 - [ ] [总结TypeScript在项目开发中的应用实践体会](https://mp.weixin.qq.com/s/9JIs04WHELr0rFWudw_hLQ)
+- [ ] [TypeScript 中的子类型、逆变、协变是什么？](https://github.com/sl1673495/blogs/issues/54)
 
 ### js
 
