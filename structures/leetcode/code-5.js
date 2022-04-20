@@ -1420,3 +1420,33 @@ var threeSum = function (nums) {
 
 	return res
 }
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var myAtoi = function (s) {
+	let sign = ''
+	let res = []
+	for (const str of s) {
+		if ('-+'.includes(str) && !sign && !res.length) {
+			sign = str
+			continue
+		}
+		if (!'0123456789'.includes(str)) break
+		res.push(str)
+	}
+	let num = Number(res.join(''))
+	if (sign === '-') {
+		num = Math.max(-num, -(2 ** 31))
+	} else {
+		num = Math.max(num, 2 ** 31 - 1)
+	}
+	return num
+}
+
+/**
+ * @param {ListNode[]} lists
+ * @return {ListNode}
+ */
+var mergeKLists = function (lists) {}
