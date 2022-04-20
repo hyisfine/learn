@@ -12,7 +12,7 @@
 
 5. 作用：打包、兼容、能力扩展
 
-6. 常用loader：style、css、sass、post-css、url、file、source-map、ts-loader、prettier、babel、cache
+6. 常用loader：style、css、sass、post-css、url、file、source-map、ts-loader、prettier、babel、cache、NamedModulesPlugin
 
 7. 常用plugin：html、webpack、clear、uglify、ts-fork、mini-css、analyzer、define、terser
 

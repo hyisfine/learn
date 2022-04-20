@@ -181,6 +181,8 @@
 ### 架构
 
 - [ ] [可能是你见过最完善的微前端解决方案](https://zhuanlan.zhihu.com/p/78362028)
+- [ ] [前端监控体系搭建](https://juejin.cn/post/7078512301665419295?share_token=37a59eca-da19-4cfc-aeb2-67d4c0d9b0c2)
+- [ ] [写给前端的跨平台方案、跨端引擎的本质](https://juejin.cn/post/6966626823912308772)
 
 ### 安全
 

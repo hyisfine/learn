@@ -23,8 +23,10 @@ B.constructor = B
 function doSomething(fn) {
 	function foo() {}
 	foo.prototype = fn
-	foo.prototype.aaa = {}
-	return new foo()
+	// foo.prototype.aaa = {}
+	let f = new foo()
+	f.aaa = {}
+	return f
 }
 B.prototype = doSomething(A)
 B.constructor = B
