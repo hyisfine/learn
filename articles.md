@@ -136,7 +136,7 @@
 - [ ] [基于 vue-cli 搭建自己的 cli](https://mp.weixin.qq.com/s/1hT8n6zkMeuTmvh-zo9OCw)
 - [ ] [一文构建脚手架相关知识体系](https://juejin.cn/post/6966119324478079007)
 
-### XMLHttpRequest
+### http
 
 - [ ] [手写一个基于 Proxy 的缓存库](https://mp.weixin.qq.com/s/M_scFqxadOX_f5G_7IvSGQ)
 
@@ -162,6 +162,8 @@
 
 - [ ] [穷追猛打，阿里二面问了我30分钟从URL输入到渲染...](https://mp.weixin.qq.com/s/vz9XOxVqDNhdmARoEBAO8Q)
 
+- [ ] [Meta http-equiv属性详解(转)](https://juejin.cn/post/6844903543766253575)
+
   
   
   
@@ -172,6 +174,7 @@
 - [ ] [让 Instagram.com 变得更快：提前刷新和渐进式 HTML](https://mp.weixin.qq.com/s/hV7af5un_VheZ0dyZvS74w)
 - [ ] [前端优化：浏览器缓存技术介绍](https://juejin.cn/post/6844903672556552205#heading-3)
 - [ ] [cache-control](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Cache-Control)
+- [ ] [万字长文：分享前端性能优化知识体系](https://mp.weixin.qq.com/s/vruFia-CNihwmGvmzSg1VQ)
 
 ### 其他
 
