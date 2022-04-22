@@ -22,6 +22,8 @@
 
 10. 优化构建速度：使用最新版本、开启多进程构建thread- loader、多进程压缩terser、mini-css、使用es module实现tree shaking和模块提升、减少不必要的loader、缩小loader查看范围的include、减少文件类型的后缀、指的第三方库的路径、设置noparse忽略不必要的库解析、基础库分离、使用外部引入的方式、使用splitchunk分离、合理使用插件或者loader提供的缓存。缓存babel-loader、terser缓存hard- source缓存。
 
+10. 按需加载的实现，在打包时，把当前函数的引入写成一个promise 
+
     
 
 
