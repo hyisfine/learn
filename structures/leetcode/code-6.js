@@ -187,3 +187,64 @@ var threeSumClosest = function (nums, target) {
 	}
 	return __target
 }
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var findKthLargest = function (nums, k) {
+	let num
+	const sort = (low, high) => {
+		if (low > high) return
+		let i = low
+		let j = high
+		let x = nums[i]
+
+		while (i < j) {
+			while (i < j && nums[j] > x) j--
+			while (i < j && nums[i] <= x) i++
+			if (i < j) {
+				;[nums[i], nums[j]] = [nums[j], nums[i]]
+			}
+		}
+		;[nums[i], nums[low]] = [nums[low], nums[i]]
+		if (i === k - 1) num = nums[i]
+		if (i < k) sort(i + 1, high)
+		if (i > k) sort(low, i - 1)
+	}
+	sort(0, nums.length - 1)
+	return num
+}
+
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+var maxProfit = function (prices) {
+	let sum = 0
+	let len = prices.length
+	for (let i = 1; i < len; i++) {
+		sum += Math.max(0, prices[i] - prices[i - 1])
+	}
+	return sum
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var removeDuplicates = function (nums) {
+	let len = nums.length
+	if (!len) return 0
+	let fast = 0
+	let low = 0
+	while (fast < low) {
+		if (nums[fast] !== nums[fast - 1]) {
+			nums[low] = nums[fast]
+			low++
+		}
+		fast++
+	}
+	return low + 1
+}
