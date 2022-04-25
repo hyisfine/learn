@@ -59,3 +59,87 @@
 > position。static，参数的trbl无效。relative，未脱离文档流。absolute，脱离文档流生成了一个BFC。fixed 脱离文档流，生成了BFC和层叠上下文，当祖先元素有transform或者filter时，会以组件元素定位。sticky，产生了一个层叠上下文。粘性定位，正常的文档流中，当祖先元素中有overflow不会visible时，会根据当前祖先元素定位，而不管是否产生了滚动。
 >
 > 文档流。元素从左右往右从上往下按顺序排列，块元素会另起一行且宽度为父元素100%，行内元素从左往右排列，不够重新生成一行，紧挨的元素的margin会合并。
+>
+> line-height。设置行高，即设置行盒的虚拟高度。字体的大小不仅由font-size就决定，还有字体库决定，向上和向下延伸一部分，这样子的字体高度是字体的内容高度，行盒的高度一般是字体的内容高度，当我们设置行高时，会在内容的两端平均加上一般的高度值。
+>
+> 选择器权重。通用、元素、子类、后代、兄弟。相邻。 伪元素、属性选择、伪类、class选择、id、行内样式、important。
+>
+> flex布局。flex- direction、flex- wrap、justify- content主轴上项目对齐方式，flex-flow、place- content、align- content、align-items。item：order、align- self，flex，flex-group，flex-shrink，flex- basis。
+>
+> grid布局。grid- template-、place- content。justify、items。grid-auto-flow，gap。
+>
+> link&import。link是js的元素，可以通过js操控，不会阻塞dom解析。import 是css的规则一部分，等待页面加载完后才会解析。
+>
+> css架构。
+>
+> 1. oocss架构，分离结构与内容，css的样式与内容无关。
+> 2. smacss，将css分为几大模块样式。
+> 3. bem。block、element、Modifier
+>
+> 重排与重绘。关键渲染路径是指浏览器对html解析到最终绘制在页面上的过程。在浏览器的关键渲染路径中，分为dom解析cssom解析，然后两者结合形成render tree，然后在布局阶段计算元素的位置、大小等，在绘制阶段绘制像素点。重排是指由于元素的大小、位置等发生变化，引起浏览器重新计算元素布局的过程。重绘指元素的颜色、背景、等发生变化导致浏览器重新绘制像素的过程。由于在关键路径中重排在重绘前面，所以说重排一定导致重绘。性能优化：减少dom操作。减少对dom定位、大小的查询。集中增删查改dom。使用可以开启gpu加速的css样式，比如transform、filter、opacity。
+
+> h5
+>
+> 语义化。语义化标签、article、section、p、header、footer、nav、mian标签等。作用：增强代码可读性、无样式的友好布局、便于seo优化、便于无障碍阅读。
+>
+> 视口。布局视口，浏览器默认的画布的宽度，一般为980px。通过document element、clientwidth获取。视觉视口，指的页面实际的宽度，当宽度小于布局视口时等于布局视口，通过window.innerwidth获取。理想视口，指当布局视口的宽度等于手机实际屏幕尺寸的宽度。通过window.scren.width获取。通过设置meta width=device-width，同时设置缩放比例来完成，按照理想视口来设置。
+>
+> dpr。设备像素比。物理像素和设备独立像素的比值。物理像素，实际渲染的像素点，设备独立像素，相对于手机尺寸的来说的渲染尺寸。
+>
+> 1px问题。由于在不同dpr的手机中，1px的物理像素实际上是有多个像素点渲染的，所以导致1px在屏幕上看起来比较粗。解决方案：svg、border-image、background-image、伪类+transform。
+>
+> 图片模糊问题。在不同的dpr手机中，一个像素点由多个像素渲染，由于多个像素的不能完全按照原图片上的色等比设置，导致图片模糊。解决方案：根据不同的dpr设置不同的像素比图片。
+>
+> 滚动穿透。fixed元素覆盖整个视口时，覆盖的元素还是能滚动。解决方案：添加touch- action：none。使用禁止默认事件和阻止事件冒泡的方法。
+>
+> 滑动穿透。fixed滑动时底部元素跟着滑动。解决方案：滑动时监听时候到达顶部或者底部。然后阻止默认事件发生。
+>
+> ios滑动不流畅。原因：ios开启了overflow-scrolling：none，手指滑动后脱离时屏幕不动。
+>
+> 键盘将页面顶起来。由于改变视口大小导致的。使用top 作为绝对定位。监听页面高度变化。
+>
+> 可替换元素。img、video、canvas。元素的样式展示由元素的自身的实际内容决定。
+>
+> 自闭合标签不可以添加伪类。因为没有content内容。
+
+> 小程序
+>
+> 框架。小程序的架构分为多个渲染层、逻辑层。微信客户端通过event和data对两个线程的通信进行中转。
+>
+> 分包机制。独立分包、异步分包、分包预下载。
+>
+> 性能优化，减少不必要的setdata、使用分包机制、首屏预渲染、按需注入。代码压缩。
+
+> 监控
+>
+> 作用。采集性能信息、收集用户行为数据、错误日志上报。
+>
+> 采取埋点、手动埋点、自动埋点、可视化埋点。
+>
+> 错误日志收集。try catch包裹。window。onerror 代码执行错误，unrejection promise为捕获错误，资源加载错误。
+>
+> 性能指标。fp 首次绘制、fcp首次内容绘制、lcp最大内容绘制、fmp首次有意义的绘制。ttl 可响应用户可交互的时间。
+>
+> 记录的用户行为。pv、uv、click、api record。
+>
+> 方法。手动埋sdk。封装小程序request方法，封装image、video、进入之前访问后端生成session。写过一个简单的webpack loader，对try catch里的error自动注入上报函数。过程：基于一个try-catchloader做的二次开发，通过visitor访问
+
+> babel
+>
+> 是什么。js的编译工具，降级js的代码。实现对语法、api的向下兼容。
+>
+> 解析流程。词法解析、语法解析、生成ast、遍历ast、根据visitor对象操控节点类型、形成新的ast、根据新的ast生成代码。
+>
+> preset。本质是一系列插件的集合。执行顺序是从后往前。
+>
+> 插件。用于转化特定语法或api。执行顺序从前往后，先执行插件再执行preset。
+>
+> 插件的本质是实现一个visitor对象，通过访问者模式的形式，对不同的节点进行处理。然后生成新的节点。
+
+> 跨端
+>
+> 原理：实现一个节点容器，并提供一套响应的api，然后在每个平台各自实现api。
+
+> vite
+>
+> 热更新。
