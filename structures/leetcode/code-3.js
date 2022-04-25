@@ -418,7 +418,6 @@ var productExceptSelf = function (nums) {
 
 	return arr1.map((v, i) => v * arr2[i])
 }
-// TODO
 
 /**
  * @param {number[]} nums
@@ -464,6 +463,7 @@ var threeSumClosest = function (nums, target) {
 
 	return result
 }
+// TODO
 
 /**
  * @param {ListNode} list1

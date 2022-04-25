@@ -248,3 +248,88 @@ var removeDuplicates = function (nums) {
 	}
 	return low + 1
 }
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function (s) {
+	let stack = []
+	let left = '[{('
+	let map = {
+		'[': ']',
+		'{': '}',
+		'(': ')',
+	}
+	for (const str of s) {
+		if (left.includes(str)) stack.push(str)
+		else {
+			const pop = stack.pop()
+			if (map[pop] !== str) return false
+		}
+	}
+	return !stack.length
+}
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+
+var search = function (nums, target) {
+	let len = nums.length
+	let left = 0
+	let right = len - 1
+
+	while (left <= right) {
+		let m = left + Math.floor((right - left) / 2)
+		if (nums[left] === target) return left
+		if (nums[right] === target) return right
+		if (nums[m] === target) return m
+		if (nums[m] >= nums[0]) {
+			if (target <= nums[0]) {
+				left = m + 1
+			} else {
+				if (target <= nums[m]) {
+					right = m - 1
+				} else left = m + 1
+			}
+		} else {
+			if (target >= nums[0]) {
+				right = m - 1
+			} else {
+				if (target >= nums[m]) {
+					left = m + 1
+				} else right = m - 1
+			}
+		}
+	}
+	return -1
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var permuteUnique = function (nums) {
+	nums.sort((a, b) => a - b)
+	let res = []
+	let arr = []
+	let len = nums.length
+	const dfs = () => {
+		if (arr.length === len) return res.push([...arr])
+		for (let i = 0; i < len; i++) {
+			if (i > 0 && nums[i] === nums[i - 1]) continue
+			if (nums[i] === Infinity) continue
+			let num = nums[i]
+			nums[i] = Infinity
+			arr.push(num)
+			dfs()
+			arr.pop()
+			nums[i] = num
+		}
+	}
+	dfs()
+	return res
+}
