@@ -121,3 +121,28 @@ const myInstanceofff = (child, parent) => {
 		proto = Object.getPrototypeOf(proto)
 	}
 }
+
+let constructor = [Date, RegExp, Error, Set, Map]
+const deepCopy = (obj, map = new WeakMap()) => {
+	if (map.has(obj)) return map.get(obj)
+	if (typeof obj === 'function') return eval(obj.toString())
+	if (obj === null || typeof obj !== 'object') return obj
+	if (constructor.includes(obj.constructor)) return obj.constructor(obj)
+	let copy
+	if (Array.isArray(obj)) {
+		copy = []
+		map.set(obj, copy)
+
+		for (let i = 0; i < obj.length; i++) {
+			copy[i] = deepCopy(obj[i], map)
+		}
+	} else {
+		copy = {}
+		map.set(obj, copy)
+
+		Reflect.ownKeys(obj).forEach(key => {
+			copy[key] = deepCopy(obj[key], map)
+		})
+	}
+	return copy
+}
