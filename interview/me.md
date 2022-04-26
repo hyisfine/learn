@@ -17,6 +17,8 @@
 > vite转为webpack，过程中没有出现太大的问题，只有在添加antd pro的时候，antd 引入less文件时和vite的别名解析产生了冲突，需要更改alias的写法。
 >
 > 怎么封装了分为header nav bar 和list，给定一个request，将当前的页面的。
+>
+> 微信中控，集中刷新各个项目需要的微信的token和ticket。使用的是golang，通过配置aws中的是cloud watch派发定时任务到sqs任务队列中，循环获取sqs中的任务，调用微信接口获取最新的token，存入redis中。
 
 > ts是js的超集，拥有js的所有语法，同时扩展了自身的能力比如枚举值。ts拥有静态类型检查机制，需要编译后才能运行。编译完后的ts就是js代码了。
 

@@ -1,20 +1,26 @@
-const PENDING = 'pending'
-const FULFILLED = 'fulfilled'
-const REJECTED = 'rejected'
+const PENDING = 'PENDING'
+const FULFILLED = 'FULFILLED'
+const REJECTED = 'REJECTED'
 
-const isPending = status => status === PENDING
-const isFulfilled = status => status === FULFILLED
-const isRejected = status => status === REJECTED
+const isPENDING = promise => promise.status === PENDING
+const isFULFILLED = promise => promise.status === FULFILLED
+const isREJECTED = promise => promise.status === REJECTED
 
-const isFunc = func => typeof func === 'function'
+const isFunc = fn => typeof fn === 'function'
+const isObject = obj => obj !== null && typeof obj === 'object'
 
-const resolvePromiseX = (promise, x, resolve, reject) => {
-	if (promise === x) throw TypeError('1234567')
+const asyncFunc = fn => {
+	setTimeout(fn)
+}
+
+const resolvePromiseX = (resolve, reject, promise, x) => {
+	if (promise === x) throw TypeError('1234rt')
 	if (x === null || (typeof x !== 'object' && typeof x !== 'function')) return resolve(x)
 	if (x instanceof MyPromise) {
-		if (isPending(x.status)) return x.then(y => resolvePromiseX(promise, y, resolve, reject), reject)
-		if (isFulfilled(x.status)) return resolve(x.result)
-		return reject(x.reason)
+		if (isPENDING(x)) x.then(y => resolvePromiseX(resolve, reject, promise, y), reject)
+		else if (isFULFILLED(x)) resolve(x.result)
+		else if (isREJECTED(x)) reject(x.reason)
+		return
 	}
 
 	let then
@@ -24,6 +30,7 @@ const resolvePromiseX = (promise, x, resolve, reject) => {
 		reject(error)
 	}
 	if (!isFunc(then)) return resolve(x)
+
 	let called = false
 	try {
 		then.call(
@@ -31,7 +38,7 @@ const resolvePromiseX = (promise, x, resolve, reject) => {
 			y => {
 				if (called) return
 				called = true
-				resolvePromiseX(promise, y, resolve, reject)
+				resolvePromiseX(resolve, reject, promise, y)
 			},
 			z => {
 				if (called) return
@@ -47,7 +54,7 @@ const resolvePromiseX = (promise, x, resolve, reject) => {
 }
 
 class MyPromise {
-	constructor(func) {
+	constructor(fn) {
 		this.status = PENDING
 		this.result = null
 		this.reason = null
@@ -55,15 +62,15 @@ class MyPromise {
 		this.rejectedCallback = []
 
 		try {
-			func(this.resolve, this.reject)
+			fn(this.resolve, this.reject)
 		} catch (error) {
 			this.reject(error)
 		}
 	}
 
 	resolve = result => {
-		if (isPending(this.status)) {
-			setTimeout(() => {
+		if (isPENDING(this)) {
+			asyncFunc(() => {
 				this.status = FULFILLED
 				this.result = result
 				this.fulfilledCallback.forEach(callback => callback())
@@ -72,8 +79,8 @@ class MyPromise {
 	}
 
 	reject = reason => {
-		if (isPending(this.status)) {
-			setTimeout(() => {
+		if (isPENDING(this)) {
+			asyncFunc(() => {
 				this.status = REJECTED
 				this.reason = reason
 				this.rejectedCallback.forEach(callback => callback())
@@ -82,52 +89,51 @@ class MyPromise {
 	}
 
 	then = (onfulfilled, onrejected) => {
-		onfulfilled = isFunc(onfulfilled) ? onfulfilled : val => val
+		onfulfilled = isFunc(onfulfilled) ? onfulfilled : result => result
 		onrejected = isFunc(onrejected)
 			? onrejected
-			: val => {
-					throw val
+			: reason => {
+					throw reason
 			  }
 
 		const promise = new MyPromise((resolve, reject) => {
-			if (isPending(this.status)) {
+			if (isPENDING(this)) {
 				this.fulfilledCallback.push(() => {
-					setTimeout(() => {
+					asyncFunc(() => {
 						try {
 							const x = onfulfilled(this.result)
-							resolvePromiseX(promise, x, resolve, reject)
+							resolvePromiseX(resolve, reject, promise, x)
 						} catch (error) {
 							reject(error)
 						}
 					})
 				})
 				this.rejectedCallback.push(() => {
-					setTimeout(() => {
+					asyncFunc(() => {
 						try {
 							const x = onrejected(this.reason)
-							resolvePromiseX(promise, x, resolve, reject)
+							resolvePromiseX(resolve, reject, promise, x)
 						} catch (error) {
 							reject(error)
 						}
 					})
 				})
 			}
-
-			if (isFulfilled(this.status)) {
-				setTimeout(() => {
+			if (isFULFILLED(this)) {
+				asyncFunc(() => {
 					try {
 						const x = onfulfilled(this.result)
-						resolvePromiseX(promise, x, resolve, reject)
+						resolvePromiseX(resolve, reject, promise, x)
 					} catch (error) {
 						reject(error)
 					}
 				})
 			}
-			if (isRejected(this.status)) {
-				setTimeout(() => {
+			if (isREJECTED(this)) {
+				asyncFunc(() => {
 					try {
 						const x = onrejected(this.reason)
-						resolvePromiseX(promise, x, resolve, reject)
+						resolvePromiseX(resolve, reject, promise, x)
 					} catch (error) {
 						reject(error)
 					}
@@ -137,11 +143,8 @@ class MyPromise {
 
 		return promise
 	}
-
-	catch = onrejected => this.then(null, onrejected)
-
+	catch = callback => this.then(null, callback)
 	finally = callback => this.then(callback, callback)
-
 	static deferred = () => {
 		let result = {}
 		result.promise = new MyPromise((resolve, reject) => {
@@ -153,7 +156,7 @@ class MyPromise {
 
 	static resolve = val => {
 		if (val instanceof MyPromise) return val
-		if (typeof val === 'object' && 'then' in val)
+		if (typeof val === 'object' && val !== null && Object.hasOwn(val, 'then'))
 			return new MyPromise((resolve, reject) => {
 				val.then(resolve, reject)
 			})
@@ -163,19 +166,23 @@ class MyPromise {
 	}
 
 	static all = arr => {
-		return new MyPromise((resolve, reject) => {
-			let result = []
-			let count = 0
-			if (Array.isArray(arr)) {
-				if (!arr.length) resolve(arr)
-				arr.forEach(func => {
-					MyPromise.resolve(func).then((res, index) => {
-						result[index] = res
-						count++
-						if (count === arr.length) resolve(result)
-					}, reject)
-				})
-			} else reject('234')
+		return new Promise((resolve, reject) => {
+			if (!Array.isArray(arr)) reject('234t')
+			else {
+				let len = arr.length
+				let count = 0
+				let res = []
+				if (!len) resolve([])
+				else {
+					arr.forEach((promise, index) => {
+						MyPromise.resolve(promise).then(val => {
+							res[index] = val
+							count++
+							if (count === len) resolve(res)
+						}, reject)
+					})
+				}
+			}
 		})
 	}
 }
