@@ -146,3 +146,18 @@ const deepCopy = (obj, map = new WeakMap()) => {
 	}
 	return copy
 }
+
+const removeRepeat = arr => {
+	let res = []
+	arr.forEach(item => {
+		if (
+			!res.some(_item => {
+				return Object.is(_item, item)
+			})
+		) {
+			res.push(item)
+		}
+	})
+	return res
+}
+console.log(removeRepeat([NaN, NaN, 0, +0, +0, -0, -0]))

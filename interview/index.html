@@ -1,9 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<title>Document</title>
-	</head>
-	<body></body>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>Document</title>
+	<style>
+		.a {
+			position: relative;
+		}
+
+		.a::after {
+			content: '';
+			position: absolute;
+			transform-origin: 50% 0;
+			height: 1px;
+			width: 100%;
+			top: 0;
+			background-color: tomato;
+		}
+
+		@media only screen and (-webkit-min-device-pixel-ratio:2) {
+			.a:before {
+				transform: scaleY(0.5);
+			}
+		}
+
+		@media only screen and (-webkit-min-device-pixel-ratio:3) {
+			.a:before {
+				transform: scaleY(0.33);
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="a"></div>
+</body>
+
 </html>

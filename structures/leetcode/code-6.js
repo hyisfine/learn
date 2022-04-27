@@ -378,3 +378,66 @@ var multiply = function (num1, num2) {
 	if (ans) res.push(ans)
 	return res.reverse().join('')
 }
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var climbStairs = function (n) {
+	let n1 = 0
+	let n2 = 0
+	let sum = 1
+
+	while (n >= 1) {
+		n1 = n2
+		n2 = sum
+		sum = n1 + n2
+		n--
+	}
+	return sum
+}
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var countSubstrings = function (s) {
+	let len = s.length
+	let count = 0
+	for (let i = 0; i < 2 * len - 1; i++) {
+		let j = Math.floor(i / 2)
+		let k = j + (i % 2)
+		while (j >= 0 && k < len && s[k] === s[j]) {
+			j--
+			k++
+			count++
+		}
+	}
+	return count
+}
+
+/**
+ * @param {number[]} piles
+ * @param {number} h
+ * @return {number}
+ */
+var minEatingSpeed = function (piles, h) {
+	let max = Math.max(...piles)
+	let left = 0
+	let right = max
+
+	const getH = (pile, middle) => Math.ceil(middle / pile)
+
+	while (left < right) {
+		let middle = left + Math.floor((right - left) / 2)
+		let __h = 0
+		for (const pile of piles) {
+			__h += getH(pile, middle)
+		}
+
+		if (__h >= h) {
+			left = middle
+		} else right = middle
+	}
+	return left
+}

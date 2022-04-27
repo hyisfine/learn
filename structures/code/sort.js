@@ -5,24 +5,32 @@ const change = (arr, i, j) => {
 }
 
 const bubbling = arr => {
-	for (let i = 0; i < arr.length - 1; i++) {
-		for (let j = 0; j < arr.length - 1 - i; j++) if (arr[j] > arr[j + 1]) change(arr, j, j + 1)
+	let len = arr.length
+	for (let i = 0; i < len; i++) {
+		for (let j = 0; j < len - i; j++) {
+			if (arr[j] > arr[j + 1]) change(arr, j, j + 1)
+		}
 	}
 }
 
 const select = arr => {
-	for (let i = 0; i < arr.length - 1; i++) {
+	let len = arr.length
+	for (let i = 0; i < len; i++) {
 		let min = i
-		for (let j = i + 1; j < arr.length; j++) if (arr[j] < arr[min]) min = j
-		change(arr, i, min)
+		for (let j = i + 1; j < len; j++) {
+			if (arr[min] > arr[j]) min = j
+		}
+		change(arr, min, i)
 	}
 }
 
 const insertion = arr => {
+	let len = arr.length
 	for (let i = 0; i < arr.length; i++) {
-		for (let j = i; j >= 1; j--)
-			if (arr[j] < arr[j - 1]) change(arr, j, j - 1)
-			else break
+		for (let j = i; j >= 0; j--) {
+			if (arr[j] >= arr[j - 1]) break
+			change(arr, i, j)
+		}
 	}
 }
 
