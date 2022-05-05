@@ -50,6 +50,9 @@
 - [ ] [avaScript 深入系列之 Promise 核心原理的模拟实现，通过 Promises/A+ 官方872个测试用例](https://github.com/yuanyuanbyte/Blog/issues/125)
 - [ ] [ECMAScript 提案：toReversed()、toSorted()、toSpliced()、with()](https://mp.weixin.qq.com/s/4-nzPTbbAkdVUKAwoOk5aw)
 - [ ] [浅谈 JS 内存机制](https://mp.weixin.qq.com/s/mfF6tNAuTHtgUVDcSUtNAA)
+- [ ] [如何从零到一建立一套完整的 前端规范【前端Leader必看】](https://mp.weixin.qq.com/s/gahHX-_0Ubkdx4h6hW4HCA)
+- [ ] [为什么Proxy一定要配合Reflect使用？](https://mp.weixin.qq.com/s/PxyCPl1OVym7DMP_JLwHjg)
+- [ ] [10分钟了解JS堆、栈以及事件循环的概念](https://juejin.cn/post/6844903618999500808)
 
 ### css3
 
@@ -86,6 +89,7 @@
 - [ ] [React技术揭秘](https://react.iamkasong.com/)
 - [ ] [阿里三面：灵魂拷问——有react fiber，为什么不需要vue fiber？](https://mp.weixin.qq.com/s/po503V7TTezSVFHqsgoZVw)
 - [ ] [我在大厂写React，学到了什么？](https://mp.weixin.qq.com/s/g5VGJLI4Lo22kuK_vmPi7Q)
+- [ ] [React18源码调试](https://github.com/bubucuo/DebugReact)
 
 ### H5 开发
 
@@ -93,6 +97,7 @@
 - [ ] [骨架屏生成方案](https://mp.weixin.qq.com/s/1Vy06emNPZJiXeDP04Ipfw)
 - [ ] [关于移动端适配，你必须要知道的](https://juejin.cn/post/6844903845617729549#heading-11)
 - [ ] [产品经理：实现一下分享出去的URL链接预览图片、标题和描述](https://mp.weixin.qq.com/s/V3CHTcuLQemkGI3QYszmOQ)
+- [ ] [作为前端，你必须要知道的meta标签知识](https://mp.weixin.qq.com/s/j_3RUoLKvcjQJiUvMvgGAA)
 
 ### Node.js
 

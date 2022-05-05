@@ -29,19 +29,19 @@
 
 // 	getRoot() {
 // 		const flagArr = Array(this.arr.length).fill(0)
-// 		this.arr.forEach((item) => {
+// 		this.arr.forEach(item => {
 // 			if (item.left !== -1) flagArr[item.left] = 1
 // 			if (item.right !== -1) flagArr[item.right] = 1
 // 		})
 
-// 		const index = flagArr.findIndex((item) => item === 0)
+// 		const index = flagArr.findIndex(item => item === 0)
 // 		return index
 // 	}
 
 // 	traverse(type = 0) {
 // 		const rootIndex = this.getRoot()
 
-// 		const loop = (node) => {
+// 		const loop = node => {
 // 			if (!node) return
 // 			type === 0 && console.log(node.data)
 // 			loop(this.arr[node.left])
@@ -140,7 +140,7 @@
 // 	}
 // }
 
-// const findMin = (tree) => {
+// const findMin = tree => {
 // 	let node = tree
 // 	while (true) {
 // 		if (!node.left) return node
@@ -236,161 +236,218 @@
 // heap.delete()
 // console.log(heap.arr, heap.size)
 
-const isEmpty = node => typeof node === 'undefined'
+// const isEmpty = node => typeof node === 'undefined'
 
-const changeTemp = (arr, i, j) => {
-	const temp = arr[i]
-	arr[i] = arr[j]
-	arr[j] = temp
-}
+// const changeTemp = (arr, i, j) => {
+// 	const temp = arr[i]
+// 	arr[i] = arr[j]
+// 	arr[j] = temp
+// }
 
-class HuffManTree {
-	constructor(arr) {
-		this.arr = arr
-		this.maxArr = []
-		// this.buildMaxTree()
-		this.buildMinTree()
-		this.balance()
+// class HuffManTree {
+// 	constructor(arr) {
+// 		this.arr = arr
+// 		this.maxArr = []
+// 		// this.buildMaxTree()
+// 		this.buildMinTree()
+// 		this.balance()
+// 	}
+
+// 	buildMinTree() {
+// 		const lastPNode = this.getLastPNode(this.arr.length)
+
+// 		for (let i = lastPNode; i >= 0; i--) {
+// 			let j = i
+// 			while (true) {
+// 				const p = this.arr[j]
+// 				const l = this.arr[j * 2 + 1]
+// 				const r = this.arr[j * 2 + 2]
+
+// 				if ((isEmpty(r) || l <= r) && l < p) {
+// 					changeTemp(this.arr, j, j * 2 + 1)
+// 					j = j * 2 + 1
+// 					continue
+// 				}
+// 				if (r < l && r < p) {
+// 					changeTemp(this.arr, j, j * 2 + 2)
+// 					j = j * 2 + 2
+// 					continue
+// 				}
+// 				break
+// 			}
+// 		}
+// 	}
+
+// 	getLastPNode(len) {
+// 		const lastPNode = len % 2 === 0 ? (len - 2) / 2 : (len - 3) / 2
+// 		return lastPNode
+// 	}
+
+// 	insertMin(data) {
+// 		this.arr.push(data)
+// 		let i = this.arr.length - 1
+
+// 		while (true) {
+// 			const p = this.arr[this.getLastPNode(i)]
+// 			if (p > data) {
+// 				changeTemp(this.arr, i, this.getLastPNode(i))
+// 				i = this.getLastPNode(i)
+// 			} else break
+// 		}
+// 	}
+
+// 	insertMax(data) {
+// 		this.maxArr.push(data)
+// 		let i = this.maxArr.length - 1
+
+// 		while (true) {
+// 			const p = this.maxArr[this.getLastPNode(i)]
+// 			if (p < data) {
+// 				changeTemp(this.maxArr, i, this.getLastPNode(i))
+// 				i = this.getLastPNode(i)
+// 			} else break
+// 		}
+// 	}
+
+// 	delete() {
+// 		const max = this.arr.pop()
+// 		if (this.arr.length === 0) return max
+// 		this.arr[0] = max
+
+// 		let i = 0
+// 		while (true) {
+// 			const p = this.arr[i]
+// 			const l = this.arr[i * 2 + 1]
+// 			const r = this.arr[i * 2 + 2]
+
+// 			if ((isEmpty(r) || l <= r) && l < p) {
+// 				changeTemp(this.arr, i, i * 2 + 1)
+// 				i = i * 2 + 1
+// 				continue
+// 			}
+// 			if (r < l && r < p) {
+// 				changeTemp(this.arr, i, i * 2 + 2)
+// 				i = i * 2 + 2
+// 				continue
+// 			}
+// 			break
+// 		}
+// 		return max
+// 	}
+
+// 	balance() {
+// 		while (this.arr.length) {
+// 			const l = this.delete()
+// 			const r = this.delete()
+// 			this.insertMax(r)
+// 			this.insertMax(l)
+// 			if (!isEmpty(r)) this.insertMin(r + l)
+// 		}
+// 	}
+
+// 	clear() {
+// 		const lastP = Math.floor(this.size / 2)
+
+// 		const __ = data => typeof data === 'undefined'
+
+// 		for (let i = lastP; i >= 1; i--) {
+// 			let _i = i
+// 			const p = this.arr[i]
+// 			while (true) {
+// 				const left = this.arr[_i * 2]
+// 				const right = this.arr[_i * 2 + 1]
+// 				if ((__(right) || left > right) && left >= p) {
+// 					this.arr[_i] = left
+// 					this.arr[_i * 2] = p
+// 					_i = _i * 2
+// 					continue
+// 				}
+
+// 				if (right >= left && right >= p) {
+// 					this.arr[_i] = right
+// 					this.arr[_i * 2 + 1] = p
+// 					_i = _i * 2 + 1
+// 					continue
+// 				}
+
+// 				break
+// 			}
+// 		}
+// 	}
+// }
+
+// const heap = new Heap()
+// heap.insert(0)
+// heap.insert(1)
+// heap.insert(2)
+// heap.insert(2)
+// heap.insert(2)
+// heap.insert(3)
+// heap.insert(3)
+// heap.insert(4)
+// heap.insert(4)
+// heap.insert(0)
+// heap.insert(5)
+// heap.insert(7)
+// console.log(heap.arr)
+// heap.arr = [0, 0, 1, 2, 2, 2, 3, 3, 4, 4, 0, 5, 7]
+// console.log(heap.arr)
+// heap.clear()
+// console.log(heap.arr)
+
+class MinHeap {
+	constructor() {
+		this.arr = []
 	}
-
-	buildMinTree() {
-		const lastPNode = this.getLastPNode(this.arr.length)
-
-		for (let i = lastPNode; i >= 0; i--) {
-			let j = i
-			while (true) {
-				const p = this.arr[j]
-				const l = this.arr[j * 2 + 1]
-				const r = this.arr[j * 2 + 2]
-
-				if ((isEmpty(r) || l <= r) && l < p) {
-					changeTemp(this.arr, j, j * 2 + 1)
-					j = j * 2 + 1
-					continue
-				}
-				if (r < l && r < p) {
-					changeTemp(this.arr, j, j * 2 + 2)
-					j = j * 2 + 2
-					continue
-				}
-				break
-			}
-		}
-	}
-
-	getLastPNode(len) {
-		const lastPNode = len % 2 === 0 ? (len - 2) / 2 : (len - 3) / 2
-		return lastPNode
-	}
-
-	insertMin(data) {
-		this.arr.push(data)
-		let i = this.arr.length - 1
-
-		while (true) {
-			const p = this.arr[this.getLastPNode(i)]
-			if (p > data) {
-				changeTemp(this.arr, i, this.getLastPNode(i))
-				i = this.getLastPNode(i)
+	insert(val) {
+		this.arr.push(val)
+		let lastIndex = this.arr.length - 1
+		while (lastIndex > 0) {
+			let p = lastIndex & 1 ? (lastIndex - 1) / 2 : (lastIndex - 2) / 2
+			if (this.arr[lastIndex] < this.arr[p]) {
+				let temp = this.arr[lastIndex]
+				this.arr[lastIndex] = this.arr[p]
+				this.arr[p] = temp
+				lastIndex = p
 			} else break
 		}
 	}
-
-	insertMax(data) {
-		this.maxArr.push(data)
-		let i = this.maxArr.length - 1
-
-		while (true) {
-			const p = this.maxArr[this.getLastPNode(i)]
-			if (p < data) {
-				changeTemp(this.maxArr, i, this.getLastPNode(i))
-				i = this.getLastPNode(i)
-			} else break
-		}
-	}
-
 	delete() {
-		const max = this.arr.pop()
-		if (this.arr.length === 0) return max
-		this.arr[0] = max
+		if (!this.arr.length) return
+		let top = this.arr[0]
+		let bottom = this.arr.pop()
+		this.arr[0] = bottom
 
-		let i = 0
-		while (true) {
-			const p = this.arr[i]
-			const l = this.arr[i * 2 + 1]
-			const r = this.arr[i * 2 + 2]
-
-			if ((isEmpty(r) || l <= r) && l < p) {
-				changeTemp(this.arr, i, i * 2 + 1)
-				i = i * 2 + 1
+		let len = this.arr.length
+		let leftIndex = 0
+		while (leftIndex < len) {
+			let left = leftIndex * 2 + 1
+			let right = leftIndex * 2 + 2
+			if (
+				(this.arr[right] !== undefined || this.arr[left] <= this.arr[right]) &&
+				this.arr[left] < this.arr[leftIndex]
+			) {
+				let temp = this.arr[leftIndex]
+				this.arr[leftIndex] = this.arr[left]
+				this.arr[left] = temp
+				leftIndex = left
 				continue
 			}
-			if (r < l && r < p) {
-				changeTemp(this.arr, i, i * 2 + 2)
-				i = i * 2 + 2
+			if (this.arr[right] < this.arr[left] && this.arr[right] < this.arr[leftIndex]) {
+				let temp = this.arr[leftIndex]
+				this.arr[leftIndex] = this.arr[right]
+				this.arr[right] = temp
+				leftIndex = right
 				continue
 			}
 			break
 		}
-		return max
-	}
-
-	balance() {
-		while (this.arr.length) {
-			const l = this.delete()
-			const r = this.delete()
-			this.insertMax(r)
-			this.insertMax(l)
-			if (!isEmpty(r)) this.insertMin(r + l)
-		}
-	}
-
-	clear() {
-		const lastP = Math.floor(this.size / 2)
-
-		const __ = data => typeof data === 'undefined'
-
-		for (let i = lastP; i >= 1; i--) {
-			let _i = i
-			const p = this.arr[i]
-			while (true) {
-				const left = this.arr[_i * 2]
-				const right = this.arr[_i * 2 + 1]
-				if ((__(right) || left > right) && left >= p) {
-					this.arr[_i] = left
-					this.arr[_i * 2] = p
-					_i = _i * 2
-					continue
-				}
-
-				if (right >= left && right >= p) {
-					this.arr[_i] = right
-					this.arr[_i * 2 + 1] = p
-					_i = _i * 2 + 1
-					continue
-				}
-
-				break
-			}
-		}
+		return top
 	}
 }
 
-const heap = new Heap()
-heap.insert(0)
-heap.insert(1)
-heap.insert(2)
-heap.insert(2)
-heap.insert(2)
-heap.insert(3)
-heap.insert(3)
-heap.insert(4)
-heap.insert(4)
-heap.insert(0)
-heap.insert(5)
-heap.insert(7)
-console.log(heap.arr)
-heap.arr = [0, 0, 1, 2, 2, 2, 3, 3, 4, 4, 0, 5, 7]
-console.log(heap.arr)
-heap.clear()
-console.log(heap.arr)
+let m = new MessageChannel()
+m.port1.onmessage = function () {
+	console.log(arguments)
+}
+m.port2.postMessage(1)
