@@ -552,8 +552,61 @@
 // 	}
 // 	return count
 // }
-const a = () => {
-	console.log()
+
+/**
+ * @param {string} digits
+ * @return {string[]}
+ */
+var letterCombinations = function (digits) {
+	let arr = [, 'abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
+	let res = []
+	let temp = []
+	let len = digits.length
+	const dfs = k => {
+		if (k === len) {
+			temp.length && res.push(temp.join(''))
+			return
+		}
+		for (const str of arr[digits[k]]) {
+			temp.push(str)
+			dfs(k + 1)
+			temp.pop()
+		}
+	}
+	dfs(0)
+	return res
 }
-a()
-console.log(arguments)
+
+/**
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+var groupAnagrams = function (strs) {
+	let map = Object.create(null)
+	for (const str of strs) {
+		let arr = Array(26).fill(0)
+		for (const char of str) {
+			arr[parseInt(char, 36) - 10]++
+		}
+		map[arr.toString()] ? map[arr.toString()].push(str) : (map[arr.toString()] = [str])
+	}
+	return Object.values(map)
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var rob = function (nums) {
+	let len = nums.length
+	let prev = 0
+	let cur = nums[0]
+	let temp
+	if (len < 1) return 0
+	for (const num of nums.slice(1)) {
+		temp = cur
+		cur = Math.max(cur, prev + num)
+		prev = temp
+	}
+	return cur
+}
