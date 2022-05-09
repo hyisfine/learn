@@ -610,3 +610,69 @@ var rob = function (nums) {
 	}
 	return cur
 }
+
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var levelOrder = function (root) {
+	if (!root) return []
+	let res = []
+	let queue = [root]
+
+	while (queue.length) {
+		res.push(queue.map(node => node.val))
+		let temp = []
+		for (const node of queue) {
+			if (node.left) temp.push(node.left)
+			if (node.right) temp.push(node.right)
+		}
+		queue = temp
+	}
+
+	return res
+}
+
+/**
+ * @param {string} s
+ * @param {string[]} wordDict
+ * @return {boolean}
+ */
+var wordBreak = function (s, wordDict) {
+	let len = s.length
+	let dp = Array(len + 1).fill(false)
+	dp[0] = true
+	let set = new Set(wordDict)
+
+	for (let i = 1; i <= len; i++) {
+		for (let j = 0; j < i; j++) {
+			if (dp[j] && set.has(s.substr(j, i - j))) {
+				dp[i] = true
+				break
+			}
+		}
+	}
+	return dp[len]
+}
+
+/**
+ * @param {number[][]} intervals
+ * @return {number[][]}
+ */
+var merge = function (intervals) {
+	intervals.sort((a, b) => a[0] - b[0])
+	let arr = []
+	for (const interval of intervals) {
+		const last = arr.at(-1)
+		if (last) {
+			if (last[1] < interval[0]) arr.push(interval)
+			else {
+				if (last[1] < interval[1]) last[1] = interval[1]
+			}
+		} else {
+			arr.push(interval)
+		}
+	}
+
+	return arr
+}
