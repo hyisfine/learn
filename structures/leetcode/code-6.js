@@ -676,3 +676,100 @@ var merge = function (intervals) {
 
 	return arr
 }
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var firstUniqChar = function (s) {
+	let set1 = new Set()
+	let set2 = new Set()
+
+	for (const str of s) {
+		if (set1.has(str)) {
+			set2.add(str)
+		} else {
+			set1.add(str)
+		}
+	}
+
+	for (const str of set1) {
+		if (!set2.has(str)) return s.indexOf(str)
+	}
+	return -1
+}
+
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var trap = function (height) {
+	let stack = []
+	let res = 0
+	let len = height.length
+	for (let i = 0; i < len; i++) {
+		while (stack.length && height[i] > height[stack.at(-1)]) {
+			let pop = stack.pop()
+			if (!stack.length) break
+			let left = stack.at(-1)
+			res += (i - left - 1) * (Math.min(height[i], height[left]) - height[pop])
+		}
+		stack.push(i)
+	}
+	return res
+}
+
+/**
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var moveZeroes = function (nums) {
+	let len = nums.length
+	let left = 0
+	let right = 0
+
+	while (right < len) {
+		if (!nums[right]) {
+			;[nums[right], nums[left]] = [nums[left], nums[right]]
+			left++
+		}
+		right++
+	}
+}
+
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var isHappy = function (n) {
+	let set = new Set()
+	while (true) {
+		if (n === 1) return true
+		if (set.has(n)) return false
+		set.add(n)
+		n = (n + '')
+			.split('')
+			.map(v => v ** 2)
+			.reduce((prev, v) => prev + v)
+	}
+}
+
+/**
+ * @param {number} numRows
+ * @return {number[][]}
+ */
+var generate = function (numRows) {
+	if (!numRows) return []
+	let res = [[1]]
+	let k = 2
+	while (k <= numRows) {
+		let temp = []
+		let prev = res.at(-1)
+		for (let i = 0; i < k; i++) {
+			temp.push((prev[i - 1] ?? 0) + (prev[i] ?? 0))
+		}
+		res.push(temp)
+		k++
+	}
+	return res
+}

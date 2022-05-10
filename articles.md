@@ -90,6 +90,7 @@
 - [ ] [阿里三面：灵魂拷问——有react fiber，为什么不需要vue fiber？](https://mp.weixin.qq.com/s/po503V7TTezSVFHqsgoZVw)
 - [ ] [我在大厂写React，学到了什么？](https://mp.weixin.qq.com/s/g5VGJLI4Lo22kuK_vmPi7Q)
 - [ ] [React18源码调试](https://github.com/bubucuo/DebugReact)
+- [ ] [React源码解析之优先级Lane模型上](https://juejin.cn/post/7008802041602506765)
 
 ### H5 开发
 

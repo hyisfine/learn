@@ -290,6 +290,12 @@
 >
 > effect hook在创建阶段会创建一个effect对象，并挂载在hook对象上，同时标记当前fiber的副作用flag，多个effect hook会关联在一起形成链表结构。在渲染commit阶段，会在commit之前异步处理带有useeffecct的fiber，在 commit之后同步处理uselayout effect的fiber。
 >
+> 优先级：更新优先级、全局渲染优先级、fiber优先级、调度优先级、事件优先级。如果全局的渲染优先级renderLanes不包括fiber.lanes, 证明该fiber节点没有更新, 可以复用.
+>
+> bailout根据优先级比较得出：根据全局的渲染优先级和组件的优先级比较。
+>
+> 调和阶段：beginWork 生成fiber，设置flags，设置fiber的节点引用。completework，生成dom，挂在父节点的副作用队列。设置flags。
+>
 > 
 
 > 上下班，加班，技术栈，人员管理，公司福利，加班情况，团建，人员流动，
