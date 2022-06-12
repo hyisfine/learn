@@ -66,4 +66,24 @@
 > 对于副作用effect，创建时会创建effect对象挂载在当前hook对象上，多个effect对象会关联为一个环形链表。更新时，保留之前的销毁函数，比较deps，新建一个effect，但是不添加需要更新的tag，
 >
 > 对于use Effect/layout 区别。内部调用方面，use Effect的销毁和回调是异步的，layout的销毁和回调是同步的。，在before commit之前通过scheduler调度异步任务先处理use Effect 的销毁在处理回调函数。在commit阶段同步处理layout的销毁函数。在after commit之后同步处理layout的回调函数。layout的执行时机和did update是一致的。内部标识方面，fiber的flags标记不一样，创建的effect对象的flag也不一样。
+>
+> 受控组件非受控组件：受控组件，value的值由组件的state控制，只能由组件出发更新的的方式更新组件的值。受控组件应用场景：实时的表单验证、条件禁用、 提交时的校验。
+>
+> 长列表的优化：虚拟列表、时间切片渲染、使用transform 代替滚动。
+>
+> class  func 区别：class 内部会保存一个实例、func每次render都会执行。class没有this，无各种生命周期。可以通过react hook添加生命周期和state。class逻辑难以复用，可以通过高阶组件的形式。fc组件通过react hook复用逻辑。
+>
+> fiber局限性：
+>
+> immutable。是指一旦创建就不可更改的数据类型。在react中，每次更新的数据都要保证和上一个数据是不同的引用类型。其特点是持久化数据结构和结构共享。好处是减少内存消耗，便于数据回退和数据的时间旅行。
+>
+> 跨组件通行：父子props、子父回调、兄弟状态提升、全局变量或事件、状态库。context。
+>
+> context redux区别：context是react提供的直接访问祖先节点数据的方法，底层实现是创建了一个context类型和provider的react element，在消费context 时通过consumer获取数据，在更新时通过provider查看所有消费context的节点并标记优先级触发更新。redux是社区提供的一种全局状态管理的库。本质上是一个单例模式+订阅发布模式的依赖库。他的数据流程为dispatch-action-reducer。reducer功能多样，可以实现时间旅行和副作用处理。
+>
+> redux远嘛
+>
+> react vue区别：vue推崇渐进式开发、数据可变和双向数据绑定。react推崇函数式编程、数据不可变和单项数据流。vue的架构模型为mvvm，使用proxy代理和依赖收集等方式实现响应式更新，只有一依赖变化的组件才会重新渲染。react的架构为mvc， 使用状态机机制，需要手动调用setstate才能触发更新响应，更新世会重新渲染整个组件树。vue使用模版渲染和.vue文件书写组件。react使用jsx语法。
+>
+> 优劣：vue进了能的降低了前端开发的门槛，语法简单，更新精确到组件。react 的函数式编程和数据不可变确保了他的稳定性和可测试性，上手难度较高。vue需要理解的概念和api较多。vue的依赖库大多都是官网开发维护的，简单易上手，react的依赖库基本靠社区发展和维护，社区更繁荣。
 

@@ -1,5 +1,6 @@
 {
-    "gopls": {
-        "experimentalWorkspaceModule": true
-    }
+	"gopls": {
+		"experimentalWorkspaceModule": true
+	},
+	"liveServer.settings.port": 5501
 }

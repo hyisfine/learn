@@ -14,9 +14,9 @@
 - [ ] [年底 JS 烧脑面试题大赏](https://mp.weixin.qq.com/s/nTO4e4cfqlbB0p2xzYa6UA)
 - [ ] [再来一打Webpack面试题](https://juejin.cn/post/6844904094281236487#heading-0)
 - [ ] [2022前端面试小册【腾讯9、美团7、百度t5、快手3b】的offer](https://juejin.cn/post/7071922989238845453)
-- [ ] [写给初中级前端的高级进阶指南（万字路线）](https://mp.weixin.qq.com/s?__biz=MzI3NTM5NDgzOA==&mid=2247484321&idx=1&sn=e5fb9256ce7887b314e69c17f3d3b872)
+- [ ] [写给初中级前端的高级进阶指南（万字路线）](https://juejin.cn/post/6844904103504527374)
 
-### ts
+### ts。  
 
 - [ ] [TypeScript 终极初学者指南](https://mp.weixin.qq.com/s/_ShxBnF-HdLR_tK8qip7wA)
 - [ ] [一个容易忽略但很有用的 TS 类型](https://mp.weixin.qq.com/s/D0i5uUVXo7qPkKaFoP7cog)
@@ -25,6 +25,7 @@
 - [ ] [几个一看就会的 TypeScript 小技巧](https://mp.weixin.qq.com/s/f4V7qPdM3iRHpr81j2zWqQ)
 - [ ] [总结TypeScript在项目开发中的应用实践体会](https://mp.weixin.qq.com/s/9JIs04WHELr0rFWudw_hLQ)
 - [ ] [TypeScript 中的子类型、逆变、协变是什么？](https://github.com/sl1673495/blogs/issues/54)
+- [ ] [TypeScript之Object、object、{ }的区别](https://www.jianshu.com/p/8d7cfc4b912c)
 
 ### js
 
@@ -48,12 +49,17 @@
 - [ ] [e.target 和 e.currentTarget 的区别？你到底知不知道？](https://mp.weixin.qq.com/s/ZXDoaw3CjRd1rNE7MTkxTA)
 - [ ] [深度剖析：一文搞懂前端路由原理](https://mp.weixin.qq.com/s/zuIFUvSlLYozlhngFenpxA)
 - [ ] [如何回答如何理解重排和重绘](https://mp.weixin.qq.com/s/PHV0LxsX4pBpMoMPLDi2ng)
-- [ ] [avaScript 深入系列之 Promise 核心原理的模拟实现，通过 Promises/A+ 官方872个测试用例](https://github.com/yuanyuanbyte/Blog/issues/125)
+- [ ] [avaScript 深入系列之 Promise 核心原理的模拟实现，通过 Promises/A+ 官方872个测试用例 ](https://github.com/yuanyuanbyte/Blog/issues/125) 
 - [ ] [ECMAScript 提案：toReversed()、toSorted()、toSpliced()、with()](https://mp.weixin.qq.com/s/4-nzPTbbAkdVUKAwoOk5aw)
 - [ ] [浅谈 JS 内存机制](https://mp.weixin.qq.com/s/mfF6tNAuTHtgUVDcSUtNAA)
 - [ ] [如何从零到一建立一套完整的 前端规范【前端Leader必看】](https://mp.weixin.qq.com/s/gahHX-_0Ubkdx4h6hW4HCA)
 - [ ] [为什么Proxy一定要配合Reflect使用？](https://mp.weixin.qq.com/s/PxyCPl1OVym7DMP_JLwHjg)
 - [ ] [10分钟了解JS堆、栈以及事件循环的概念](https://juejin.cn/post/6844903618999500808)
+- [ ] [原始值包装类型](https://www.cnblogs.com/landuo629/p/13944244.html)
+- [ ] [面试写：说说执行 JavaScript 的 V8 引擎做了什么？](https://mp.weixin.qq.com/s/LguWUDOyQynVz_-KJkRoGQ)
+- [ ] [WebAssembly完全入门——了解wasm的前世今身](https://zhuanlan.zhihu.com/p/68048524)
+- [ ] [JS特性性能缺陷及JIT的解决方案](https://developer.aliyun.com/article/398738)
+- [ ] [看完就懂的前端拖拽那些事](https://mp.weixin.qq.com/s/RO2Ha9J2Bc9LVN3M80Nqsw)
 
 ### css3
 
@@ -79,6 +85,7 @@
 - [ ] [大漠老师：2022 年的 CSS，到底有哪些特性](https://mp.weixin.qq.com/s/b0pbUCPN_KmmDE6SaV3B5Q)
 - [ ] [终于搞懂了 CSS 中的百分比是基于什么工作的了！](https://mp.weixin.qq.com/s/qOijlt_XCFpycdUPr_TnDA)
 - [ ] [如何用一行 CSS 实现 10 种现代布局](https://mp.weixin.qq.com/s/fyOP86kGicEIcVKoR8Iayg)
+- [ ] [原来 CSS 与 JS 是这样阻塞 DOM 解析和渲染的](https://juejin.cn/post/6844903497599549453)
 
 ### react
 
@@ -92,6 +99,9 @@
 - [ ] [我在大厂写React，学到了什么？](https://mp.weixin.qq.com/s/g5VGJLI4Lo22kuK_vmPi7Q)
 - [ ] [React18源码调试](https://github.com/bubucuo/DebugReact)
 - [ ] [React源码解析之优先级Lane模型上](https://juejin.cn/post/7008802041602506765)
+- [ ] [寫 React 的時候常常聽到 immutable，什麼是 immutable ?](https://medium.com/reactmaker/%E5%AF%AB-react-%E7%9A%84%E6%99%82%E5%80%99%E5%B8%B8%E5%B8%B8%E8%81%BD%E5%88%B0-immutable-%E4%BB%80%E9%BA%BC%E6%98%AF-immutable-146d919f67e4)
+- [ ] [【react】context VS redux](https://juejin.cn/post/6973977847547297800)
+- [ ] [【笔记】可食用的react hook防抖及节流 | 拿走不谢🙈🙈🙈](https://juejin.cn/post/6854573217349107725)
 
 ### H5 开发
 
@@ -134,10 +144,19 @@
 - [ ] [VLQ 编码](https://zhuanlan.zhihu.com/p/104519418)
 - [ ] [由Babel理解前端编译原理](https://mp.weixin.qq.com/s/uaJD35x0Lw4ft4wtMaB9Ow)
 - [ ] [当面试官问Webpack的时候他想知道什么](https://juejin.cn/post/6943468761575849992)
-
 - [ ] [webpack 易混淆知识点](https://www.cnblogs.com/skychx/tag/Webpack/)
-
 - [ ] [总结 Webapck5 核心打包原理](https://mp.weixin.qq.com/s/fo9kpzyjVIN-t_2c15Tngg)
+- [ ] [webpack5 模块联邦来了，其他微前端框架往后稍稍](https://mp.weixin.qq.com/s/XMRdVpHB12wp4yVzOFJwDQ)
+- [ ] [webpack5新特性：模块联邦(Module Federation)实战](https://mp.weixin.qq.com/s/jEl_nAvSUMzpbabgis-q_A)
+- [ ] [webpack5 新特性](https://mp.weixin.qq.com/s/L9dRscxog3afF1voPILwrQ)
+- [ ] [学习 Webpack5 之路（优化篇）- 近 7k 字](https://mp.weixin.qq.com/s/uAMN-b6I47b_kZAUOw9hoA)
+- [ ] [Webpack的异步加载原理及分包策略(深度好文，建议收藏)](https://mp.weixin.qq.com/s/OddtZCl7YqBVS6-01rYlYA)
+- [ ] [28道Webpack面试题及答案](https://mp.weixin.qq.com/s/0bpG9i6tiqmw8EKBMcOv0Q)
+- [ ] [原来项目打包也有这么技巧 - 浅谈 Tree Shaking 机制](https://mp.weixin.qq.com/s/_Cm3yFQeGZzsfe_JG-npAg)
+
+### rollup
+
+- [ ] [Rollup打包工具的使用（超详细，超基础，附代码截图超简单）](https://juejin.cn/post/6844904058394771470)
 
 ### cli 工具
 
@@ -172,6 +191,14 @@
 
 - [ ] [Meta http-equiv属性详解(转)](https://juejin.cn/post/6844903543766253575)
 
+- [ ] [四种常见的 POST 提交数据方式](https://imququ.com/post/four-ways-to-post-data-in-http.html)
+
+- [ ] [为什么 DNS 协议使用 UDP？只使用了 UDP 吗？](https://cloud.tencent.com/developer/article/1818152)
+
+- [ ] [什么是WebSocket，它与HTTP有何不同？](https://segmentfault.com/a/1190000022020185)
+
+- [ ] [面试官：说说你对options请求的理解](https://developer.51cto.com/article/618792.html)
+
   
   
   
@@ -194,6 +221,8 @@
 - [ ] [可能是你见过最完善的微前端解决方案](https://zhuanlan.zhihu.com/p/78362028)
 - [ ] [前端监控体系搭建](https://juejin.cn/post/7078512301665419295?share_token=37a59eca-da19-4cfc-aeb2-67d4c0d9b0c2)
 - [ ] [写给前端的跨平台方案、跨端引擎的本质](https://juejin.cn/post/6966626823912308772)
+- [ ] [微前端-最容易看懂的微前端知识](https://juejin.cn/post/6844904162509979662)
+- [ ] [深入浅出JSBridge：从原理到使用](https://juejin.cn/post/6936814903021797389)
 
 ### 安全
 
@@ -228,6 +257,7 @@
 
 - [ ] [Taro3跨端跨框架原理初探](https://juejin.cn/post/6989968343163731981#heading-15)
 - [ ] [《小程序跨框架开发的探索与实践》演讲全文](https://mp.weixin.qq.com/s?__biz=MzU3NDkzMTI3MA==&mid=2247483770&idx=1&sn=ba2cdea5256e1c4e7bb513aa4c837834)
+- [ ] [微信小程序架构原理基础解析](https://juejin.cn/post/6976805521407868958)
 
 ## 后端
 

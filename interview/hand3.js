@@ -161,3 +161,28 @@ const removeRepeat = arr => {
 	return res
 }
 console.log(removeRepeat([NaN, NaN, 0, +0, +0, -0, -0]))
+
+Array.prototype.reduce = function (callback, initial) {
+	if (typeof callback !== 'function') throw TypeError('2345')
+
+	let obj = Object(this)
+	let len = this.length
+	let _initial
+	let k = 0
+	if (arguments.length > 1) {
+		_initial = initial
+	} else {
+		while (k < len && !Object.hasOwn(obj, k)) {
+			k++
+		}
+		if (k >= len) throw TypeError('2345')
+		_initial = obj[k++]
+	}
+	while (k < len) {
+		if (Object.hasOwn(obj, k)) {
+			_initial = callback(_initial, obj[k], k, this)
+		}
+		k++
+	}
+	return _initial
+}

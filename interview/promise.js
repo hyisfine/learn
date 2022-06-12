@@ -7,19 +7,14 @@ const isFULFILLED = promise => promise.status === FULFILLED
 const isREJECTED = promise => promise.status === REJECTED
 
 const isFunc = fn => typeof fn === 'function'
-const isObject = obj => obj !== null && typeof obj === 'object'
 
-const asyncFunc = fn => {
-	setTimeout(fn)
-}
-
-const resolvePromiseX = (resolve, reject, promise, x) => {
-	if (promise === x) throw TypeError('1234rt')
+const resolvePromiseX = (promise, x, resolve, reject) => {
+	if (promise === x) throw TypeError('12345678')
 	if (x === null || (typeof x !== 'object' && typeof x !== 'function')) return resolve(x)
 	if (x instanceof MyPromise) {
-		if (isPENDING(x)) x.then(y => resolvePromiseX(resolve, reject, promise, y), reject)
+		if (isPENDING(x)) x.then(y => resolvePromiseX(promise, y, resolve, reject), reject)
 		else if (isFULFILLED(x)) resolve(x.result)
-		else if (isREJECTED(x)) reject(x.reason)
+		else reject(x.reason)
 		return
 	}
 
@@ -29,6 +24,7 @@ const resolvePromiseX = (resolve, reject, promise, x) => {
 	} catch (error) {
 		reject(error)
 	}
+
 	if (!isFunc(then)) return resolve(x)
 
 	let called = false
@@ -38,7 +34,7 @@ const resolvePromiseX = (resolve, reject, promise, x) => {
 			y => {
 				if (called) return
 				called = true
-				resolvePromiseX(resolve, reject, promise, y)
+				resolvePromiseX(promise, y, resolve, reject)
 			},
 			z => {
 				if (called) return
@@ -54,15 +50,15 @@ const resolvePromiseX = (resolve, reject, promise, x) => {
 }
 
 class MyPromise {
-	constructor(fn) {
+	constructor(func) {
 		this.status = PENDING
-		this.result = null
 		this.reason = null
-		this.fulfilledCallback = []
-		this.rejectedCallback = []
+		this.result = null
+		this.fulfilledCallbacks = []
+		this.rejectedCallbacks = []
 
 		try {
-			fn(this.resolve, this.reject)
+			func(this.resolve, this.reject)
 		} catch (error) {
 			this.reject(error)
 		}
@@ -70,49 +66,49 @@ class MyPromise {
 
 	resolve = result => {
 		if (isPENDING(this)) {
-			asyncFunc(() => {
+			setTimeout(() => {
 				this.status = FULFILLED
 				this.result = result
-				this.fulfilledCallback.forEach(callback => callback())
+				this.fulfilledCallbacks.forEach(callback => callback?.(result))
 			})
 		}
 	}
 
 	reject = reason => {
 		if (isPENDING(this)) {
-			asyncFunc(() => {
+			setTimeout(() => {
 				this.status = REJECTED
 				this.reason = reason
-				this.rejectedCallback.forEach(callback => callback())
+				this.rejectedCallbacks.forEach(callback => callback?.(reason))
 			})
 		}
 	}
 
 	then = (onfulfilled, onrejected) => {
-		onfulfilled = isFunc(onfulfilled) ? onfulfilled : result => result
+		onfulfilled = isFunc(onfulfilled) ? onfulfilled : val => val
 		onrejected = isFunc(onrejected)
 			? onrejected
-			: reason => {
-					throw reason
+			: val => {
+					throw val
 			  }
 
 		const promise = new MyPromise((resolve, reject) => {
 			if (isPENDING(this)) {
-				this.fulfilledCallback.push(() => {
-					asyncFunc(() => {
+				this.fulfilledCallbacks.push(() => {
+					setTimeout(() => {
 						try {
 							const x = onfulfilled(this.result)
-							resolvePromiseX(resolve, reject, promise, x)
+							resolvePromiseX(promise, x, resolve, reject)
 						} catch (error) {
 							reject(error)
 						}
 					})
 				})
-				this.rejectedCallback.push(() => {
-					asyncFunc(() => {
+				this.rejectedCallbacks.push(() => {
+					setTimeout(() => {
 						try {
 							const x = onrejected(this.reason)
-							resolvePromiseX(resolve, reject, promise, x)
+							resolvePromiseX(promise, x, resolve, reject)
 						} catch (error) {
 							reject(error)
 						}
@@ -120,20 +116,20 @@ class MyPromise {
 				})
 			}
 			if (isFULFILLED(this)) {
-				asyncFunc(() => {
+				setTimeout(() => {
 					try {
 						const x = onfulfilled(this.result)
-						resolvePromiseX(resolve, reject, promise, x)
+						resolvePromiseX(promise, x, resolve, reject)
 					} catch (error) {
 						reject(error)
 					}
 				})
 			}
 			if (isREJECTED(this)) {
-				asyncFunc(() => {
+				setTimeout(() => {
 					try {
 						const x = onrejected(this.reason)
-						resolvePromiseX(resolve, reject, promise, x)
+						resolvePromiseX(promise, x, resolve, reject)
 					} catch (error) {
 						reject(error)
 					}
@@ -143,48 +139,108 @@ class MyPromise {
 
 		return promise
 	}
-	catch = callback => this.then(null, callback)
+
+	catch = onrejected => this.then(null, onrejected)
+
 	finally = callback => this.then(callback, callback)
-	static deferred = () => {
-		let result = {}
-		result.promise = new MyPromise((resolve, reject) => {
-			result.resolve = resolve
-			result.reject = reject
-		})
-		return result
-	}
-
-	static resolve = val => {
-		if (val instanceof MyPromise) return val
-		if (typeof val === 'object' && val !== null && Object.hasOwn(val, 'then'))
-			return new MyPromise((resolve, reject) => {
-				val.then(resolve, reject)
-			})
-		return new MyPromise((resolve, reject) => {
-			resolve(val)
-		})
-	}
-
-	static all = arr => {
-		return new Promise((resolve, reject) => {
-			if (!Array.isArray(arr)) reject('234t')
-			else {
-				let len = arr.length
-				let count = 0
-				let res = []
-				if (!len) resolve([])
-				else {
-					arr.forEach((promise, index) => {
-						MyPromise.resolve(promise).then(val => {
-							res[index] = val
-							count++
-							if (count === len) resolve(res)
-						}, reject)
-					})
-				}
-			}
-		})
-	}
 }
 
+MyPromise.resolve = val => {
+	if (val instanceof MyPromise) return val
+	if (Object.hasOwn(val, 'then')) {
+		return new MyPromise((resolve, reject) => {
+			val.then(resolve, reject)
+		})
+	} else return new MyPromise(resolve => resolve(val))
+}
+
+MyPromise.all = arr => {
+	return new MyPromise((resolve, reject) => {
+		if (!Array.isArray(arr)) throw TypeError('12345')
+		let len = arr.length
+		if (!len) resolve([])
+		else {
+			let count = 0
+			let res = []
+			arr.forEach((item, index) => {
+				MyPromise.resolve(item).then(result => {
+					count++
+					res[index] = result
+					if (count === len) resolve(res)
+				}, reject)
+			})
+		}
+	})
+}
+
+MyPromise.allSettled = arr => {
+	return new MyPromise(resolve => {
+		if (!Array.isArray(arr)) throw TypeError('12345')
+		let len = arr.length
+		if (!len) resolve([])
+		else {
+			let count = 0
+			let res = []
+			arr.forEach((item, index) => {
+				MyPromise.resolve(item).then(
+					result => {
+						count++
+						res[index] = { value: result, status: 'fulfilled' }
+						if (count === len) resolve(res)
+					},
+					reason => {
+						count++
+						res[index] = { value: reason, status: 'rejected' }
+						if (count === len) resolve(res)
+					},
+				)
+			})
+		}
+	})
+}
+
+MyPromise.deferred = () => {
+	let result = {}
+	result.promise = new MyPromise((resolve, reject) => {
+		result.resolve = resolve
+		result.reject = reject
+	})
+	return result
+}
 module.exports = MyPromise
+
+let name = 'x'
+const people = {
+	name: 'y',
+	setName(name) {
+		this.name = name
+		return () => {
+			return this.name
+		}
+	},
+}
+
+let setName = people.setName
+let getName = setName(name)
+
+console.log(people.name)
+console.log(getName())
+
+let o0 = new Promise((a, b) => {
+	a()
+})
+	.then(() => {
+		console.log(1)
+	})
+	.then(() => {
+		console.log(2)
+	})
+let o1 = new Promise((a, b) => {
+	a()
+}).then(() => {
+	console.log(3)
+})
+
+o0.then(() => {
+	console.log(4)
+})

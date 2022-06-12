@@ -91,3 +91,20 @@ function* aaa() {
 }
 
 co(aaa)
+
+const task = (val, duration) =>
+	new Promise((resolve, reject) => {
+		setTimeout(() => resolve(), duration)
+	})
+
+class Scheduler {
+	constructor(len) {}
+	add(task) {}
+}
+
+const scheduler = new Scheduler(2)
+scheduler.add(() => task(1000, 1)).then(val => console(val))
+scheduler.add(() => task(2000, 2)).then(val => console(val))
+scheduler.add(() => task(3000, 3)).then(val => console(val))
+scheduler.add(() => task(500, 4)).then(val => console(val))
+// 实现 Scheduler 使结果输出为 1 2 4 3
