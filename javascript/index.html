@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			div {
+				background-color: firebrick;
+				width: 100px;
+				height: 30px;
+				animation: dot infinite 3s steps(3) alternate;
+			}
+
+			@keyframes dot {
+				0% {
+					width: 100px;
+				}
+				100% {
+					width: 200px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<button onclick="click">click</button>
+		<div></div>
+	</body>
+	<script>
+		const debounce = (fn, await = 500) => {
+			let timer = null
+			let isRunning = false
+
+			return args => {
+				if (!timer && !isRunning) {
+					fn(args)
+					isRunning = true
+				} else {
+					clearTimeout(timer)
+				}
+				timer = setTimeout(() => {
+					timer = null
+					isRunning = false
+				}, await)
+			}
+		}
+
+		const click = debounce(args => {
+			console.log(args)
+		})
+
+		document.querySelector('button').onclick = click
+	</script>
+</html>

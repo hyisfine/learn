@@ -60,6 +60,7 @@
 - [ ] [WebAssembly完全入门——了解wasm的前世今身](https://zhuanlan.zhihu.com/p/68048524)
 - [ ] [JS特性性能缺陷及JIT的解决方案](https://developer.aliyun.com/article/398738)
 - [ ] [看完就懂的前端拖拽那些事](https://mp.weixin.qq.com/s/RO2Ha9J2Bc9LVN3M80Nqsw)
+- [ ] [javascript的23种设计模式](https://juejin.cn/post/7072175210874535967)
 
 ### css3
 
