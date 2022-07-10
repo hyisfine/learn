@@ -26,6 +26,7 @@
 - [ ] [总结TypeScript在项目开发中的应用实践体会](https://mp.weixin.qq.com/s/9JIs04WHELr0rFWudw_hLQ)
 - [ ] [TypeScript 中的子类型、逆变、协变是什么？](https://github.com/sl1673495/blogs/issues/54)
 - [ ] [TypeScript之Object、object、{ }的区别](https://www.jianshu.com/p/8d7cfc4b912c)
+- [ ] [TypeScript 深水区：3 种类型来源和 3 种模块语法](https://mp.weixin.qq.com/s/AsTrGLhipd32RrNUFHuD5A)
 
 ### js
 
@@ -61,6 +62,9 @@
 - [ ] [JS特性性能缺陷及JIT的解决方案](https://developer.aliyun.com/article/398738)
 - [ ] [看完就懂的前端拖拽那些事](https://mp.weixin.qq.com/s/RO2Ha9J2Bc9LVN3M80Nqsw)
 - [ ] [javascript的23种设计模式](https://juejin.cn/post/7072175210874535967)
+- [ ] [ES module工作原理](https://segmentfault.com/a/1190000020388889)
+- [ ] [抖音二面：为什么模块循环依赖不会死循环？CommonJS和ES Module的处理有什么不同？](https://mp.weixin.qq.com/s/JSlJn_LzbkAOy6LNyY5_jQ)
+- [ ] [在浏览器中通过 importmap 使用 ES 模块](https://beginor.github.io/2021/08/16/using-es-modules-in-borwser-with-importmaps.html)
 
 ### css3
 
@@ -118,6 +122,11 @@
 
 - [ ] [前端工程师的一大神器——puppeteer](https://mp.weixin.qq.com/s/eWtxJFDNONq3hRo-tDBCZA)
 
+
+### express
+
+- [ ] [三步法解析 Express 源码](https://xie.infoq.cn/article/1057246b3faf2ce44c5c5b556)
+
 ### npm
 
 - [ ] [开发中遇到过的 NPM 疑惑解答](https://mp.weixin.qq.com/s/H-qBQ32YiPBL3IPNgwVuRA)
@@ -167,42 +176,38 @@
 ### http
 
 - [ ] [手写一个基于 Proxy 的缓存库](https://mp.weixin.qq.com/s/M_scFqxadOX_f5G_7IvSGQ)
-
 - [ ] [如何取消 http 请求](https://www.jianshu.com/p/0c23ead8bacd)
-
 - [ ] [可取消的异步 HTTP 请求模块](https://juejin.cn/post/6935238528510984205)
-
 - [ ] [跨域资源共享 CORS 详解](https://www.ruanyifeng.com/blog/2016/04/cors.html)
-
 - [ ] [跨域资源共享 MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS)
-
 - [ ] [HTTP 面试](https://zhuanlan.zhihu.com/p/83624993)
-
 - [ ] [get post 区别](https://segmentfault.com/a/1190000021692911)
-
 - [ ] [script crossorigin 属性](https://juejin.cn/post/6969825311361859598)
-
 - [ ] [面试：彻底理解Cookie以及Cookie安全](https://juejin.cn/post/6844904102544031757)
-
 - [ ] [详解 Cookie 新增的 SameParty 属性](https://juejin.cn/post/7002011181221167118)
-
 - [ ] [Cookie 从入门到进阶：一文彻底弄懂其原理以及应用](https://juejin.cn/post/7075129301527429133)
-
 - [ ] [穷追猛打，阿里二面问了我30分钟从URL输入到渲染...](https://mp.weixin.qq.com/s/vz9XOxVqDNhdmARoEBAO8Q)
-
 - [ ] [Meta http-equiv属性详解(转)](https://juejin.cn/post/6844903543766253575)
-
 - [ ] [四种常见的 POST 提交数据方式](https://imququ.com/post/four-ways-to-post-data-in-http.html)
-
 - [ ] [为什么 DNS 协议使用 UDP？只使用了 UDP 吗？](https://cloud.tencent.com/developer/article/1818152)
-
 - [ ] [什么是WebSocket，它与HTTP有何不同？](https://segmentfault.com/a/1190000022020185)
-
 - [ ] [面试官：说说你对options请求的理解](https://developer.51cto.com/article/618792.html)
+- [ ] [HTTP 服务器消息推送之SSE](https://juejin.cn/post/6854573215516196878)
+- [ ] [HTTP/1到HTTP/3 的发展历程](HTTP/1到HTTP/3 的发展历程)
 
-  
-  
-  
+### SSR
+
+- [ ] [从头开始，彻底理解服务端渲染原理(8千字汇总长文)](https://juejin.cn/post/6844903881390964744)
+
+### 单元测试
+
+- [ ] [万字详文：彻底搞懂 Jest 单元测试框架](https://mp.weixin.qq.com/s/az-qAkIca7jl4GqUp1Relw)
+- [ ] [Jest 实践指南](https://github.yanhaixiang.com/jest-tutorial/#%E6%B5%8B%E8%AF%95%E9%9A%BE%E7%82%B9)
+- [ ] [浅谈TDD、BDD、ATDD、DDD的区别](https://blog.csdn.net/qq_17513503/article/details/88869562)
+- [ ] [理解单元测试、TDD、BDD](https://zhuanlan.zhihu.com/p/91136759)
+- [ ] [前端单元测试——你必须知道的事](https://www.zoo.team/article/unit-testing)
+- [ ] [Understanding the Differences Between BDD & TDD](https://cucumber.io/blog/bdd/bdd-vs-tdd/#:~:text=BDD%20is%20designed%20to%20test,pieces%20of%20functionality%20in%20isolation.)
+- [ ] [App & Browser Testing Made Easy](https://www.browserstack.com/guide/testing-pyramid-for-test-automation)
 
 ### 性能优化
 
@@ -216,14 +221,23 @@
 
 - [ ] [2022 前端行业的趋势总结，押宝 Vue3 ？](https://mp.weixin.qq.com/s/QkM6BoeCVZ79gYu6Zc4xlA)
 - [ ] [推荐 10 个你没见过的 VsCode 的高效开源神器，YYDS](https://mp.weixin.qq.com/s/qs7W0C00wW9Q-yt3JLEa-w)
+- [ ] [浅谈短链的设计](https://mp.weixin.qq.com/s/zIIE3sazuOEOCddj4MRXkg)
+- [ ] [版本分支管理标准 - Trunk Based Development 主干开发模型](https://cloud.tencent.com/developer/article/1505551)
 
-### 架构
+###  架构
 
 - [ ] [可能是你见过最完善的微前端解决方案](https://zhuanlan.zhihu.com/p/78362028)
 - [ ] [前端监控体系搭建](https://juejin.cn/post/7078512301665419295?share_token=37a59eca-da19-4cfc-aeb2-67d4c0d9b0c2)
 - [ ] [写给前端的跨平台方案、跨端引擎的本质](https://juejin.cn/post/6966626823912308772)
 - [ ] [微前端-最容易看懂的微前端知识](https://juejin.cn/post/6844904162509979662)
 - [ ] [深入浅出JSBridge：从原理到使用](https://juejin.cn/post/6936814903021797389)
+- [ ] [前端后端区别](https://developer.aliyun.com/article/639713)
+- [ ] [ToB和ToC的区别](https://zhuanlan.zhihu.com/p/392089771)
+- [ ] [PaaS、IaaS、SaaS、Bass、Fass、无服务的理解与区别](https://www.163.com/dy/article/FVV0F7D005481XFS.html)
+- [ ] [微前端究竟是什么？微前端核心技术揭秘！](https://mp.weixin.qq.com/s/vGkkT9NNI_6ZFG54lbHUpQ)
+- [ ] [新一代Web技术栈的演进：SSR/SSG/ISR/DPR都在做什么？](https://mp.weixin.qq.com/s/bMT9FIwczPgUxk-K_YZplw)
+- [ ] [如何移除你项目中99%的JS代码](https://mp.weixin.qq.com/s/woA2S38lFXVykAg8-sMijQ)
+- [ ] [什么是敏捷开发？](https://docs.microsoft.com/zh-cn/devops/plan/what-is-agile-development)
 
 ### 安全
 
@@ -238,6 +252,7 @@
 - [ ] [深入理解 CORS：发展史、工作原理和最佳实践](https://mp.weixin.qq.com/s/JRanXA3_lIm7HUG8E_coUA)
 - [ ] [ 浏览器工作原理](https://juejin.cn/post/6847902222349500430)
 - [x] [你不知道的 Chrome 调试技巧](https://juejin.cn/book/6844733783166418958)
+- [x] [JS 运行机制最全面的一次梳理](https://mp.weixin.qq.com/s/ZVpKtee7oGvK2RPTtAAJCQ)
 
 ### 效果实现
 
@@ -259,6 +274,7 @@
 - [ ] [Taro3跨端跨框架原理初探](https://juejin.cn/post/6989968343163731981#heading-15)
 - [ ] [《小程序跨框架开发的探索与实践》演讲全文](https://mp.weixin.qq.com/s?__biz=MzU3NDkzMTI3MA==&mid=2247483770&idx=1&sn=ba2cdea5256e1c4e7bb513aa4c837834)
 - [ ] [微信小程序架构原理基础解析](https://juejin.cn/post/6976805521407868958)
+- [ ] [浅析微信小程序的底层架构原理](https://www.cnblogs.com/goloving/p/14663950.html) 
 
 ## 后端
 

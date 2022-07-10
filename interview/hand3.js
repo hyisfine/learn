@@ -186,3 +186,18 @@ Array.prototype.reduce = function (callback, initial) {
 	}
 	return _initial
 }
+
+const cr = [Date, Error, RegExp]
+const deepCopy2 = (obj, map = new WeakMap()) => {
+	if (map.has(obj)) return map.get(obj)
+	if (typeof obj === 'function') return eval(obj.toString())
+	if (typeof obj !== 'object' || obj === null) return obj
+	if (cr.includes(obj.constructor)) return new obj.constructor(obj)
+	let copy = {}
+	if (Array.isArray(obj)) copy = []
+	map.set(obj, copy)
+	Object.entries(obj).map(([key, value]) => {
+		copy[key] = deepCopy2(value)
+	})
+	return copy
+}

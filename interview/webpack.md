@@ -47,15 +47,29 @@
 >
 > 热更新流程。建立ws链接。监听文件变化。客户端获取服务返回的hash值，根据hash使用jsonp获取到变化的模块代码，根据替换或添加webpack—modules里的相应文件。
 >
-> 构建优化。多线程构建、多线程压缩、减少不必要的loader、T合理使用includes&excludes、减少文件后缀、指定第三方的入口、添加noparese减少不必要的解析、添加文件缓存、babel、terser、hard。使用es module实现tree shaking，作用域提升，分割基础库、使用import 配置按需加载。
+> 构建优化。开启webpack 的文件缓存， cache: {   type: 'filesystem', *// 使用文件缓存* },减少不必要loader，使用esbuild或则swcloader代替babel- loader。设置loader的include。设置资源管理{
+>  test: /\.(png|svg|jpg|jpeg|gif)$/i,
+>  include: [
+>   paths.appSrc,
+>  ],
+>  type: 'asset/resource',
+> },替代file urlloader 。优化extensions 文件类型的数量，指定modules参数缩小解析范围，thread-loader开启多进程构建。开启css 和js的多线程压缩。css mini 分离css文件，配置splitChunks分离代码，设置多个入口，配置external 设置外部扩展、设置sideEffects启动树摇，设置`babel-plugin-component`启用组件的按需引入
 >
-> 插件。写过简单的插件，在catch语句之后添加一个监控请求。 调用babel transform，配置visitor添加对catch代码块的处理函数，使用babel
+> css-loader 处理 import的css文件。 style-loader 将css设置为style里的样式。css mini 分离css文件形成link文件。
+>
+> 写过简单的loader，在catch语句之后添加一个监控请求。 调用babel transform，配置visitor添加对catch代码块的处理函数，使用babel
+>
+> 抽离错误 到单独的文件 
 >
 > webpack5新特性：tree shaking、模块联邦、持续性缓存
 >
 > 异步加载模块原理：使用import获取require.ensure异步加载模块，构建之后会将异步模块单独打包，打包的文件执行后会代码及模块id push到一个全局的webpackJsonp数组中。在push之后会将异步模块添加到每个入口文件的modules中。而异步模块加载代码会被编译为一个异步函数，即webpack require。e函数。在此函数中，将会创建script标签引入模块，并执行onload回调。
 >
 > 微前端：即将 Web 应用由单一的单体应用转变为多个小型前端应用聚合为一的应用。
+>
+> sideeffect   types module babel-plugin-import
+
+
 
 
 

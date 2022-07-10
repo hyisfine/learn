@@ -67,11 +67,13 @@
 >
 > 对于use Effect/layout 区别。内部调用方面，use Effect的销毁和回调是异步的，layout的销毁和回调是同步的。，在before commit之前通过scheduler调度异步任务先处理use Effect 的销毁在处理回调函数。在commit阶段同步处理layout的销毁函数。在after commit之后同步处理layout的回调函数。layout的执行时机和did update是一致的。内部标识方面，fiber的flags标记不一样，创建的effect对象的flag也不一样。
 >
-> 受控组件非受控组件：受控组件，value的值由组件的state控制，只能由组件出发更新的的方式更新组件的值。受控组件应用场景：实时的表单验证、条件禁用、 提交时的校验。
+> 受控组件非受控组件：受控组件，value的值由组件的state控制，只能由组件出发更新的的方式更新组件的值。受控组件应用场景：实时的表单验证、条件禁用、 提交时的校验、动态输入、强制数据格式。
 >
 > 长列表的优化：虚拟列表、时间切片渲染、使用transform 代替滚动。
 >
 > class  func 区别：class 内部会保存一个实例、func每次render都会执行。class没有this，无各种生命周期。可以通过react hook添加生命周期和state。class逻辑难以复用，可以通过高阶组件的形式。fc组件通过react hook复用逻辑。
+>
+> diff算法：单点算法：按照type和key字段判断是否复制新的节点。多点算法：先获取最长公共子序列元素进行比对复用。然后对剩下的新老节点进行逐个对比。
 >
 > fiber局限性：
 >
@@ -86,4 +88,8 @@
 > react vue区别：vue推崇渐进式开发、数据可变和双向数据绑定。react推崇函数式编程、数据不可变和单项数据流。vue的架构模型为mvvm，使用proxy代理和依赖收集等方式实现响应式更新，只有一依赖变化的组件才会重新渲染。react的架构为mvc， 使用状态机机制，需要手动调用setstate才能触发更新响应，更新世会重新渲染整个组件树。vue使用模版渲染和.vue文件书写组件。react使用jsx语法。
 >
 > 优劣：vue进了能的降低了前端开发的门槛，语法简单，更新精确到组件。react 的函数式编程和数据不可变确保了他的稳定性和可测试性，上手难度较高。vue需要理解的概念和api较多。vue的依赖库大多都是官网开发维护的，简单易上手，react的依赖库基本靠社区发展和维护，社区更繁荣。
+>
+> 设置createSlice reducer-》配置combineReducers  配置config Store Provider
+
+
 

@@ -117,7 +117,7 @@
 >
 > cache-control：客户端：max-age、s-maxage、no-cache、no-store、mast-stale、mini- fresh、only-if-cached。服务端：max-age、s-maxage、no-cache、no-store、public、private、immutable、 must-revalidate
 >
-> cookie。服务器发送给客服端的一个数据块，每次客户端请求时都会带上这个数据，用于用户身份识别、和行为记录。安全前缀：_ _ secure _ _ ，使用secure，_  _host,使用secure、不可设置path和domain。由于secures可以被移除，但是前缀移除后无效。same site：none、lax、strict。lax 只有一些安全的跨域请求如get、a链接、预下载且url发生变化的请求才允许发送。same party。设置后 多个域名可以关联在一起，跨域请求时可以携带cookie。单条为4kb，有数量限制，多出来的cookie会被删除。priority可以设置删除的优先级。expire max-age path domain secure http only   none必须与secure一起使用
+> cookie。服务器发送给客服端的一个数据块，每次客户端请求时都会带 上这个数据，用于用户身份识别、和行为记录。安全前缀：_ _ secure _ _ ，使用secure，_  _host,使用secure、不可设置path和domain。由于secures可以被移除，但是前缀移除后无效。same site：none、lax、strict。lax 只有一些安全的跨域请求如get、a链接、预下载且url发生变化的请求才允许发送。same party。设置后 多个域名可以关联在一起，跨域请求时可以携带cookie。单条为4kb，有数量限制，多出来的cookie会被删除。priority可以设置删除的优先级。expire max-age path domain secure http only   none必须与secure一起使用
 >
 > get/post。get受限于浏览器有大小限制，get明文传输，只支持字符串编码，可以被缓存、保存、记录和浏览器会退。post支持多种数据格式、加密传输。本质上都是tcp的一次连接，不同的是根据语义个方面进行了限制，同时post在tcp链接是会发送两次数据，一次header，一次data。
 >
@@ -127,13 +127,15 @@
 >
 > cors 跨域资源共享：需要跨域的跨域get请求、一些font-face、css中的url图片、canvas下载图片。 简单请求：head、get、post。且只使用了特定的首部、accept、Content-Type 为text/plain、multiple、x-www-urlencode-，请求中没有注册事件监听。预请求：options 发送origin、request-header、method，返回access-control-allow header/method/origin/max-age。credentials，expose-header、max-age，origin、request-header/method。预请求重定向：服务器不重定向、改为简单请求、先用简单请求再用与请求。携带凭证：xhr开启with credentials、fetch开始credentials为include，然后返回access-control-allow- credentials。
 >
+> `OPTIONS`请求与`HEAD`类似，一般也是用于客户端查看服务器的性能。 这个方法会请求服务器返回该资源所支持的所有HTTP请求方法，该方法会用'*'来代替资源名称，向服务器发送`OPTIONS`请求，可以测试服务器功能是否正常。
+>
 > xhr vs fetch：xhr使用步骤麻烦、兼容性好、支持取消操作和进度查询。fetch 基于promise的网络请求，配置简单，cookie不回主动加上，无法进度查询、只有网络错误才会报错，不能设置超时请求。
 >
 > fetch credentials:omit、include、same- origin。fetch mode：same-origin、cors、no-cors遵循简单请求的跨域、navigate表示页面切换的请求。
 >
 > 解决跨域。jsonp、nginx代理、node 中间层、开启cors、postmessage、iframe、windows.domain
 >
-> http1.0 http1.1: 长链接、新增状态码、新增缓存、
+> http1.0 http1.1: 长链接、新增状态码、新增缓存、内容协商、分块传输数据、新增请求方法。http1。1缺点：头部臃肿、高延迟、使用文本传输、不支持服务端推送
 >
 > http1.1/http2。http1.1:长链接、基于文档流传输数据，管线化功能可以发起多个请求，但是造册成对头阻塞。http2:基于二进制流进行传输，将请求拆分成多个流并把多个请求的流合并到一起组成一个帧。多路复用。可以设置优先级，服务端推送、header压缩，因为htttp1.1基于文本的，携带cookie得话体积更大。
 >
@@ -141,7 +143,7 @@
 >
 > http2缺点：服务器压力提高、丢包时阻塞后续数据传输。某个帧超时时，其包含的请求都会超时。
 >
-> 从url到页面。解析转译url。检查资源缓存、dns解析、tcp3次握手（发送syn包到服务器、服务器发送ack、客户端再次发送ack进行连接）为什么三次 保证双方都正常，避免资源浪费、tls协商加密、数据传输、客户端接受响应，tcp4次挥手（客户端发送fin到服务端，服务端ack，服务端发送fin。等待一段时间后，客户端ack，关闭连接）为什么四次因为tcp是半关闭的，一段关闭后还能接受数据。解析html，生成dom和cssom，组合生成render 树，元素进行布局计算、绘制像素到页面。。
+> 从url到页面。解析转译url。检查资源缓存、dns解析、tcp3次握手（发送syn包到服务器、服务器发送ack、客户端再次发送ack进行连接）为什么三次 保证双方都正常，避免资源浪费、tls协商加密、数据传输、客户端接受响应，tcp4次挥手（客户端发送fin到服务端，服务端ack，服务端发送fin。等待一段时间后，客户端ack，关闭连接）为什么四次因为tcp是半关闭的，一段关闭后还能接受数据。解析html，生成dom和cssom，组合生成render 树，元素进行布局计算、绘制像素、合并图层到页面。。
 >
 > tcp如何保证可靠的连接：以最大消息长度传输数据保证数据不被分块。对每个进行编号，接收方对包进行排序。保持数据的校验和，在接受时比对校验和。以滑动窗口控制流量，超时重传。拥塞窗口进行拥塞控制。使用ARQ协议，发送一个包都要等待应答响应。
 >
@@ -149,8 +151,35 @@
 >
 > rpc http区别：http 超文本传输协议，是客户端和移动端约定的数据传输格式，基于tcp进行数据传输。rpc 是远程程序调用，是指服务器调用服务器。rpc可以通过http实现也可以通过tcp实现。为什么需要rpc协议：在调用其他服务器的接口时，希望像是在调用本地接口一样。http协议在各服务器间都通用但是太冗余，性能也不好。
 >
-> 预加载扫描器：在拿到HTML文档的时候，先扫描整个文档，把CSS、JS、图片和web字体等提前下载。
+> 预加载扫描器：在拿到HTML文档的时候，先扫描整个文档，把CSS、JS、图片和web字体等提前下载。 
+>
+> a ax  ax 
+>
+> by	by b
+>
+> cy c   cy c
 >
 > application/x-www-form-urlencoded 、multipart/form-data、application/json
 >
 > x-dns-prefetch-control 开启https的dns预解析 
+>
+> RESTful API 表现层状态转化
+>
+> （1）每一个URI代表一种资源；
+>
+> 　　（2）客户端和服务器之间，传递这种资源的某种表现层；
+>
+> 　　（3）客户端通过四个HTTP动词，对服务器端资源进行操作，实现"表现层状态转化"。
+>
+> **在设计API时，使用路径定位资源，方法定义操作，通过Content-Type和Accept来协商资源的类型**。
+>
+> ORM 是Object Relational Mapping 的缩写，译为“对象关系映射”框架。
+>
+> GraphQL 是一种**描述请求数据方法的语法**，
+>
+> - 它允许客户端指定具体所需的数据。
+> - 它让从多个数据源汇总取数据变得更简单。
+> - 它使用了类型系统来描述数据。
+
+
+
