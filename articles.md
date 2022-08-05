@@ -25,6 +25,7 @@
 - [ ] [几个一看就会的 TypeScript 小技巧](https://mp.weixin.qq.com/s/f4V7qPdM3iRHpr81j2zWqQ)
 - [ ] [总结TypeScript在项目开发中的应用实践体会](https://mp.weixin.qq.com/s/9JIs04WHELr0rFWudw_hLQ)
 - [ ] [TypeScript 中的子类型、逆变、协变是什么？](https://github.com/sl1673495/blogs/issues/54)
+- [ ] [聊聊TypeScript类型兼容，协变、逆变、双向协变以及不变性](https://zhuanlan.zhihu.com/p/143054881)
 - [ ] [TypeScript之Object、object、{ }的区别](https://www.jianshu.com/p/8d7cfc4b912c)
 - [ ] [TypeScript 深水区：3 种类型来源和 3 种模块语法](https://mp.weixin.qq.com/s/AsTrGLhipd32RrNUFHuD5A)
 
@@ -65,6 +66,16 @@
 - [ ] [ES module工作原理](https://segmentfault.com/a/1190000020388889)
 - [ ] [抖音二面：为什么模块循环依赖不会死循环？CommonJS和ES Module的处理有什么不同？](https://mp.weixin.qq.com/s/JSlJn_LzbkAOy6LNyY5_jQ)
 - [ ] [在浏览器中通过 importmap 使用 ES 模块](https://beginor.github.io/2021/08/16/using-es-modules-in-borwser-with-importmaps.html)
+- [ ] [Ajax、Fetch、Axios](https://www.jianshu.com/p/5f17eea7f8f4)
+- [ ] [手写一个基于 Proxy 的缓存库](https://mp.weixin.qq.com/s/M_scFqxadOX_f5G_7IvSGQ)
+- [ ] [前端 api 请求缓存方案](https://mp.weixin.qq.com/s?__biz=MzAxODE2MjM1MA==&mid=2651563582&idx=1&sn=38f712b34b363eb1db56bbcda4d201c3&chksm=802571ffb752f8e95fdda74c8c3393c01d6f36ee71952b2c9bc0a4cd1072098a69b6ed20f6da&scene=21#wechat_redirect)
+- [ ] [一文详解Proxy与Reflect](https://juejin.cn/post/7119271655649574919)
+- [ ] [如何实现比 setTimeout 快 80 倍的定时器？](https://mp.weixin.qq.com/s/AarWQUTu_jP8W8KyhZA7DA)
+- [ ] [怎么实现大文件快速上传？](https://mp.weixin.qq.com/s/OSJzh1qK4ziY8C3zrySd_A)
+- [ ] [Web 开发者日常打交道的 “图片”，你真的理解吗？](https://mp.weixin.qq.com/s/Zo6RoGY_9tcHmwWltE--4w)
+- [ ] [深入解析 EventLoop 和浏览器渲染、帧动画、空闲回调的关系](https://mp.weixin.qq.com/s/l9pGe7-xY08DeaFMnk0xuA)
+- [ ] [说说微前端JS沙箱实现的几种方式](https://juejin.cn/post/6981374562877308936)
+- [ ] [前端超大大文件上传实现以及优化](https://juejin.cn/post/6986188684605259783)
 
 ### css3
 
@@ -107,14 +118,24 @@
 - [ ] [寫 React 的時候常常聽到 immutable，什麼是 immutable ?](https://medium.com/reactmaker/%E5%AF%AB-react-%E7%9A%84%E6%99%82%E5%80%99%E5%B8%B8%E5%B8%B8%E8%81%BD%E5%88%B0-immutable-%E4%BB%80%E9%BA%BC%E6%98%AF-immutable-146d919f67e4)
 - [ ] [【react】context VS redux](https://juejin.cn/post/6973977847547297800)
 - [ ] [【笔记】可食用的react hook防抖及节流 | 拿走不谢🙈🙈🙈](https://juejin.cn/post/6854573217349107725)
+- [ ] [我对 React 实现原理的理解](https://mp.weixin.qq.com/s/MngOfrMjCUJVlRBBt9oZyg)
 
 ### H5 开发
 
 - [ ] [H5 常见问题及解决方案手册](https://mp.weixin.qq.com/s/HsDRqbfiKq3Wd8kVr5wxwQ)
-- [ ] [骨架屏生成方案](https://mp.weixin.qq.com/s/1Vy06emNPZJiXeDP04Ipfw)
+- [ ] [网页骨架屏自动生成方案（dps）](https://mp.weixin.qq.com/s/tcItM2EvY2zPXk_NQCV-4g)
 - [ ] [关于移动端适配，你必须要知道的](https://juejin.cn/post/6844903845617729549#heading-11)
 - [ ] [产品经理：实现一下分享出去的URL链接预览图片、标题和描述](https://mp.weixin.qq.com/s/V3CHTcuLQemkGI3QYszmOQ)
 - [ ] [作为前端，你必须要知道的meta标签知识](https://mp.weixin.qq.com/s/j_3RUoLKvcjQJiUvMvgGAA)
+
+### 工程部署
+
+- [ ] [手摸手教你 docker+jenkins+gitlab 部署你的前端项目](https://mp.weixin.qq.com/s/OOdiaYei213ZPxKngJVi8A)
+- [ ] [写给前端的 Docker 入门终极指南，别再说不会用 Docker 了！](https://mp.weixin.qq.com/s/NeBGsoIVyKIN1CFa5J8QhQ)
+- [ ] [如何将传统 Web 框架部署到 Serverless](https://mp.weixin.qq.com/s/JUlvjkyHmyFXkm_A0mioRA)
+- [ ] [serverless从入门到实践总结](https://mp.weixin.qq.com/s/U4jhs2PL6hDb6qoQU1TyZg)
+- [ ] [前端工程化：保姆级教学 Jenkins 部署前端项目](https://mp.weixin.qq.com/s/exSG00zO2r7CB8xm4lg_JQ)
+- [ ] [Changesets: 流行的 Monorepo 场景发包工具](https://mp.weixin.qq.com/s/3k9dbUgZ3NwoRfxN-kyPEA)
 
 ### Node.js
 
@@ -122,10 +143,20 @@
 
 - [ ] [前端工程师的一大神器——puppeteer](https://mp.weixin.qq.com/s/eWtxJFDNONq3hRo-tDBCZA)
 
+- [ ] [server-side-events(SSE)开发指南（Node）](https://juejin.cn/post/6844903695218376718)、
+
+- [ ] [webSocket(二) 短轮询、长轮询、Websocket、sse](https://juejin.cn/post/6844903955240058893)
+
+- [ ] [Nodejs之RPC协议简介](https://mp.weixin.qq.com/s/oPSb6z_aiQ0lKbiMChDa1A)
+
+- [ ] [深入解析Node.js使用MySQL连接池](https://juejin.cn/post/6844903746506326023)
+
 
 ### express
 
 - [ ] [三步法解析 Express 源码](https://xie.infoq.cn/article/1057246b3faf2ce44c5c5b556)
+- [ ] [手写Express.js源码](https://segmentfault.com/a/1190000037690135)
+- [ ] [多维度分析 Express、Koa 之间的区别](https://zhuanlan.zhihu.com/p/115339314)
 
 ### npm
 
@@ -141,11 +172,15 @@
 - [ ] [彻底搞懂 npm、yarn 与 pnpm 依赖管理逻辑](https://mp.weixin.qq.com/s/N2G--m4rGpgXb26X7WZF7Q)
 - [ ] [前端现代包管理器的进化史](https://mp.weixin.qq.com/s/8C9L_z64NUI9kWan64-qAg)
 - [ ] [使用 npm 的语义版本控制](http://nodejs.cn/learn/semantic-versioning-using-npm)
+- [ ] [使用 pnpm 构建 Monorepo 项目](https://zhuanlan.zhihu.com/p/373935751)
+- [ ] [什么是npm script? 它又是怎么被执行的呢？](https://mp.weixin.qq.com/s/QcxQXBwZlXVRxoNzRHmUzQ)
+- [ ] [这还是我最熟悉的package.json吗？](https://mp.weixin.qq.com/s/SmJY70le2hHgT8Y6S08_Pg)
 
 ### babel
 
 - [ ] [@babel/plugin-transform-runtime 到底是什么？](https://zhuanlan.zhihu.com/p/147083132)
 - [ ] [Babel 和 TypeScript 都可以编译，到底选谁！？](https://mp.weixin.qq.com/s/FQTQX4A4oRhyHrkj-dxC3g)
+- [ ] [面试官: 你了解过Babel吗？写过Babel插件吗? 答: 没有。卒](https://mp.weixin.qq.com/s/0y0TH_YnQaF3mY5LxTaxkw)
 
 ### webpack
 
@@ -163,6 +198,7 @@
 - [ ] [Webpack的异步加载原理及分包策略(深度好文，建议收藏)](https://mp.weixin.qq.com/s/OddtZCl7YqBVS6-01rYlYA)
 - [ ] [28道Webpack面试题及答案](https://mp.weixin.qq.com/s/0bpG9i6tiqmw8EKBMcOv0Q)
 - [ ] [原来项目打包也有这么技巧 - 浅谈 Tree Shaking 机制](https://mp.weixin.qq.com/s/_Cm3yFQeGZzsfe_JG-npAg)
+- [ ] [什么是分包？怎么利用分包优化](https://mp.weixin.qq.com/s/47V0q5axbHu1PUg6eU71rQ)
 
 ### rollup
 
@@ -175,7 +211,6 @@
 
 ### http
 
-- [ ] [手写一个基于 Proxy 的缓存库](https://mp.weixin.qq.com/s/M_scFqxadOX_f5G_7IvSGQ)
 - [ ] [如何取消 http 请求](https://www.jianshu.com/p/0c23ead8bacd)
 - [ ] [可取消的异步 HTTP 请求模块](https://juejin.cn/post/6935238528510984205)
 - [ ] [跨域资源共享 CORS 详解](https://www.ruanyifeng.com/blog/2016/04/cors.html)
@@ -194,6 +229,12 @@
 - [ ] [面试官：说说你对options请求的理解](https://developer.51cto.com/article/618792.html)
 - [ ] [HTTP 服务器消息推送之SSE](https://juejin.cn/post/6854573215516196878)
 - [ ] [HTTP/1到HTTP/3 的发展历程](HTTP/1到HTTP/3 的发展历程)
+- [ ] [解读 HTTP1/HTTP2/HTTP3](https://juejin.cn/post/6995109407545622542)
+- [ ] [HTTP 的本质？HTTP 和 RPC 的区别？](https://www.jianshu.com/p/fe5ccfc5d7bd)
+- [ ] [也许是史上最全的一次CDN详解](https://zhuanlan.zhihu.com/p/28940451)
+- [ ] [内容安全策略 ( CSP )](https://juejin.cn/post/6844903841238876174)
+- [ ] [既然有HTTP协议，为什么还要有RPC](https://mp.weixin.qq.com/s/0QWxFylodn7T6nvcS6HsDg)
+- [ ] [面向报文（UDP）和面向字节流（TCP）的区别](https://blog.csdn.net/ce123_zhouwei/article/details/8976006)
 
 ### SSR
 
@@ -208,6 +249,7 @@
 - [ ] [前端单元测试——你必须知道的事](https://www.zoo.team/article/unit-testing)
 - [ ] [Understanding the Differences Between BDD & TDD](https://cucumber.io/blog/bdd/bdd-vs-tdd/#:~:text=BDD%20is%20designed%20to%20test,pieces%20of%20functionality%20in%20isolation.)
 - [ ] [App & Browser Testing Made Easy](https://www.browserstack.com/guide/testing-pyramid-for-test-automation)
+- [ ] [【第2656期】使用 React Testing Library 的 15 个常见错误](https://mp.weixin.qq.com/s/gssYOb7xgSx2HsAeRGTgxA)
 
 ### 性能优化
 
@@ -217,17 +259,25 @@
 - [ ] [cache-control](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Cache-Control)
 - [ ] [万字长文：分享前端性能优化知识体系](https://mp.weixin.qq.com/s/vruFia-CNihwmGvmzSg1VQ)
 
+  
+
+### 监控
+
+- [ ] [为什么大厂前端监控都在用GIF做埋点？](https://mp.weixin.qq.com/s/-J4ZFIIHP2h8knPQ8WhD-Q)
+- [ ] [前端错误上报](https://mp.weixin.qq.com/s/m3I85k03XV_V5WK6Qkt8yg)
+- [ ] [前端监控体系搭建](https://juejin.cn/post/7078512301665419295?share_token=37a59eca-da19-4cfc-aeb2-67d4c0d9b0c2)
+
 ### 其他
 
 - [ ] [2022 前端行业的趋势总结，押宝 Vue3 ？](https://mp.weixin.qq.com/s/QkM6BoeCVZ79gYu6Zc4xlA)
 - [ ] [推荐 10 个你没见过的 VsCode 的高效开源神器，YYDS](https://mp.weixin.qq.com/s/qs7W0C00wW9Q-yt3JLEa-w)
 - [ ] [浅谈短链的设计](https://mp.weixin.qq.com/s/zIIE3sazuOEOCddj4MRXkg)
 - [ ] [版本分支管理标准 - Trunk Based Development 主干开发模型](https://cloud.tencent.com/developer/article/1505551)
+- [ ] [前端趋势 2022](https://mp.weixin.qq.com/s/PSuTa-hHKva-QFSeaUk22w)
 
 ###  架构
 
 - [ ] [可能是你见过最完善的微前端解决方案](https://zhuanlan.zhihu.com/p/78362028)
-- [ ] [前端监控体系搭建](https://juejin.cn/post/7078512301665419295?share_token=37a59eca-da19-4cfc-aeb2-67d4c0d9b0c2)
 - [ ] [写给前端的跨平台方案、跨端引擎的本质](https://juejin.cn/post/6966626823912308772)
 - [ ] [微前端-最容易看懂的微前端知识](https://juejin.cn/post/6844904162509979662)
 - [ ] [深入浅出JSBridge：从原理到使用](https://juejin.cn/post/6936814903021797389)
@@ -238,12 +288,12 @@
 - [ ] [新一代Web技术栈的演进：SSR/SSG/ISR/DPR都在做什么？](https://mp.weixin.qq.com/s/bMT9FIwczPgUxk-K_YZplw)
 - [ ] [如何移除你项目中99%的JS代码](https://mp.weixin.qq.com/s/woA2S38lFXVykAg8-sMijQ)
 - [ ] [什么是敏捷开发？](https://docs.microsoft.com/zh-cn/devops/plan/what-is-agile-development)
+- [ ] [扫码登录功能如何实现？一文搞懂主流的扫码登录技术原理](https://www.cnblogs.com/huanshilang/p/12365376.html)
 
 ### 安全
 
 - [ ] [你在项目中做过哪些安全防范措施？](https://mp.weixin.qq.com/s/t3buROpLK9WTYejr0eO1EQ)
-
-- [ ] [前端错误上报](https://mp.weixin.qq.com/s/m3I85k03XV_V5WK6Qkt8yg)
+- [ ] [一道面试题牵出12个前端硬核知识点，你知道几个？](https://mp.weixin.qq.com/s/DSoN3t3q_PF88v4OeyjR9g)
 
 ### 浏览器
 
@@ -253,6 +303,7 @@
 - [ ] [ 浏览器工作原理](https://juejin.cn/post/6847902222349500430)
 - [x] [你不知道的 Chrome 调试技巧](https://juejin.cn/book/6844733783166418958)
 - [x] [JS 运行机制最全面的一次梳理](https://mp.weixin.qq.com/s/ZVpKtee7oGvK2RPTtAAJCQ)
+- [ ] [抖音三面：硬件加速中的“层”和层叠上下文中的“层”，是一个东西吗？](https://mp.weixin.qq.com/s/xuWgEMh9Y8Eq_Go2uBH24g)
 
 ### 效果实现
 
@@ -263,6 +314,7 @@
 - [x] [nodejs 写 bash 脚本终极方案！](https://mp.weixin.qq.com/s/4ndy4xf4cXh6AGixnLRy6w)
 - [x] [阮一峰 bash 教程](https://wangdoc.com/bash/intro.html)
 - [x] [The Linux Command Line](http://billie66.github.io/TLCL/index.html)
+- [ ] [2万字系统总结，带你实现 Linux 命令自由？](https://mp.weixin.qq.com/s/1HGFw1bLn94LFUxC68JUaQ)
 
 ### util
 
@@ -285,6 +337,7 @@
 ### HTTP
 
 - [x] [HTTP/2 简介](https://developers.google.com/web/fundamentals/performance/http2/?hl=zh-cn)
+- [ ] 
 
 ### 架构
 
@@ -293,3 +346,10 @@
 ## 算法
 
 - [ ] [字节面试：两个栈实现一个队列](https://mp.weixin.qq.com/s/75XYGFPpir045_6p2eoufg)
+
+### 数据库
+
+- [ ] [关系型数据库 VS 非关系型数据库](https://zhuanlan.zhihu.com/p/78619241)
+- [ ] [MySQL与Redis的区别与联系详解](https://zhuanlan.zhihu.com/p/141385393)
+- [ ] [经典面试题：Redis 持久化有哪几种方式，怎么选？](https://mp.weixin.qq.com/s/1PeBrB8K3JDpmcIqI8p9_A)
+- [ ] [一篇看懂Redis的过期策略和内存淘汰策略](https://juejin.cn/post/6869396128228442119)
