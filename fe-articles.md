@@ -1,6 +1,6 @@
 # 搜集的文章
 
-## 前端
+## 
 
 ### 周刊
 
@@ -16,7 +16,7 @@
 - [ ] [2022前端面试小册【腾讯9、美团7、百度t5、快手3b】的offer](https://juejin.cn/post/7071922989238845453)
 - [ ] [写给初中级前端的高级进阶指南（万字路线）](https://juejin.cn/post/6844904103504527374)
 
-### ts。  
+### ts
 
 - [ ] [TypeScript 终极初学者指南](https://mp.weixin.qq.com/s/_ShxBnF-HdLR_tK8qip7wA)
 - [ ] [一个容易忽略但很有用的 TS 类型](https://mp.weixin.qq.com/s/D0i5uUVXo7qPkKaFoP7cog)
@@ -328,28 +328,3 @@
 - [ ] [微信小程序架构原理基础解析](https://juejin.cn/post/6976805521407868958)
 - [ ] [浅析微信小程序的底层架构原理](https://www.cnblogs.com/goloving/p/14663950.html) 
 
-## 后端
-
-### 部署
-
-- [ ] [前后端分离全栈项目的开发与部署流程](https://juejin.cn/post/6844904078481309704)
-
-### HTTP
-
-- [x] [HTTP/2 简介](https://developers.google.com/web/fundamentals/performance/http2/?hl=zh-cn)
-- [ ] 
-
-### 架构
-
-- [x] [微服务架构：BFF 和网关是如何演化出来的？](https://mp.weixin.qq.com/s?__biz=MzIxMzEzMjM5NQ==&mid=2651029903&idx=1&sn=6977a8d48acaa7f1393020f9ede246e5&scene=21#wechat_redirect)
-
-## 算法
-
-- [ ] [字节面试：两个栈实现一个队列](https://mp.weixin.qq.com/s/75XYGFPpir045_6p2eoufg)
-
-### 数据库
-
-- [ ] [关系型数据库 VS 非关系型数据库](https://zhuanlan.zhihu.com/p/78619241)
-- [ ] [MySQL与Redis的区别与联系详解](https://zhuanlan.zhihu.com/p/141385393)
-- [ ] [经典面试题：Redis 持久化有哪几种方式，怎么选？](https://mp.weixin.qq.com/s/1PeBrB8K3JDpmcIqI8p9_A)
-- [ ] [一篇看懂Redis的过期策略和内存淘汰策略](https://juejin.cn/post/6869396128228442119)
